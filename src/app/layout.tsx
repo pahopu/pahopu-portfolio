@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/shared/navbar";
+import { cn } from "@/lib/utils";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,6 +19,9 @@ export const metadata: Metadata = {
   title: "pahopu | Front-end Developer",
   description:
     "Portfolio of a Front-end Developer specialized in React & Next.js",
+  icons: {
+    icon: "/icon",
+  },
 };
 
 export default function RootLayout({
@@ -27,17 +31,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      {/* suppressHydrationWarning: Bắt buộc phải có khi dùng next-themes để tránh lỗi console */}
-      <body className={`${geistSans.variable} ${geistMono.variable} font-sans bg-background text-foreground`}>
+      <body
+        className={cn(
+          geistSans.variable,
+          geistMono.variable,
+          "font-sans antialiased bg-background text-foreground"
+        )}
+      >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system" // Hoặc "dark" nếu muốn mặc định tối
+          defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
           <Navbar />
-          {/* pt-16 để nội dung không bị Navbar đè lên */}
-          <main className="pt-16 min-h-screen bg-background text-foreground">
+          <main className="pt-16 min-h-screen text-foreground">
             {children}
           </main>
         </ThemeProvider>
