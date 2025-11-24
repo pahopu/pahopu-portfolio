@@ -59,7 +59,6 @@ Organized for scalability using the `src` directory pattern:
 │   ├── hooks/               # Custom React hooks
 │   └── types/               # TypeScript interfaces
 │
-├── tailwind.config.ts       # Tailwind configuration
 ├── components.json          # Shadcn UI configuration
 └── next.config.mjs          # Next.js configuration
 ```
