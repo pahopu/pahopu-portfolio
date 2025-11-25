@@ -59,7 +59,7 @@ export const Navbar = () => {
 
           <div className="flex items-center gap-4">
             <ModeToggle />
-            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+            <a href="/files/resume.pdf" target="_blank" rel="noopener noreferrer">
               <Button size="sm" variant="default" className="whitespace-nowrap">
                 Download CV <Download className="h-4 w-4 ml-2" />
               </Button>
@@ -124,7 +124,7 @@ export const Navbar = () => {
               </Link>
             ))}
             <a
-              href="/resume.pdf"
+              href="/files/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="w-full"

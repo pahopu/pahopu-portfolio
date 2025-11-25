@@ -148,7 +148,7 @@ export const Hero = () => {
             </Link>
 
             <a
-              href="/resume.pdf"
+              href="/files/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
