@@ -2,61 +2,56 @@
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+// 1. Import các thành phần Card bạn vừa cung cấp
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ExternalLink, Github, Lock } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
-// --- 1. DỮ LIỆU DỰ ÁN (DATA) ---
+// --- 2. Tạo MotionCard để có animation ---
+const MotionCard = motion(Card);
+
+// --- 3. DỮ LIỆU DỰ ÁN (Giữ nguyên như đã bàn) ---
 const PROJECTS = [
   {
     title: "DVA Omnichannel ERP",
-    // Mô tả tổng quan, nhấn mạnh quy mô
     description:
-      "A massive Enterprise Resource Planning ecosystem serving 2,000+ employees and 10,000+ customers. I played a key role in developing 3 core subsystems: Admin Dashboard, POS, and CRM.",
-    image: "/images/erp-placeholder.png", // Nhớ tạo ảnh này
-    tags: [
-      "Vue 3",
-      "TypeScript",
-      "Quasar",
-      "Pinia",
-      "System Architecture",
-      "Large-scale",
-    ],
-    links: {
-      demo: null, // Private Project
-      github: null,
-    },
-    // Phần chi tiết từng site con (Admin, POS, CRM)
+      "A massive Enterprise Resource Planning ecosystem serving 2,000+ employees. Developed 3 core subsystems: Admin Dashboard, POS, and CRM.",
+    image: "/images/erp-placeholder.png",
+    tags: ["Vue 3", "TypeScript", "Quasar", "System Architecture"],
+    links: { demo: null, github: null },
     achievements: [
-      "Admin (HR/Payroll): Optimized Timekeeping module for handling large datasets.",
-      "POS (Retail): Developed Affiliate Marketing features & Commission tracking.",
-      "CRM (Customer): Refactored business logic for faster customer queries.",
+      "Admin: Optimized Timekeeping module.",
+      "POS: Developed Affiliate Marketing features.",
+      "CRM: Refactored business logic.",
     ],
-    featured: true, // Card này sẽ to hơn
+    featured: true,
   },
   {
-    title: "AI Image Search Engine",
+    title: "Image Lens - AI Search",
     description:
-      "A Content-Based Image Retrieval (CBIR) system. It uses Deep Learning (Xception model) to extract features and allows users to search for similar images by uploading a query photo.",
-    image: "/images/image-search-placeholder.png",
-    tags: ["Python", "Flask", "OpenCV", "Keras", "React", "Full-stack"],
-    links: {
-      demo: "#", // Điền link demo nếu có
-      github: "https://github.com/pahopu",
-    },
+      "Content-based image retrieval system using Deep Learning (Xception) to search for similar images via query photo.",
+    image: "/images/image-lens-logo.png",
+    tags: ["Python", "Flask", "OpenCV", "React"],
+    links: { demo: "#", github: "https://github.com/pahopu" },
     featured: false,
   },
   {
     title: "Super Mario Bros 3 Clone",
     description:
-      "A complete recreation of the classic NES game built from scratch using C++ and DirectX 10. Features a custom game engine with physics-based collision detection, sprite animation, and map rendering.",
+      "A complete recreation of the classic NES game built from scratch using C++ and DirectX 10 with custom game engine.",
     image: "/images/mario-placeholder.png",
-    tags: ["C++", "DirectX 10", "Game Engine", "OOP"],
-    links: {
-      demo: null,
-      github: "https://github.com/pahopu",
-    },
+    tags: ["C++", "DirectX 10", "Game Logic"],
+    links: { demo: null, github: "https://github.com/pahopu" },
     featured: false,
   },
 ];
@@ -65,77 +60,102 @@ export const Projects = () => {
   return (
     <section id="projects" className="py-20 bg-secondary/20">
       <div className="container px-4 md:px-6">
-        {/* --- TITLE --- */}
+        {/* Title Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
           className="mb-12 text-center"
         >
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
             Featured Projects
           </h2>
           <p className="mt-4 text-muted-foreground text-lg max-w-2xl mx-auto">
-            A selection of projects demonstrating my expertise in building
-            complex systems and solving engineering problems.
+            Showcasing my expertise in solving complex engineering problems.
           </p>
         </motion.div>
 
-        {/* --- GRID LAYOUT --- */}
+        {/* Grid Layout */}
         <div className="grid gap-8 md:grid-cols-2">
           {PROJECTS.map((project, index) => (
-            <motion.div
+            <MotionCard
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.2, duration: 0.5 }}
+              // --- QUAN TRỌNG: Override class mặc định ---
+              // p-0: Để ảnh tràn viền
+              // gap-0: Để ta tự quản lý khoảng cách
+              // h-full: Để các card cao bằng nhau
               className={cn(
-                "group relative overflow-hidden rounded-xl border bg-background shadow-md hover:shadow-xl transition-all duration-300 flex flex-col",
-                // Logic: Nếu là featured (ERP) -> Chiếm 2 cột trên màn hình lớn
+                "flex flex-col h-full overflow-hidden p-0 gap-0 bg-background hover:shadow-lg transition-shadow duration-300",
                 project.featured
                   ? "md:col-span-2 lg:grid lg:grid-cols-2 lg:gap-0"
                   : ""
               )}
             >
-              {/* --- IMAGE AREA --- */}
+              {/* --- A. IMAGE AREA --- */}
+              {/* Đặt ảnh nằm ngoài Header/Content để tràn viền */}
               <div
                 className={cn(
-                  "relative h-64 w-full overflow-hidden bg-muted",
-                  project.featured ? "lg:h-full" : ""
+                  "relative h-64 w-full overflow-hidden bg-muted border-b",
+                  project.featured ? "lg:h-full lg:border-b-0 lg:border-r" : ""
                 )}
               >
-                {/* Placeholder hiển thị khi chưa có ảnh thật */}
-                <div className="absolute inset-0 flex items-center justify-center text-muted-foreground bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-900">
-                  <span className="font-semibold">{project.title} Preview</span>
-                </div>
-                {/* Khi có ảnh thật, bạn dùng thẻ <Image src={project.image} fill ... /> tại đây */}
+                {/* Logic render ảnh (Dùng lại code cũ của bạn ở đây) */}
+                {project.title.includes("Image Lens") ? (
+                  <div className="absolute inset-0 flex items-center justify-center bg-white p-8">
+                    <div className="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]" />
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      width={120}
+                      height={120}
+                      className="object-contain relative z-10"
+                    />
+                  </div>
+                ) : project.title.includes("ERP") ? (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 bg-gradient-to-br from-blue-900 to-slate-900">
+                    <h4 className="text-xl font-bold tracking-wider opacity-90">
+                      DVA ERP
+                    </h4>
+                  </div>
+                ) : (
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-white p-6 bg-gradient-to-br from-red-600 to-orange-600">
+                    <h4 className="text-xl font-bold tracking-wider">
+                      MARIO BROS 3
+                    </h4>
+                  </div>
+                )}
               </div>
 
-              {/* --- CONTENT AREA --- */}
-              <div className="flex flex-col justify-between p-6 sm:p-8 h-full">
-                <div>
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-2xl font-bold group-hover:text-primary transition-colors">
+              {/* --- B. CARD DETAILS --- */}
+              {/* Bao bọc phần nội dung còn lại trong 1 div flex để căn chỉnh Footer xuống đáy */}
+              <div className="flex flex-col flex-1">
+                {/* 1. HEADER: Title & Status */}
+                <CardHeader className="pb-2 pt-6">
+                  <div className="flex items-start justify-between gap-2">
+                    <CardTitle className="text-xl group-hover:text-primary transition-colors">
                       {project.title}
-                    </h3>
-                    {/* Icon khóa cho dự án bảo mật */}
+                    </CardTitle>
                     {project.links.demo === null &&
                       project.links.github === null && (
-                        <Badge variant="secondary" className="gap-1">
+                        <Badge variant="secondary" className="gap-1 shrink-0">
                           <Lock className="h-3 w-3" /> Private
                         </Badge>
                       )}
                   </div>
-
-                  <p className="text-muted-foreground mb-4 leading-relaxed">
+                  <CardDescription className="line-clamp-3">
                     {project.description}
-                  </p>
+                  </CardDescription>
+                </CardHeader>
 
-                  {/* --- LOGIC HIỂN THỊ SUB-MODULES (CHO ERP) --- */}
+                {/* 2. CONTENT: Achievements & Tags */}
+                <CardContent className="pb-4">
+                  {/* List module con cho ERP */}
                   {project.achievements && (
-                    <ul className="mb-6 space-y-2 text-sm text-muted-foreground/90">
+                    <ul className="mb-4 space-y-1.5 text-sm text-muted-foreground/90">
                       {project.achievements.map((item, i) => (
                         <li key={i} className="flex items-start gap-2">
                           <span className="mt-1.5 h-1.5 w-1.5 rounded-full bg-primary shrink-0" />
@@ -145,8 +165,8 @@ export const Projects = () => {
                     </ul>
                   )}
 
-                  {/* TAGS */}
-                  <div className="flex flex-wrap gap-2 mb-8">
+                  {/* Tags */}
+                  <div className="flex flex-wrap gap-2 mt-auto">
                     {project.tags.map((tag) => (
                       <Badge
                         key={tag}
@@ -157,40 +177,40 @@ export const Projects = () => {
                       </Badge>
                     ))}
                   </div>
-                </div>
+                </CardContent>
 
-                {/* BUTTONS ACTIONS */}
-                <div className="flex gap-4 pt-4 border-t mt-auto">
-                  {project.links.github && (
-                    <Link href={project.links.github} target="_blank">
-                      <Button variant="outline" size="sm" className="gap-2">
-                        <Github className="h-4 w-4" /> Code
-                      </Button>
-                    </Link>
-                  )}
+                {/* 3. FOOTER: Buttons (Dùng mt-auto để đẩy xuống đáy nếu card dài ngắn khác nhau) */}
+                <CardFooter className="pt-0 mt-auto pb-6">
+                  <div className="flex gap-3 w-full pt-2 border-t">
+                    {project.links.github && (
+                      <Link href={project.links.github} target="_blank">
+                        <Button variant="outline" size="sm" className="gap-2">
+                          <Github className="h-4 w-4" /> Code
+                        </Button>
+                      </Link>
+                    )}
 
-                  {project.links.demo && (
-                    <Link href={project.links.demo} target="_blank">
-                      <Button size="sm" className="gap-2">
-                        <ExternalLink className="h-4 w-4" /> Live Demo
-                      </Button>
-                    </Link>
-                  )}
+                    {project.links.demo && (
+                      <Link href={project.links.demo} target="_blank">
+                        <Button size="sm" className="gap-2">
+                          <ExternalLink className="h-4 w-4" /> Live Demo
+                        </Button>
+                      </Link>
+                    )}
 
-                  {/* Nút thay thế cho Private Project */}
-                  {project.links.demo === null &&
-                    project.links.github === null && (
+                    {project.links.demo === null && (
                       <Button
                         variant="ghost"
                         size="sm"
-                        className="gap-2 cursor-not-allowed opacity-70"
+                        className="gap-2 cursor-not-allowed opacity-70 px-0"
                       >
-                        Internal Enterprise System
+                        Internal System
                       </Button>
                     )}
-                </div>
+                  </div>
+                </CardFooter>
               </div>
-            </motion.div>
+            </MotionCard>
           ))}
         </div>
       </div>
