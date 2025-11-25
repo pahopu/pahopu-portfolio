@@ -1,12 +1,21 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
-import { ArrowRight, Download, Github, Linkedin, Mail } from "lucide-react";
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { motion, Variants } from "framer-motion";
+import {
+  ArrowRight,
+  Briefcase,
+  Cpu,
+  Download,
+  Github,
+  Linkedin,
+  Mail,
+} from "lucide-react";
+import Link from "next/link";
 
+/* --- CONFIG --- */
 const ANIMATION_VARIANTS: Record<string, Variants> = {
   container: {
     hidden: { opacity: 0 },
@@ -23,8 +32,12 @@ const ANIMATION_VARIANTS: Record<string, Variants> = {
 
 const SOCIALS = [
   { icon: Github, href: "https://github.com/pahopu", label: "Github" },
-  { icon: Linkedin, href: "https://linkedin.com/in/pahopu", label: "LinkedIn" },
-  { icon: Mail, href: "mailto:contact@pahopu.dev", label: "Email" },
+  {
+    icon: Linkedin,
+    href: "https://www.linkedin.com/in/pahopu",
+    label: "LinkedIn",
+  },
+  { icon: Mail, href: "mailto:hoangphucpham.work@gmail.com", label: "Email" },
 ];
 
 export const Hero = () => {
@@ -49,7 +62,7 @@ export const Hero = () => {
           animate="show"
           className="space-y-8 max-w-4xl"
         >
-          {/* BADGE */}
+          {/* --- BADGE --- */}
           <motion.div
             variants={ANIMATION_VARIANTS.item}
             className="flex justify-center"
@@ -64,12 +77,12 @@ export const Hero = () => {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
               </span>
               <span className="text-foreground/80">
-                Available for new projects
+                Ready for new challenges
               </span>
             </Badge>
           </motion.div>
 
-          {/* HEADLINE */}
+          {/* --- HEADLINE --- */}
           <motion.h1
             variants={ANIMATION_VARIANTS.item}
             className="text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl drop-shadow-sm"
@@ -77,32 +90,38 @@ export const Hero = () => {
             Hi, I&apos;m <span className="text-foreground">pahopu</span> 👋
             <br />
             <span
-              className="block mt-2 bg-linear-to-r from-blue-600 via-violet-600 to-blue-600 
+              className="block mt-2 bg-linear-to-r from-emerald-500 via-blue-600 to-emerald-500 
             bg-clip-text text-transparent bg-size-[200%_auto] animate-gradient"
             >
-              Front-end Developer
+              Front-End Developer
             </span>
           </motion.h1>
 
-          {/* SUBTITLE */}
-          <motion.p
+          {/* --- SUBTITLE --- */}
+          <motion.div
             variants={ANIMATION_VARIANTS.item}
-            className="mx-auto max-w-[650px] text-muted-foreground text-lg md:text-xl leading-relaxed"
+            className="mx-auto max-w-[700px] text-muted-foreground text-lg md:text-xl leading-relaxed flex flex-col gap-4"
           >
-            I craft accessible, pixel-perfect, and performant web experiences
-            using{" "}
-            <strong className="text-foreground font-semibold">Next.js</strong>,{" "}
-            <strong className="text-foreground font-semibold">
-              TypeScript
-            </strong>
-            , and{" "}
-            <strong className="text-foreground font-semibold">
-              Tailwind CSS
-            </strong>
-            .
-          </motion.p>
+            <div className="flex items-center justify-center gap-2 text-primary font-medium">
+              <Cpu className="h-5 w-5" />
+              <span>Solid Computer Science Foundation</span>
+            </div>
 
-          {/* CTA BUTTONS */}
+            <p>
+              I build scalable, high-performance web applications. While I
+              specialize in the{" "}
+              <strong className="text-foreground font-semibold">
+                React ecosystem
+              </strong>
+              , I remain{" "}
+              <strong className="text-foreground font-semibold">
+                flexible
+              </strong>{" "}
+              to adapt to any technology needed to solve the problem.
+            </p>
+          </motion.div>
+
+          {/* --- CTA BUTTONS --- */}
           <motion.div
             variants={ANIMATION_VARIANTS.item}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
@@ -117,20 +136,31 @@ export const Hero = () => {
               Contact Me{" "}
               <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
+
+            <Link
+              href="#projects"
+              className={cn(
+                buttonVariants({ variant: "outline", size: "lg" }),
+                "hidden md:inline-flex h-12 px-8 text-base bg-background/50 backdrop-blur-sm border-foreground/10 hover:bg-accent/50"
+              )}
+            >
+              View Projects <Briefcase className="h-4 w-4" />
+            </Link>
+
             <a
               href="/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "h-12 px-8 text-base bg-background/50 backdrop-blur-sm border-foreground/10 hover:bg-accent/50"
+                "md:hidden h-12 px-8 text-base bg-background/50 backdrop-blur-sm border-foreground/10 hover:bg-accent/50"
               )}
             >
               Download CV <Download className="h-4 w-4" />
             </a>
           </motion.div>
 
-          {/* SOCIAL ICONS */}
+          {/* --- SOCIAL ICONS --- */}
           <motion.div
             variants={ANIMATION_VARIANTS.item}
             className="flex items-center justify-center gap-4 pt-6"
@@ -139,7 +169,7 @@ export const Hero = () => {
               <Link
                 key={index}
                 href={social.href}
-                target={social.label === "Email" ? "_self" : "_blank"}
+                target="_blank"
                 aria-label={social.label}
                 className="p-3 rounded-full bg-background/50 border border-foreground/10 hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-300 backdrop-blur-sm group"
               >

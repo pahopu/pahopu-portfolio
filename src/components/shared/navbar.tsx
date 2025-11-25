@@ -1,7 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion"; // Import motion
-import { Menu, X } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Download, Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -11,12 +11,14 @@ import { NAV_LINKS } from "@/constants";
 import { cn } from "@/lib/utils";
 
 export const Navbar = () => {
+  /* --- STATE --- */
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
+  /* --- SCROLL EFFECT --- */
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -25,14 +27,14 @@ export const Navbar = () => {
   return (
     <header
       className={cn(
-        "fixed top-0 w-full z-50 transition-all duration-300 border-b border-transparent",
+        "fixed top-0 w-full z-50 transition-all duration-300 border-b bg-background/80 backdrop-blur-md",
         isScrolled
-          ? "bg-background/80 backdrop-blur-md border-border shadow-sm"
-          : "bg-transparent"
+          ? "border-border shadow-sm"
+          : "border-transparent shadow-none"
       )}
     >
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        {/* LOGO */}
+        {/* --- LOGO --- */}
         <Link
           href="/"
           className="text-xl font-bold tracking-tight flex items-center transition-opacity hover:opacity-80"
@@ -43,7 +45,7 @@ export const Navbar = () => {
           <span className="text-primary">&gt;</span>
         </Link>
 
-        {/* DESKTOP NAV */}
+        {/* --- DESKTOP NAV --- */}
         <nav className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((link) => (
             <Link
@@ -57,35 +59,15 @@ export const Navbar = () => {
 
           <div className="flex items-center gap-4">
             <ModeToggle />
-            <AnimatePresence>
-              {isScrolled && (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8, width: 0 }}
-                  animate={{ opacity: 1, scale: 1, width: "auto" }}
-                  exit={{ opacity: 0, scale: 0.8, width: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="overflow-hidden"
-                >
-                  <a
-                    href="/resume.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <Button
-                      size="sm"
-                      variant="default"
-                      className="whitespace-nowrap"
-                    >
-                      Download CV
-                    </Button>
-                  </a>
-                </motion.div>
-              )}
-            </AnimatePresence>
+            <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <Button size="sm" variant="default" className="whitespace-nowrap">
+                Download CV <Download className="h-4 w-4 ml-2" />
+              </Button>
+            </a>
           </div>
         </nav>
 
-        {/* MOBILE MENU TOGGLE */}
+        {/* --- MOBILE TOGGLE --- */}
         <div className="flex items-center gap-2 md:hidden">
           <ModeToggle />
           <Button
@@ -121,7 +103,7 @@ export const Navbar = () => {
         </div>
       </div>
 
-      {/* MOBILE NAV DROPDOWN */}
+      {/* --- MOBILE MENU --- */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -148,7 +130,7 @@ export const Navbar = () => {
               className="w-full"
             >
               <Button className="w-full" size="sm">
-                Download CV
+                Download CV <Download className="h-4 w-4 ml-2" />
               </Button>
             </a>
           </motion.div>
