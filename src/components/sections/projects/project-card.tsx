@@ -107,7 +107,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
 
         {/* Footer Actions */}
         <CardFooter className="pt-0 mt-auto pb-6">
-          <div className="flex gap-3 w-full pt-2 border-t">
+          <div className="flex flex-wrap gap-3 w-full pt-4 border-t">
             {/* GitHub */}
             {project.links.github && (
               <Link href={project.links.github} target="_blank">
@@ -133,11 +133,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                 description="Deep dive into system architecture, challenges, and solutions."
                 content={<ProjectCaseStudy data={project.caseStudy} />}
               >
-                <Button
-                  variant="default"
-                  size="sm"
-                  className="gap-2 w-full sm:w-auto"
-                >
+                <Button variant="default" size="sm" className="gap-2">
                   <Eye className="h-4 w-4" /> Read Case Study
                 </Button>
               </ResponsiveModal>

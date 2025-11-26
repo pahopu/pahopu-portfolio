@@ -80,7 +80,7 @@ export const PROJECTS = [
           "Reduced bundle size by **40%**, ensured UI consistency, and accelerated development speed for new features.",
       },
       diagram: {
-        type: "hub-spoke",
+        type: "hub-spoke" as const,
         title: "Shared Core",
         nodes: [{ label: "Admin" }, { label: "POS" }, { label: "CRM" }],
       },
@@ -168,7 +168,7 @@ export const PROJECTS = [
           "Enabled accurate retrieval of similar images from the Oxford/Paris datasets with a user-friendly web interface.",
       },
       diagram: {
-        type: "pipeline",
+        type: "pipeline" as const,
         title: "Search Pipeline",
         nodes: [
           { label: "Input", sub: "User Image" },
@@ -244,7 +244,7 @@ export const PROJECTS = [
           "Successfully recreated the gameplay feel of the original title with stable 60FPS performance and accurate physics.",
       },
       diagram: {
-        type: "layers",
+        type: "layers" as const,
         title: "Engine Architecture",
         nodes: [
           { label: "Scenes & Objects", sub: "Mario, Goomba, Maps" },
