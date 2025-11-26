@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "pahopu | Front-end Developer",
+  title: "pahopu | Front-End Developer",
   description:
-    "Portfolio of a Front-end Developer specialized in React & Next.js",
+    "Portfolio of a Front-End Developer specialized in React & Next.js",
   icons: {
     icon: "/icon",
   },
