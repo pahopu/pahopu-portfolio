@@ -29,10 +29,18 @@ interface ProjectCardProps {
 export const ProjectCard = ({ project, index }: ProjectCardProps) => {
   return (
     <MotionCard
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.2, duration: 0.5 }}
+      viewport={{
+        once: true,
+        margin: "-50px",
+      }}
+      transition={{
+        duration: 0.5,
+        delay: index * 0.1,
+        ease: "easeOut",
+      }}
+      style={{ willChange: "opacity, transform" }}
       className={cn(
         "flex flex-col h-full overflow-hidden p-0 gap-0 transition-all duration-300 border bg-card hover:shadow-xl hover:border-primary/20",
         project.featured ? "md:col-span-2 lg:grid lg:grid-cols-2 lg:gap-0" : ""
@@ -56,7 +64,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
       <div className="flex flex-col flex-1">
         {/* Header */}
         <CardHeader className="pb-2 pt-6">
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-start justify-between gap-2">
             <CardTitle className="text-xl group-hover:text-primary transition-colors">
               {project.title}
             </CardTitle>

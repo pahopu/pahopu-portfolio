@@ -1,7 +1,6 @@
 "use client";
 
-import * as React from "react";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -20,7 +19,8 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { Button } from "@/components/ui/button";
+import { useMediaQuery } from "@/hooks/use-media-query";
+import * as React from "react";
 
 interface ResponsiveModalProps {
   children: React.ReactNode;
@@ -51,7 +51,7 @@ export function ResponsiveModal({
               </DialogDescription>
             )}
           </DialogHeader>
-          <div className="flex-1 overflow-y-auto px-6 pb-6">{content}</div>
+          <div className="flex-1 overflow-y-auto px-6">{content}</div>
         </DialogContent>
       </Dialog>
     );
@@ -60,17 +60,19 @@ export function ResponsiveModal({
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="flex flex-col max-h-[90vh]">
-        <DrawerHeader className="text-left px-4 py-4 border-b shrink-0">
+      <DrawerContent className="flex flex-col h-dvh mt-0 rounded-none border-t-0">
+        <DrawerHeader className="text-left px-4 py-4 border-b shrink-0 bg-background z-10">
           <DrawerTitle className="text-xl font-bold">{title}</DrawerTitle>
           {description && <DrawerDescription>{description}</DrawerDescription>}
         </DrawerHeader>
 
-        <div className="flex-1 overflow-y-auto px-4 pb-4">{content}</div>
+        <div className="flex-1 overflow-y-auto px-4">{content}</div>
 
-        <DrawerFooter className="shrink-0 border-t px-4 py-6">
+        <DrawerFooter className="shrink-0 border-t px-4 py-4 bg-background">
           <DrawerClose asChild>
-            <Button variant="outline">Close</Button>
+            <Button variant="outline" className="w-full">
+              Close
+            </Button>
           </DrawerClose>
         </DrawerFooter>
       </DrawerContent>

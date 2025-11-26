@@ -35,6 +35,7 @@ export const Navbar = () => {
     <header
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-300 border-b bg-background/80 backdrop-blur-md",
+        "pr-(--removed-body-scroll-bar-size)",
         isScrolled
           ? "border-border shadow-sm"
           : "border-transparent shadow-none"

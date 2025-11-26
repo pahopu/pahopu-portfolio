@@ -1,7 +1,7 @@
 import { Variants } from "framer-motion";
 import { Github, Linkedin, Mail } from "lucide-react";
 
-// --- NAVIGATION LINKS ---
+/* --- SECTION: NAVIGATION LINKS --- */
 export const NAV_LINKS = [
   { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
@@ -9,7 +9,7 @@ export const NAV_LINKS = [
   { label: "Contact", href: "#contact" },
 ];
 
-// --- HERO SECTION ---
+/* --- SECTION: HERO ANIMATION & SOCIALS --- */
 export const HERO_ANIMATION: Record<string, Variants> = {
   container: {
     hidden: { opacity: 0 },
@@ -42,8 +42,9 @@ export const HERO_SOCIALS = [
   },
 ];
 
-// --- PROJECTS DATA ---
+/* --- SECTION: PROJECTS DATA --- */
 export const PROJECTS = [
+  /* --- PROJECT 1: ERP SYSTEM --- */
   {
     id: "erp",
     title: "DIVA ERP - Omnichannel ERP System",
@@ -78,10 +79,10 @@ export const PROJECTS = [
         impact:
           "Reduced bundle size by **40%**, ensured UI consistency, and accelerated development speed for new features.",
       },
-      architectureDiagram: {
-        nodes: ["Admin", "POS", "CRM"],
-        core: "Shared Core",
-        subtext: "Components & Logic",
+      diagram: {
+        type: "hub-spoke",
+        title: "Shared Core",
+        nodes: [{ label: "Admin" }, { label: "POS" }, { label: "CRM" }],
       },
       modules: [
         {
@@ -137,6 +138,8 @@ export const PROJECTS = [
       ],
     },
   },
+
+  /* --- PROJECT 2: IMAGE LENS --- */
   {
     id: "image-lens",
     title: "Image Lens - AI Search",
@@ -149,7 +152,70 @@ export const PROJECTS = [
       github: "https://github.com/pahopu/CS336_ImageSearch_Project2",
     },
     featured: false,
+    achievements: [
+      "Built a complete CBIR system from data collection to frontend.",
+      "Implemented feature extraction using Xception model & OpenCV.",
+      "Developed a Flask API to serve ranked search results.",
+    ],
+    caseStudy: {
+      type: "simple",
+      overview: {
+        challenge:
+          "Traditional text-based search fails when users want to find visually similar images but lack specific keywords.",
+        solution:
+          "Developed a **Content-Based Image Retrieval (CBIR)** system using **Transfer Learning (Xception)** to extract image feature vectors and calculate cosine similarity.",
+        impact:
+          "Enabled accurate retrieval of similar images from the Oxford/Paris datasets with a user-friendly web interface.",
+      },
+      diagram: {
+        type: "pipeline",
+        title: "Search Pipeline",
+        nodes: [
+          { label: "Input", sub: "User Image" },
+          { label: "Extraction", sub: "Xception (CNN)" },
+          { label: "Indexing", sub: "Feature Vectors" },
+          { label: "Ranking", sub: "Cosine Sim." },
+        ],
+      },
+      modules: [
+        {
+          id: "ai-model",
+          name: "AI & Processing",
+          icon: "Box",
+          star: {
+            situation:
+              "Raw images are high-dimensional data, making direct comparison computationally expensive and inaccurate.",
+            task: "Extract meaningful feature representations from images for efficient comparison.",
+            action: [
+              "**Data Pipeline:** Automated collection and pre-processing of Oxford/Paris datasets.",
+              "**Feature Extraction:** Utilized the **Keras Xception** model (pre-trained on ImageNet) to generate dense feature vectors.",
+              "**Similarity Search:** Implemented **OpenCV** and Numpy to calculate distance metrics between query and database images.",
+            ],
+            result:
+              "Achieved high precision in retrieving visually similar landmarks and objects.",
+          },
+        },
+        {
+          id: "fullstack",
+          name: "Web Application",
+          icon: "LayoutDashboard",
+          star: {
+            situation:
+              "The underlying model was powerful but accessible only via command-line scripts.",
+            task: "Create an intuitive web interface for end-users to upload and search images.",
+            action: [
+              "**Backend API:** Built a **Flask** server to handle image uploads, process features, and return ranked results.",
+              "**Frontend UI:** Designed a responsive interface using HTML/CSS/JS for drag-and-drop uploads and result grid display.",
+            ],
+            result:
+              "Delivered a complete, usable product that bridges complex AI logic with simple user interaction.",
+          },
+        },
+      ],
+    },
   },
+
+  /* --- PROJECT 3: MARIO CLONE --- */
   {
     id: "mario",
     title: "Super Mario Bros 3 Clone",
@@ -162,5 +228,66 @@ export const PROJECTS = [
       github: "https://github.com/pahopu/SE102_SuperMarioBros3",
     },
     featured: false,
+    achievements: [
+      "Engineered a custom Game Engine using DirectX 10 & C++.",
+      "Implemented Grid-based Collision Detection (Swept AABB).",
+      "Recreated World 1-1, Intro sequence, and multiple enemy AI.",
+    ],
+    caseStudy: {
+      type: "simple",
+      overview: {
+        challenge:
+          "Building a game without a commercial engine requires handling low-level graphics, memory management, and physics manually.",
+        solution:
+          "Constructed a custom 2D Game Engine using **DirectX 10** and **C++**, implementing design patterns like Singleton and Component-based architecture.",
+        impact:
+          "Successfully recreated the gameplay feel of the original title with stable 60FPS performance and accurate physics.",
+      },
+      diagram: {
+        type: "layers",
+        title: "Engine Architecture",
+        nodes: [
+          { label: "Scenes & Objects", sub: "Mario, Goomba, Maps" },
+          { label: "Game Systems", sub: "Physics, Animation, Camera" },
+          { label: "Core / DirectX", sub: "Input, Sprites, Window" },
+        ],
+      },
+      modules: [
+        {
+          id: "engine",
+          name: "Game Engine",
+          icon: "LayoutDashboard",
+          star: {
+            situation:
+              "DirectX provides raw graphics power but lacks high-level game abstractions.",
+            task: "Build a reusable engine core to manage game loops, rendering, and assets.",
+            action: [
+              "**Sprite System:** Developed a sprite handler for loading textures and managing animation frames.",
+              "**Scene Management:** Implemented a system to switch seamlessly between the Intro, Map Select, and Gameplay scenes.",
+              "**Camera Control:** Created a side-scrolling camera that follows the player with smooth tracking.",
+            ],
+            result:
+              "Created a solid foundation allowing for easy addition of new levels and objects.",
+          },
+        },
+        {
+          id: "physics",
+          name: "Physics & Logic",
+          icon: "Box",
+          star: {
+            situation:
+              "Platformers require precise collision detection to prevent falling through floors or getting stuck in walls.",
+            task: "Implement a robust physics system similar to the NES original.",
+            action: [
+              "**Collision Detection:** Implemented **Swept AABB** (Axis-Aligned Bounding Box) for precise continuous collision detection.",
+              "**Grid Partitioning:** Optimized collision checks using a spatial grid (Quadtree-like) to reduce calculation overhead.",
+              "**Entity Logic:** Programmed state machines for Mario (Small, Big, Raccoon) and enemies (Goomba, Koopa) with distinct behaviors.",
+            ],
+            result:
+              "Achieved bug-free movement and interactions, replicating the 'tight' control feel of the original game.",
+          },
+        },
+      ],
+    },
   },
 ];
