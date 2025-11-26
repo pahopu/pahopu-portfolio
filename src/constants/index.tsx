@@ -68,32 +68,66 @@ export const PROJECTS = [
       "Architecture: Shared component library & Bundle optimization for 3 sites.",
     ],
     featured: true,
-
-    // --- STAR METHOD CASE STUDY ---
     caseStudy: {
-      challenge:
-        "Managing operations for a rapidly growing enterprise with 2,000+ employees using fragmented tools and spreadsheets resulted in data inconsistency, slow processing times, and operational bottlenecks. The goal was to digitize the entire workflow into a unified, high-performance ecosystem.",
-      solutions: [
+      overview: {
+        challenge:
+          "The system needed to support 3 different user groups (Admin, Sales, Support) with shared logic but distinct interfaces. The bundle size was becoming too large, causing slow initial loads.",
+        solution:
+          "Adopted a **Monorepo-like strategy** to share UI components and business logic across 3 sites. Implemented **Code-splitting** to exclude unused modules from specific site bundles.",
+        impact:
+          "Reduced bundle size by **40%**, ensured UI consistency, and accelerated development speed for new features.",
+      },
+      modules: [
         {
-          title: "POS & Order Processing",
-          content:
-            "Implemented a flexible **Commission System** (per-item & payment-based) and integrated **Affiliate Marketing** (CTV) directly into the checkout flow. Added a **360° Customer View** consolidating history, rewards, and appointments for personalized service.",
+          id: "admin",
+          name: "Admin Portal",
+          icon: "LayoutDashboard",
+          star: {
+            situation:
+              "Managing payroll, commissions, and inventory for 2,000+ employees manually was error-prone and slow.",
+            task: "Digitize the entire HR and Affiliate Marketing workflow with high precision and transparency.",
+            action: [
+              "**Payroll Engine:** Built a dynamic payroll table visualizing salary, insurance, and taxes. Added Excel import/export for bulk processing.",
+              "**Affiliate Hub:** Created a comprehensive approval workflow for Collaborators, enabling automated commission tracking and payout verification.",
+              "**Gamification:** Developed a configurable 'Lucky Draw' event system with tier-based rewards to boost customer engagement.",
+            ],
+            result:
+              "Reduced payroll processing time by **50%** and expanded the affiliate network with transparent tracking.",
+          },
         },
         {
-          title: "CRM & Operations",
-          content:
-            "Revamped **Ticket Management** with tabbed views to reduce cognitive load. Optimized the **Appointment Calendar** to render only essential data, ensuring smooth performance even with heavy scheduling loads.",
+          id: "pos",
+          name: "POS System",
+          icon: "ShoppingCart",
+          star: {
+            situation:
+              "The sales process was rigid, lacking flexibility in commission assignment and customer insights.",
+            task: "Create a flexible Order system that supports complex commission rules and provides a 360-degree customer view.",
+            action: [
+              "**Flexible Commission:** Implemented logic to configure commission per item or per payment, assigned to specific staff or referrers.",
+              "**360° Customer View:** Consolidated order history, rewards, appointments, and interactions into a single dashboard for sales staff.",
+              "**Smart Scheduling:** Optimized the Appointment Calendar to render only essential data, solving performance lag on heavy schedule days.",
+            ],
+            result:
+              "Increased sales efficiency and accuracy in commission calculation; eliminated UI lag in the calendar view.",
+          },
         },
         {
-          title: "System Architecture",
-          content:
-            "Adopted a **Monorepo-like strategy** to share reusable components across Admin, POS, and CRM. Applied **Code-splitting & Tree-shaking** to remove unused modules from site-specific bundles, improving load times by ~40%.",
+          id: "crm",
+          name: "CRM Tool",
+          icon: "Users",
+          star: {
+            situation:
+              "Customer support staff struggled with cluttered ticket interfaces, leading to slow response times.",
+            task: "Streamline the ticket management process and reduce cognitive load for support agents.",
+            action: [
+              "**Tabbed UI:** Redesigned Ticket Details into clear tabs (Notes, Details, History, Logs) for better information organization.",
+              "**Workflow Optimization:** Simplified the status transition flow and improved layout density for better tracking.",
+            ],
+            result:
+              "Improved agent productivity and tracking of customer issues.",
+          },
         },
-      ],
-      impact: [
-        "Streamlined payroll processing for **2,000+ employees** with automated Excel imports.",
-        "Expanded customer network significantly through the new **Affiliate/CTV system**.",
-        "Reduced page load latency and improved UX for high-traffic modules like POS and Timekeeping.",
       ],
     },
   },
