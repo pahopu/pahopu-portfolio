@@ -71,7 +71,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
           </CardDescription>
         </CardHeader>
 
-        {/* Content: Achievements & Tags */}
+        {/* Content */}
         <CardContent className="pb-4">
           {project.achievements && (
             <ul className="mb-4 space-y-1.5 text-sm text-muted-foreground/90">
@@ -100,7 +100,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
         {/* Footer Actions */}
         <CardFooter className="pt-0 mt-auto pb-6">
           <div className="flex gap-3 w-full pt-2 border-t">
-            {/* GitHub Link */}
+            {/* GitHub */}
             {project.links.github && (
               <Link href={project.links.github} target="_blank">
                 <Button variant="outline" size="sm" className="gap-2">
@@ -109,7 +109,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
               </Link>
             )}
 
-            {/* Demo Link */}
+            {/* Demo */}
             {project.links.demo && (
               <Link href={project.links.demo} target="_blank">
                 <Button size="sm" className="gap-2">
@@ -134,7 +134,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                 </Button>
               </ResponsiveModal>
             ) : (
-              // Fallback for Private Projects without case study
+              // Fallback for Private Projects
               project.links.demo === null &&
               project.links.github === null && (
                 <Button

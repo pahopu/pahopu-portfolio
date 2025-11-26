@@ -55,7 +55,7 @@ export const ProjectCaseStudy = ({ data }: CaseStudyProps) => {
   return (
     <div className="w-full h-full flex flex-col">
       <Tabs defaultValue="overview" className="w-full flex flex-col h-full">
-        {/* --- TABS NAVIGATION (STICKY) --- */}
+        {/* --- TABS NAVIGATION --- */}
         <div className="sticky top-0 z-10 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 pt-2 pb-4 border-b">
           <TabsList className="grid w-full h-auto grid-cols-2 sm:grid-cols-4 p-1 gap-1">
             <TabsTrigger value="overview" className="py-2">
@@ -69,7 +69,7 @@ export const ProjectCaseStudy = ({ data }: CaseStudyProps) => {
           </TabsList>
         </div>
 
-        {/* --- SCROLLABLE CONTENT AREA --- */}
+        {/* --- SCROLLABLE CONTENT --- */}
         <div className="flex-1 overflow-y-auto pt-4">
           {/* --- TAB 1: OVERVIEW --- */}
           <TabsContent value="overview" className="space-y-6 m-0">
@@ -162,7 +162,7 @@ export const ProjectCaseStudy = ({ data }: CaseStudyProps) => {
                 {getIcon(mod.icon)} {mod.name}
               </div>
 
-              {/* 1. Situation & Task */}
+              {/* 1. Context */}
               <div className="bg-secondary/20 p-4 rounded-lg border border-secondary">
                 <h5 className="text-sm font-semibold mb-1 flex items-center gap-2">
                   <Layers className="h-4 w-4" /> Context:

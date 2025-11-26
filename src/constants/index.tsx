@@ -46,7 +46,7 @@ export const HERO_SOCIALS = [
 export const PROJECTS = [
   {
     id: "erp",
-    title: "DIVA Omnichannel ERP",
+    title: "DIVA ERP - Omnichannel ERP System",
     description:
       "A comprehensive Enterprise Resource Planning ecosystem comprising 3 integrated sites: Admin, POS, and CRM. Designed to manage operations for 2,000+ employees and serve 10,000+ customers daily.",
     image: "/images/erp-placeholder.png",
@@ -69,6 +69,7 @@ export const PROJECTS = [
     ],
     featured: true,
     caseStudy: {
+      type: "complex",
       overview: {
         challenge:
           "The system needed to support 3 different user groups (Admin, Sales, Support) with shared logic but distinct interfaces. The bundle size was becoming too large, causing slow initial loads.",
@@ -76,6 +77,11 @@ export const PROJECTS = [
           "Adopted a **Monorepo-like strategy** to share UI components and business logic across 3 sites. Implemented **Code-splitting** to exclude unused modules from specific site bundles.",
         impact:
           "Reduced bundle size by **40%**, ensured UI consistency, and accelerated development speed for new features.",
+      },
+      architectureDiagram: {
+        nodes: ["Admin", "POS", "CRM"],
+        core: "Shared Core",
+        subtext: "Components & Logic",
       },
       modules: [
         {
