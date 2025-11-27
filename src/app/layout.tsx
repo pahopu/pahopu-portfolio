@@ -1,9 +1,10 @@
+import { ThemeProvider } from "@/components/providers/theme-provider";
+import { Navbar } from "@/components/shared/navbar";
+import { ScrollProgress } from "@/components/shared/scroll-progress";
+import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/providers/theme-provider";
-import { Navbar } from "@/components/shared/navbar";
-import { cn } from "@/lib/utils";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,10 +45,9 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <ScrollProgress />
           <Navbar />
-          <main className="pt-16 min-h-screen text-foreground">
-            {children}
-          </main>
+          <main className="pt-16 min-h-screen text-foreground">{children}</main>
         </ThemeProvider>
       </body>
     </html>
