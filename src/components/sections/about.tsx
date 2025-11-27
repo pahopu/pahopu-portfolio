@@ -3,7 +3,6 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { HERO_ANIMATION } from "@/constants";
-import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import {
   BookOpen,
@@ -131,7 +130,7 @@ export const About = () => {
             variants={HERO_ANIMATION.item}
             className="md:col-span-1 border-violet-500/20 bg-linear-to-br from-violet-500/5 via-card to-card"
           >
-            <CardContent className="flex flex-col justify-center h-full p-6 pt-0 space-y-6">
+            <CardContent className="flex flex-col justify-center h-full space-y-6">
               <div className="flex items-center gap-2 text-violet-500 font-semibold text-base">
                 <BookOpen className="w-4 h-4" /> Education & Honors
               </div>
