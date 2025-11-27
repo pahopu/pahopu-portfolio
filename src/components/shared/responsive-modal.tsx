@@ -60,7 +60,10 @@ export function ResponsiveModal({
   return (
     <Drawer open={open} onOpenChange={setOpen}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
-      <DrawerContent className="flex flex-col h-dvh mt-0 rounded-none border-t-0">
+      <DrawerContent
+        className="flex flex-col h-dvh mt-0 rounded-none border-t-0"
+        onCloseAutoFocus={(e) => e.preventDefault()}
+      >
         <DrawerHeader className="text-left px-4 py-4 border-b shrink-0 bg-background z-10">
           <DrawerTitle className="text-xl font-bold">{title}</DrawerTitle>
           {description && <DrawerDescription>{description}</DrawerDescription>}

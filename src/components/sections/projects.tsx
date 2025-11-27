@@ -10,7 +10,7 @@ export const Projects = () => {
       {/* --- BACKGROUND --- */}
       <div
         className="absolute inset-0 -z-10 h-full w-full bg-background 
-        bg-[radial-gradient(#80808033_1px,transparent_1px)] 
+        bg-[radial-gradient(#8080804D_1px,transparent_1px)] 
         bg-size-[40px_40px]"
       />
       <div className="absolute -top-1/2 -right-1/2 -z-10 h-[1000px] w-[1000px] bg-primary/30 blur-[2000px] rounded-full pointer-events-none" />

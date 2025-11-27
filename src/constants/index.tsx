@@ -46,7 +46,7 @@ export const PROJECTS = [
   /* --- PROJECT 1: ERP SYSTEM --- */
   {
     id: "erp",
-    title: "DIVA ERP - Omnichannel ERP System",
+    title: "DIVA ERP - Large-scale Enterprise System",
     description:
       "A comprehensive Enterprise Resource Planning ecosystem comprising 3 integrated sites: Admin, POS, and CRM. Designed to manage operations for 2,000+ employees and serve 10,000+ customers daily.",
     image: "/images/erp-placeholder.png",
@@ -141,7 +141,7 @@ export const PROJECTS = [
   /* --- PROJECT 2: IMAGE LENS --- */
   {
     id: "image-lens",
-    title: "Image Lens - AI Search",
+    title: "Image Lens - AI Visual Search",
     description:
       "A Content-Based Image Retrieval (CBIR) system allowing users to search for similar images using a query photo. Built with deep learning models for feature extraction.",
     image: "/images/image-lens-logo.png",
@@ -217,9 +217,9 @@ export const PROJECTS = [
   /* --- PROJECT 3: MARIO CLONE --- */
   {
     id: "mario",
-    title: "Super Mario Bros 3 Clone",
+    title: "Super Mario Bros 3 - Engine Recreation",
     description:
-      "A complete recreation of the classic NES game built from scratch without game engines. Features a custom engine handling physics collision, sprite animation, and scene management.",
+      "A recreation of the classic NES game logic built from scratch using C++ and DirectX 10. Focused on low-level game loop, physics collision, and scene management.",
     image: "/images/mario-placeholder.png",
     tags: ["C++", "DirectX 10", "Game Engine", "OOP", "Physics"],
     links: {
@@ -230,7 +230,7 @@ export const PROJECTS = [
     achievements: [
       "Engineered a custom Game Engine using DirectX 10 & C++.",
       "Implemented Grid-based Collision Detection (Swept AABB).",
-      "Recreated World 1-1, Intro sequence, and multiple enemy AI.",
+      "Successfully rendered Intro, Grass Land Map, and World 1-1.",
     ],
     caseStudy: {
       type: "simple",
@@ -246,7 +246,7 @@ export const PROJECTS = [
         type: "layers" as const,
         title: "Engine Architecture",
         nodes: [
-          { label: "Scenes & Objects", sub: "Mario, Goomba, Maps" },
+          { label: "Scenes & Objects", sub: "Intro, Map 1, World 1-1" },
           { label: "Game Systems", sub: "Physics, Animation, Camera" },
           { label: "Core / DirectX", sub: "Input, Sprites, Window" },
         ],
@@ -262,7 +262,7 @@ export const PROJECTS = [
             task: "Build a reusable engine core to manage game loops, rendering, and assets.",
             action: [
               "**Sprite System:** Developed a sprite handler for loading textures and managing animation frames.",
-              "**Scene Management:** Implemented a system to switch seamlessly between the Intro, Map Select, and Gameplay scenes.",
+              "**Scene Management:** Implemented a system to switch seamlessly between the **Intro Sequence**, **Grass Land Map**, and **World 1-1**.",
               "**Camera Control:** Created a side-scrolling camera that follows the player with smooth tracking.",
             ],
             result:
