@@ -72,17 +72,17 @@ export const ContactSection = () => {
 
   return (
     <section id="contact" className="relative w-full py-24 overflow-hidden">
-      {/* --- SECTION: BACKGROUND EFFECTS (Copied from About) --- */}
-      <div className="absolute inset-0 bg-slate-950/5 dark:bg-slate-950/20" />
-      {/* Circuit Pattern */}
+      {/* --- BACKGROUND --- */}
+      <div className="absolute inset-0 bg-slate-50/50 dark:bg-slate-950/20" />
       <div
-        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.15]"
+        className="absolute inset-0 h-full w-full opacity-[0.1] dark:opacity-[0.25]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2306b6d4' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `repeating-linear-gradient(45deg, #64748b 0, #64748b 1px, transparent 0, transparent 50%)`,
+          backgroundSize: "40px 40px",
         }}
       />
-      {/* Glow Effect (Cyan/Blue for Contact) */}
-      <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-cyan-500/5 rounded-full blur-[120px] -z-10" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-cyan-500/10 dark:bg-cyan-500/5 rounded-full blur-[100px] -z-10" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_90%)]" />
 
       <div className="container px-4 md:px-6 mx-auto max-w-6xl relative z-10">
         <motion.div
