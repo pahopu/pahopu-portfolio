@@ -21,59 +21,68 @@ import {
   Loader2,
   Mail,
   MessageSquare,
+  Send,
   Terminal,
 } from "lucide-react";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form"; // Import Hook Form
+
+/* --- SECTION: TYPES --- */
+type ContactFormInputs = {
+  user_name: string;
+  user_email: string;
+  subject: string;
+  message: string;
+};
+
+/* --- SECTION: SETUP --- */
+const MotionCard = motion(Card);
 
 export const ContactSection = () => {
-  /* --- SECTION: STATE & REFS --- */
-  const formRef = useRef<HTMLFormElement>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  /* --- STATE --- */
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-  /* --- SECTION: HANDLERS --- */
-  const sendEmail = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!formRef.current) return;
+  /* --- HOOK FORM SETUP --- */
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isSubmitting },
+  } = useForm<ContactFormInputs>();
 
-    setIsLoading(true);
+  /* --- HANDLER --- */
+  const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
     setStatus("idle");
-
-    emailjs
-      .sendForm(
+    try {
+      await emailjs.send(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
-        formRef.current,
+        data,
         process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
-      )
-      .then(
-        () => {
-          setStatus("success");
-          formRef.current?.reset();
-          setTimeout(() => setStatus("idle"), 5000);
-        },
-        (error) => {
-          console.error("FAILED...", error);
-          setStatus("error");
-        }
-      )
-      .finally(() => {
-        setIsLoading(false);
-      });
+      );
+      setStatus("success");
+      reset();
+      setTimeout(() => setStatus("idle"), 5000);
+    } catch (error) {
+      console.error("FAILED...", error);
+      setStatus("error");
+    }
   };
 
   return (
     <section id="contact" className="relative w-full py-24 overflow-hidden">
-      {/* --- SECTION: BACKGROUND EFFECTS --- */}
+      {/* --- SECTION: BACKGROUND EFFECTS (Copied from About) --- */}
       <div className="absolute inset-0 bg-slate-950/5 dark:bg-slate-950/20" />
-      {/* Grid Pattern Bottom-Right */}
+      {/* Circuit Pattern */}
       <div
-        className="absolute bottom-0 right-0 w-1/2 h-1/2 opacity-[0.03] dark:opacity-[0.05]"
+        className="absolute inset-0 opacity-[0.03] dark:opacity-[0.15]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M0 40L40 0H20L0 20M40 40V20L20 40'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2306b6d4' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
       />
+      {/* Glow Effect (Cyan/Blue for Contact) */}
+      <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-cyan-500/5 rounded-full blur-[120px] -z-10" />
 
       <div className="container px-4 md:px-6 mx-auto max-w-6xl relative z-10">
         <motion.div
@@ -81,18 +90,20 @@ export const ContactSection = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true }}
-          className="grid md:grid-cols-2 gap-12 lg:gap-24"
+          className="grid md:grid-cols-2 gap-12 lg:gap-24 items-start"
         >
           {/* --- SECTION: LEFT COLUMN (INFO) --- */}
           <div className="space-y-8">
             <motion.div variants={HERO_ANIMATION.item} className="space-y-4">
-              <div className="flex items-center gap-2 text-primary font-mono text-sm tracking-wider uppercase">
+              <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-mono text-sm tracking-wider uppercase">
                 <Terminal className="w-4 h-4" />
                 <span>/contact-me</span>
               </div>
               <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl">
                 Let&apos;s build something <br />
-                <span className="text-primary">exceptional.</span>
+                <span className="text-cyan-600 dark:text-cyan-400">
+                  exceptional.
+                </span>
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
                 Whether you have a question about my stack, a project proposal,
@@ -103,29 +114,30 @@ export const ContactSection = () => {
 
             {/* Status Badge */}
             <motion.div variants={HERO_ANIMATION.item}>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/10 border border-green-500/20 text-green-600 dark:text-green-400 text-sm font-medium">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm font-medium">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
                 </span>
                 Open to new opportunities
               </div>
             </motion.div>
 
             {/* Direct Links */}
-            <motion.div variants={HERO_ANIMATION.item} className="space-y-4">
+            <motion.div
+              variants={HERO_ANIMATION.item}
+              className="space-y-4 font-medium"
+            >
               <Link
                 href="mailto:hoangphucpham.work@gmail.com"
-                className="flex items-center gap-4 p-4 rounded-xl border bg-card/50 hover:bg-card hover:border-primary/50 transition-all group"
+                className="flex items-center gap-4 p-4 rounded-xl border bg-card/50 hover:bg-cyan-500/5 hover:border-cyan-500/30 transition-all group"
               >
-                <div className="p-3 rounded-lg bg-primary/10 text-primary group-hover:scale-110 transition-transform">
+                <div className="p-3 rounded-lg bg-cyan-500/10 text-cyan-600 group-hover:scale-110 transition-transform">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground">
-                    Email me at
-                  </p>
-                  <p className="font-semibold group-hover:text-primary transition-colors">
+                  <p className="text-sm text-muted-foreground">Email me at</p>
+                  <p className="font-semibold text-foreground group-hover:text-cyan-600 transition-colors">
                     hoangphucpham.work@gmail.com
                   </p>
                 </div>
@@ -136,33 +148,35 @@ export const ContactSection = () => {
                 <Link
                   href="https://github.com/pahopu"
                   target="_blank"
-                  className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border bg-card/50 hover:bg-card hover:border-foreground/20 transition-all"
+                  className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border bg-card/50 hover:bg-card hover:border-foreground/30 transition-all"
                 >
                   <Github className="w-5 h-5" />
-                  <span className="font-medium">GitHub</span>
+                  <span>GitHub</span>
                 </Link>
                 <Link
                   href="https://www.linkedin.com/in/pahopu"
                   target="_blank"
-                  className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border bg-card/50 hover:bg-card hover:border-blue-500/50 hover:text-blue-500 transition-all"
+                  className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border bg-card/50 hover:bg-blue-500/5 hover:border-blue-500/30 hover:text-blue-600 transition-all"
                 >
                   <Linkedin className="w-5 h-5" />
-                  <span className="font-medium">LinkedIn</span>
+                  <span>LinkedIn</span>
                 </Link>
               </div>
             </motion.div>
           </div>
 
-          {/* --- SECTION: RIGHT COLUMN (FORM) --- */}
+          {/* --- SECTION: RIGHT COLUMN (FORM WITH HOOK FORM) --- */}
           <motion.div variants={HERO_ANIMATION.item}>
-            <Card className="border-primary/10 bg-linear-to-br from-card via-card to-primary/5 shadow-xl relative overflow-hidden">
-              {/* Top border highlight */}
-              <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-transparent via-primary to-transparent opacity-50" />
+            {/* Styled MotionCard matching About section aesthetics (Cyan Accent) */}
+            <MotionCard className="border-cyan-500/20 bg-linear-to-br from-cyan-500/5 via-card to-card relative overflow-hidden shadow-lg">
+              {/* Internal decorative gradient */}
+              <div className="absolute top-0 right-0 p-6 opacity-5 -rotate-12 pointer-events-none">
+                <Send size={100} />
+              </div>
 
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <MessageSquare className="w-5 h-5 text-primary" />
-                  Send a message
+                <CardTitle className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
+                  <MessageSquare className="w-5 h-5" /> Send a message
                 </CardTitle>
                 <CardDescription>
                   I usually respond within 24 hours.
@@ -170,68 +184,89 @@ export const ContactSection = () => {
               </CardHeader>
 
               <CardContent>
-                <form ref={formRef} onSubmit={sendEmail} className="space-y-4">
+                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
+                    {/* Name Input */}
                     <div className="space-y-2">
-                      <label className="text-xs font-medium uppercase text-muted-foreground">
+                      <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
                         Name
                       </label>
                       <Input
-                        name="user_name"
+                        {...register("user_name", { required: true })}
                         placeholder="John Doe"
-                        required
-                        disabled={isLoading}
-                        className="bg-background/50 focus:bg-background transition-colors"
+                        disabled={isSubmitting}
+                        className={`bg-background/50 focus:bg-background transition-colors ${
+                          errors.user_name
+                            ? "border-red-500 focus-visible:ring-red-500"
+                            : "focus-visible:ring-cyan-500/50 border-cyan-500/10"
+                        }`}
                       />
                     </div>
+
+                    {/* Email Input */}
                     <div className="space-y-2">
-                      <label className="text-xs font-medium uppercase text-muted-foreground">
+                      <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
                         Email
                       </label>
                       <Input
-                        name="user_email"
-                        type="email"
+                        {...register("user_email", {
+                          required: true,
+                          pattern: /^\S+@\S+$/i,
+                        })}
                         placeholder="john@example.com"
-                        required
-                        disabled={isLoading}
-                        className="bg-background/50 focus:bg-background transition-colors"
+                        type="email"
+                        disabled={isSubmitting}
+                        className={`bg-background/50 focus:bg-background transition-colors ${
+                          errors.user_email
+                            ? "border-red-500 focus-visible:ring-red-500"
+                            : "focus-visible:ring-cyan-500/50 border-cyan-500/10"
+                        }`}
                       />
                     </div>
                   </div>
 
+                  {/* Subject Input */}
                   <div className="space-y-2">
-                    <label className="text-xs font-medium uppercase text-muted-foreground">
+                    <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
                       Subject
                     </label>
                     <Input
-                      name="subject"
+                      {...register("subject", { required: true })}
                       placeholder="Project Inquiry / Tech Talk"
-                      required
-                      disabled={isLoading}
-                      className="bg-background/50 focus:bg-background transition-colors"
+                      disabled={isSubmitting}
+                      className={`bg-background/50 focus:bg-background transition-colors ${
+                        errors.subject
+                          ? "border-red-500 focus-visible:ring-red-500"
+                          : "focus-visible:ring-cyan-500/50 border-cyan-500/10"
+                      }`}
                     />
                   </div>
 
+                  {/* Message Input */}
                   <div className="space-y-2">
-                    <label className="text-xs font-medium uppercase text-muted-foreground">
+                    <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
                       Message
                     </label>
                     <Textarea
-                      name="message"
+                      {...register("message", { required: true })}
                       placeholder="Tell me about your project..."
-                      className="min-h-[150px] bg-background/50 focus:bg-background transition-colors resize-none"
-                      required
-                      disabled={isLoading}
+                      className={`min-h-[150px] bg-background/50 focus:bg-background transition-colors resize-none ${
+                        errors.message
+                          ? "border-red-500 focus-visible:ring-red-500"
+                          : "focus-visible:ring-cyan-500/50 border-cyan-500/10"
+                      }`}
+                      disabled={isSubmitting}
                     />
                   </div>
 
+                  {/* Submit Button */}
                   <Button
                     type="submit"
-                    className="w-full gap-2 mt-2"
+                    className="w-full gap-2 mt-2 bg-linear-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white border-none"
                     size="lg"
-                    disabled={isLoading || status === "success"}
+                    disabled={isSubmitting || status === "success"}
                   >
-                    {isLoading ? (
+                    {isSubmitting ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
                         Sending...
@@ -255,9 +290,14 @@ export const ContactSection = () => {
                       directly.
                     </p>
                   )}
+                  {Object.keys(errors).length > 0 && (
+                    <p className="text-xs text-red-500 text-center animate-in fade-in slide-in-from-top-1">
+                      Please fill in all required fields.
+                    </p>
+                  )}
                 </form>
               </CardContent>
-            </Card>
+            </MotionCard>
           </motion.div>
         </motion.div>
       </div>
