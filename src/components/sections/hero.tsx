@@ -55,12 +55,10 @@ export const Hero = () => {
             variants={HERO_ANIMATION.item}
             className="text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl drop-shadow-sm"
           >
-            Hi, I&apos;m <span className="text-foreground">pahopu</span> 👋
+            Hi, I&apos;m <span className="text-foreground">pahopu</span>{" "}
+            <span className="animate-wave">👋</span>
             <br />
-            <span
-              className="block mt-2 bg-linear-to-r from-emerald-500 via-blue-600 to-emerald-500 
-            bg-clip-text text-transparent bg-size-[200%_auto] animate-gradient"
-            >
+            <span className="block mt-2 animate-gradient-text bg-[linear-gradient(to_right,#ef4444,#eab308,#22c55e,#06b6d4,#3b82f6,#a855f7,#ef4444)]">
               Front-End Developer
             </span>
           </motion.h1>
