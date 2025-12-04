@@ -17,11 +17,62 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "pahopu | Front-End Developer",
+  metadataBase: new URL("https://pahopu-portfolio.vercel.app"),
+  title: {
+    default: "pahopu | Software Engineer",
+    template: "%s | pahopu",
+  },
   description:
-    "Portfolio of a Front-End Developer specialized in React & Next.js",
+    "A high-performance engineering portfolio built with Next.js 15, TypeScript, and Tailwind CSS. Featuring scalable system architectures and technical case studies.",
+  keywords: [
+    "Software Engineer",
+    "Front-End Engineer",
+    "Next.js Developer",
+    "React",
+    "TypeScript",
+    "Portfolio",
+    "Pham Hoang Phuc",
+    "pahopu",
+  ],
+  authors: [
+    { name: "Pham Hoang Phuc", url: "https://pahopu-portfolio.vercel.app" },
+  ],
+  creator: "Pham Hoang Phuc",
+
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://pahopu-portfolio.vercel.app",
+    title: "pahopu | Software Engineer & Front-End Specialist",
+    description:
+      "Showcasing large-scale ERP systems, AI integrations, and custom game engines. Built with an engineer's mindset.",
+    siteName: "pahopu Portfolio",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "pahopu | Software Engineer",
+    description:
+      "Building scalable web applications with Next.js & TypeScript.",
+    creator: "@pahopu",
+  },
+
   icons: {
     icon: "/icon",
+    shortcut: "/icon",
+    apple: "/icon",
+  },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
