@@ -147,7 +147,7 @@ export const PROJECTS = [
     image: "/images/image-lens-logo.png",
     tags: ["Python", "Flask", "OpenCV", "Keras (Xception)", "Full-stack"],
     links: {
-      demo: "#",
+      demo: null,
       github: "https://github.com/pahopu/CS336_ImageSearch_Project2",
     },
     featured: false,
