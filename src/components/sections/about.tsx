@@ -112,7 +112,7 @@ export const About = () => {
 
               <Badge
                 variant="outline"
-                className="border-primary/30 text-[#1B2E6E] bg-primary/10 hover:bg-primary/20"
+                className="border-primary/30 text-[#1B2E6E] dark:text-primary-foreground bg-primary/10 hover:bg-primary/20"
               >
                 Top 8% Excellence
               </Badge>
