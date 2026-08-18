@@ -8,26 +8,36 @@ import { motion } from "framer-motion";
 import { ArrowRight, Briefcase, Cpu, Download } from "lucide-react";
 import Link from "next/link";
 
+const Star = ({ size, color, className }: { size: number; color: string; className?: string }) => (
+  <span
+    className={cn("select-none pointer-events-none absolute font-bold leading-none", className)}
+    style={{ fontSize: size, color, lineHeight: 1 }}
+    aria-hidden
+  >
+    ★
+  </span>
+);
+
 export const Hero = () => {
   return (
     <section
       id="home"
       className="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden"
+      style={{ backgroundColor: "#5B8FE8" }}
     >
-      {/* --- BACKGROUND --- */}
-      <div
-        className="absolute inset-0 -z-10 h-full w-full bg-background 
-      bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] 
-      bg-size-[40px_40px]"
-      />
-      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_500px_at_50%_200px,#FF8C5A26,transparent)]" />
+      {/* Yellow stars — scattered like album art */}
+      <Star size={56} color="#FFE566" className="top-[8%] left-[7%] animate-bounce [animation-delay:200ms]" />
+      <Star size={80} color="#FFE566" className="top-[12%] right-[9%] animate-bounce [animation-delay:800ms]" />
+      <Star size={44} color="#FFE566" className="bottom-[18%] left-[4%] animate-bounce [animation-delay:1500ms]" />
+      <Star size={68} color="#FFE566" className="bottom-[12%] right-[6%] animate-bounce [animation-delay:500ms]" />
+      <Star size={36} color="#FFE566" className="top-[45%] left-[1%] animate-bounce [animation-delay:1200ms]" />
+      <Star size={52} color="#FFE566" className="top-[30%] right-[2%] animate-bounce [animation-delay:300ms]" />
+      {/* Baby blue stars (lighter, background layer) */}
+      <Star size={28} color="#C5D8F5" className="top-[22%] left-[18%]" />
+      <Star size={32} color="#C5D8F5" className="bottom-[30%] right-[18%]" />
+      <Star size={20} color="#C5D8F5" className="top-[60%] left-[12%]" />
 
-      {/* Floating blobs */}
-      <div className="absolute top-1/4 -left-32 w-64 h-64 bg-secondary/20 rounded-full blur-3xl -z-10 animate-pulse" />
-      <div className="absolute top-1/3 -right-32 w-80 h-80 bg-accent/15 rounded-full blur-3xl -z-10 animate-pulse [animation-delay:1500ms]" />
-      <div className="absolute bottom-1/4 left-1/3 w-48 h-48 bg-primary/10 rounded-full blur-3xl -z-10" />
-
-      {/* --- CONTENT --- */}
+      {/* Content */}
       <div className="container px-4 md:px-6 flex flex-col items-center text-center z-10">
         <motion.div
           variants={HERO_ANIMATION.container}
@@ -35,64 +45,56 @@ export const Hero = () => {
           animate="show"
           className="space-y-8 max-w-4xl"
         >
-          {/* --- BADGE --- */}
-          <motion.div
-            variants={HERO_ANIMATION.item}
-            className="flex justify-center"
-          >
+          {/* Badge */}
+          <motion.div variants={HERO_ANIMATION.item} className="flex justify-center">
             <Badge
               variant="outline"
-              className="gap-2 py-1.5 px-4 text-sm font-medium bg-background/50 backdrop-blur-md border-primary/20 
-              shadow-[0_0_15px_-3px_rgba(59,130,246,0.2)]"
+              className="gap-2 py-1.5 px-4 text-sm font-semibold bg-white/20 backdrop-blur-md border-white/30 text-white shadow-sm"
             >
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C8E645] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C8E645]" />
               </span>
-              <span className="text-foreground/80">
-                Ready for new challenges
-              </span>
+              <span>Ready for new challenges</span>
             </Badge>
           </motion.div>
 
-          {/* --- HEADLINE --- */}
+          {/* Headline */}
           <motion.h1
             variants={HERO_ANIMATION.item}
-            className="text-4xl font-extrabold tracking-tight sm:text-6xl md:text-7xl drop-shadow-sm"
+            className="text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl"
           >
-            Hi, I&apos;m <span className="text-foreground">pahopu</span>{" "}
-            <span className="animate-wave">👋</span>
+            <span className="text-white drop-shadow-sm">
+              Hi, I&apos;m pahopu <span className="animate-wave inline-block">👋</span>
+            </span>
             <br />
-            <span className="block mt-2 animate-gradient-text bg-[linear-gradient(to_right,#FF8C5A,#FFB3C6,#A8E6CF,#B39DDB,#FF8C5A)]">
+            <span
+              className="block mt-3 animate-gradient-text"
+              style={{
+                backgroundImage: "linear-gradient(to right, #C8E645, #FFE566, #C5D8F5, #F5B8CC, #C8E645)",
+              }}
+            >
               Front-End Developer
             </span>
           </motion.h1>
 
-          {/* --- SUBTITLE --- */}
+          {/* Subtitle */}
           <motion.div
             variants={HERO_ANIMATION.item}
-            className="mx-auto max-w-[700px] text-muted-foreground text-lg md:text-xl leading-relaxed flex flex-col gap-4"
+            className="mx-auto max-w-[700px] text-white/90 text-lg md:text-xl leading-relaxed flex flex-col gap-4"
           >
-            <div className="flex items-center justify-center gap-2 text-primary font-medium">
+            <div className="flex items-center justify-center gap-2 text-[#C8E645] font-semibold">
               <Cpu className="h-5 w-5" />
               <span>Solid Computer Science Foundation</span>
             </div>
-
             <p>
-              I build scalable, high-performance web applications. While I
-              specialize in the{" "}
-              <strong className="text-foreground font-semibold">
-                React ecosystem
-              </strong>
-              , I remain{" "}
-              <strong className="text-foreground font-semibold">
-                flexible
-              </strong>{" "}
-              to adapt to any technology needed to solve the problem.
+              I build scalable, high-performance web applications. While I specialize in the{" "}
+              <strong className="text-white font-semibold">React ecosystem</strong>, I remain{" "}
+              <strong className="text-white font-semibold">flexible</strong> to adapt to any technology needed.
             </p>
           </motion.div>
 
-          {/* --- CTA BUTTONS --- */}
+          {/* CTA Buttons */}
           <motion.div
             variants={HERO_ANIMATION.item}
             className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4"
@@ -101,10 +103,10 @@ export const Hero = () => {
               href="#contact"
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "group h-12 px-8 text-base font-semibold shadow-[0_0_20px_-5px_rgba(59,130,246,0.5)] hover:shadow-[0_0_25px_-5px_rgba(59,130,246,0.7)] transition-all duration-300"
+                "group h-12 px-8 text-base font-bold bg-[#C8E645] text-[#1B2E6E] hover:bg-[#d4ed4f] hover:shadow-lg transition-all duration-300 border-0"
               )}
             >
-              Contact Me{" "}
+              Contact Me
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
 
@@ -112,26 +114,26 @@ export const Hero = () => {
               href="#projects"
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "hidden md:inline-flex h-12 px-8 text-base bg-background/50 backdrop-blur-sm border-foreground/10 hover:bg-accent/50"
+                "hidden md:inline-flex h-12 px-8 text-base font-semibold bg-white/10 backdrop-blur-sm border-white/40 text-white hover:bg-white/20"
               )}
             >
               View Projects <Briefcase className="ml-2 h-4 w-4" />
             </Link>
 
             <a
-              href="/resume.pdf"
+              href="/files/resume.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "md:hidden h-12 px-8 text-base bg-background/50 backdrop-blur-sm border-foreground/10 hover:bg-accent/50"
+                "md:hidden h-12 px-8 text-base font-semibold bg-white/10 backdrop-blur-sm border-white/40 text-white hover:bg-white/20"
               )}
             >
               Download CV <Download className="ml-2 h-4 w-4" />
             </a>
           </motion.div>
 
-          {/* --- SOCIAL ICONS --- */}
+          {/* Social Icons */}
           <motion.div
             variants={HERO_ANIMATION.item}
             className="flex items-center justify-center gap-4 pt-6"
@@ -142,7 +144,7 @@ export const Hero = () => {
                 href={social.href}
                 target="_blank"
                 aria-label={social.label}
-                className="p-3 rounded-full bg-background/50 border border-foreground/10 hover:border-primary/50 hover:bg-primary/10 hover:text-primary transition-all duration-300 backdrop-blur-sm group"
+                className="p-3 rounded-full bg-white/15 border border-white/30 hover:bg-white/25 hover:border-[#C8E645]/60 hover:text-[#C8E645] text-white transition-all duration-300 group"
               >
                 <social.icon className="h-5 w-5 group-hover:scale-110 transition-transform" />
               </Link>

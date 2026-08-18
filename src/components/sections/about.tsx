@@ -22,16 +22,16 @@ export const About = () => {
   return (
     <section id="about" className="relative w-full py-24 overflow-hidden">
       {/* --- SECTION: BACKGROUND --- */}
-      <div className="absolute inset-0 bg-white/50 dark:bg-slate-950/20" />
+      <div className="absolute inset-0 bg-[#F0F6FF]/50 dark:bg-[#0F1B40]/20" />
       <div
         className="absolute inset-0 h-full w-full opacity-[0.4] dark:opacity-[0.25]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 8L22 17L31 19L22 21L20 30L18 21L9 19L18 17L20 8Z' fill='%23FF8C5A' fill-opacity='0.6' /%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 8L22 17L31 19L22 21L20 30L18 21L9 19L18 17L20 8Z' fill='%23FFE566' fill-opacity='0.6' /%3E%3C/svg%3E")`,
           backgroundSize: "40px 40px",
         }}
       />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_90%)]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-primary/5 rounded-full blur-[120px] -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#5B8FE8]/8 rounded-full blur-[120px] -z-10" />
 
       {/* --- SECTION: CONTENT CONTAINER --- */}
       <div className="container px-4 md:px-6 mx-auto max-w-6xl relative z-10">
@@ -88,21 +88,21 @@ export const About = () => {
           {/* --- CARD 2: GPA (AMBER ACCENT) --- */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="md:col-span-1 border-amber-500/20 bg-linear-to-br from-amber-500/10 via-card to-card relative overflow-hidden"
+            className="md:col-span-1 border-primary/20 bg-linear-to-br from-primary/10 via-card to-card relative overflow-hidden"
           >
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#f59e0b1a,transparent_70%)]" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#C8E64526,transparent_70%)]" />
 
             {/* Fully Centered Content */}
             <CardContent className="relative z-10 flex flex-col items-center justify-center h-full p-6 min-h-[200px]">
-              <div className="p-3 rounded-full bg-amber-500/10 mb-3">
-                <GraduationCap className="w-8 h-8 text-amber-500" />
+              <div className="p-3 rounded-full bg-primary/10 mb-3">
+                <GraduationCap className="w-8 h-8 text-primary" />
               </div>
 
-              <div className="text-5xl font-extrabold tracking-tighter text-amber-500 mb-1">
+              <div className="text-5xl font-extrabold tracking-tighter text-primary mb-1">
                 9.14
               </div>
 
-              <p className="text-amber-500/80 font-medium uppercase tracking-widest text-[10px] mb-4">
+              <p className="text-primary/80 font-medium uppercase tracking-widest text-[10px] mb-4">
                 GPA / 10.0
               </p>
 
@@ -112,7 +112,7 @@ export const About = () => {
 
               <Badge
                 variant="outline"
-                className="border-amber-500/30 text-amber-600 bg-amber-500/5 hover:bg-amber-500/10"
+                className="border-primary/30 text-[#1B2E6E] bg-primary/10 hover:bg-primary/20"
               >
                 Top 8% Excellence
               </Badge>
@@ -122,10 +122,10 @@ export const About = () => {
           {/* --- CARD 3: EDUCATION (VIOLET ACCENT) --- */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="md:col-span-1 border-pink-400/20 bg-linear-to-br from-pink-400/5 via-card to-card"
+            className="md:col-span-1 border-[#5B8FE8]/20 bg-linear-to-br from-[#5B8FE8]/5 via-card to-card"
           >
             <CardContent className="flex flex-col justify-center h-full space-y-6">
-              <div className="flex items-center gap-2 text-pink-400 font-semibold text-base">
+              <div className="flex items-center gap-2 text-[#5B8FE8] font-semibold text-base">
                 <BookOpen className="w-4 h-4" /> Education & Honors
               </div>
 
@@ -138,13 +138,13 @@ export const About = () => {
                 </p>
               </div>
 
-              <div className="space-y-3 pt-4 border-t border-pink-400/10">
+              <div className="space-y-3 pt-4 border-t border-[#5B8FE8]/10">
                 <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <Trophy className="w-4 h-4 text-pink-400 shrink-0 mt-0.5" />
+                  <Trophy className="w-4 h-4 text-[#5B8FE8] shrink-0 mt-0.5" />
                   <span>Scholarship for Excellence</span>
                 </div>
                 <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <Sparkles className="w-4 h-4 text-pink-400 shrink-0 mt-0.5" />
+                  <Sparkles className="w-4 h-4 text-[#5B8FE8] shrink-0 mt-0.5" />
                   <span>Student of 5 Merits</span>
                 </div>
               </div>
@@ -154,12 +154,12 @@ export const About = () => {
           {/* --- CARD 4: TECH STACK (EMERALD ACCENT) --- */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="md:col-span-2 border-teal-400/20 bg-linear-to-br from-teal-400/5 via-card to-card"
+            className="md:col-span-2 border-[#FF8C42]/20 bg-linear-to-br from-[#FF8C42]/5 via-card to-card"
           >
             <CardContent className="p-0 h-full flex flex-col">
               {/* Internal Header */}
-              <div className="p-6 pt-0 border-b border-teal-400/10 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-teal-500 font-semibold">
+              <div className="p-6 pt-0 border-b border-[#FF8C42]/10 flex items-center justify-between">
+                <div className="flex items-center gap-2 text-[#FF8C42] font-semibold">
                   <Layers className="w-5 h-5" /> Technical Arsenal
                 </div>
                 <div className="flex gap-1.5 opacity-60">
@@ -189,7 +189,7 @@ export const About = () => {
                       <Badge
                         key={t}
                         variant="secondary"
-                        className="bg-teal-500/5 hover:bg-teal-500/10 text-teal-700 dark:text-teal-400 border-transparent transition-colors"
+                        className="bg-[#FF8C42]/5 hover:bg-[#FF8C42]/10 text-[#CC6A1E] dark:text-[#FF8C42] border-transparent transition-colors"
                       >
                         {t}
                       </Badge>
@@ -214,7 +214,7 @@ export const About = () => {
                       <Badge
                         key={t}
                         variant="outline"
-                        className="border-dashed border-teal-500/30"
+                        className="border-dashed border-[#FF8C42]/30"
                       >
                         {t}
                       </Badge>

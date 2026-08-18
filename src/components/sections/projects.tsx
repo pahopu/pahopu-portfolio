@@ -13,8 +13,8 @@ export const Projects = () => {
         bg-[radial-gradient(#8080804D_1px,transparent_1px)] 
         bg-size-[40px_40px]"
       />
-      <div className="absolute -top-1/2 -right-1/2 -z-10 h-[1000px] w-[1000px] bg-primary/30 blur-[2000px] rounded-full pointer-events-none" />
-      <div className="absolute -bottom-1/2 -left-1/2 -z-10 h-[1000px] w-[1000px] bg-secondary/20 blur-[2000px] rounded-full pointer-events-none" />
+      <div className="absolute -top-1/2 -right-1/2 -z-10 h-[1000px] w-[1000px] bg-[#5B8FE8]/15 blur-[2000px] rounded-full pointer-events-none" />
+      <div className="absolute -bottom-1/2 -left-1/2 -z-10 h-[1000px] w-[1000px] bg-[#C8E645]/10 blur-[2000px] rounded-full pointer-events-none" />
 
       {/* --- CONTAINER --- */}
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">
