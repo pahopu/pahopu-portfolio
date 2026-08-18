@@ -11,22 +11,22 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
   /* --- CASE 1: IMAGE LENS (AI / COMPUTER VISION STYLE) --- */
   if (id === "image-lens") {
     return (
-      <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 overflow-hidden group">
+      <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#5B8FE8] overflow-hidden group">
         {/* 1. Background: Neural Network Dots */}
         <div
-          className="absolute inset-0 opacity-20 
-          bg-[radial-gradient(#8b5cf6_1px,transparent_1px)] 
+          className="absolute inset-0 opacity-20
+          bg-[radial-gradient(rgba(255,229,102,0.8)_1px,transparent_1px)]
           bg-size-[20px_20px]"
         />
 
         {/* 2. Central Element: The Scanning Lens */}
         <div className="relative z-10 w-full h-full flex items-center justify-center">
           {/* Viewfinder Corners */}
-          <div className="absolute w-48 h-48 border border-cyan-500/30 rounded-lg">
-            <div className="absolute -top-px -left-px w-4 h-4 border-t-2 border-l-2 border-cyan-400" />
-            <div className="absolute -top-px -right-px w-4 h-4 border-t-2 border-r-2 border-cyan-400" />
-            <div className="absolute -bottom-px -left-px w-4 h-4 border-b-2 border-l-2 border-cyan-400" />
-            <div className="absolute -bottom-px -right-px w-4 h-4 border-b-2 border-r-2 border-cyan-400" />
+          <div className="absolute w-48 h-48 border border-[#FFE566]/30 rounded-lg">
+            <div className="absolute -top-px -left-px w-4 h-4 border-t-2 border-l-2 border-[#FFE566]" />
+            <div className="absolute -top-px -right-px w-4 h-4 border-t-2 border-r-2 border-[#FFE566]" />
+            <div className="absolute -bottom-px -left-px w-4 h-4 border-b-2 border-l-2 border-[#FFE566]" />
+            <div className="absolute -bottom-px -right-px w-4 h-4 border-b-2 border-r-2 border-[#FFE566]" />
           </div>
 
           {/* SVG: Abstract Eye / Aperture */}
@@ -36,14 +36,14 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
             viewBox="0 0 100 100"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="drop-shadow-[0_0_15px_rgba(34,211,238,0.3)] transition-transform duration-700 group-hover:scale-110"
+            className="drop-shadow-[0_0_15px_rgba(255,229,102,0.3)] transition-transform duration-700 group-hover:scale-110"
           >
             {/* Outer Rotating Ring (Scanning) */}
             <circle
               cx="50"
               cy="50"
               r="45"
-              stroke="#22d3ee"
+              stroke="#FFE566"
               strokeWidth="1"
               strokeDasharray="10 5"
               strokeOpacity="0.5"
@@ -53,11 +53,11 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
             {/* Inner Hexagon Aperture */}
             <path
               d="M50 20 L76 35 V65 L50 80 L24 65 V35 L50 20 Z"
-              stroke="#8b5cf6"
+              stroke="#C8E645"
               strokeWidth="2"
-              fill="#8b5cf6"
+              fill="#C8E645"
               fillOpacity="0.1"
-              className="group-hover:fill-cyan-500/10 transition-colors duration-500"
+              className="group-hover:fill-[#FFE566]/10 transition-colors duration-500"
             />
 
             {/* Central Lens Node */}
@@ -65,32 +65,32 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
               cx="50"
               cy="50"
               r="8"
-              fill="#22d3ee"
+              fill="#FFE566"
               className="animate-pulse"
             />
             <circle
               cx="50"
               cy="50"
               r="15"
-              stroke="#22d3ee"
+              stroke="#FFE566"
               strokeWidth="1"
               strokeOpacity="0.5"
             />
           </svg>
 
           {/* Scanning Line Animation */}
-          <div className="absolute w-48 h-1 bg-gradient-to-r from-transparent via-cyan-400 to-transparent opacity-50 animate-[scan_2s_ease-in-out_infinite] top-[30%]" />
+          <div className="absolute w-48 h-1 bg-gradient-to-r from-transparent via-[#FFE566] to-transparent opacity-50 animate-[scan_2s_ease-in-out_infinite] top-[30%]" />
         </div>
 
         {/* 3. Tech Badge Overlay */}
         <div className="absolute bottom-4 right-4 text-right z-20 flex flex-col items-end gap-1">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono text-cyan-500/70 uppercase tracking-widest bg-cyan-950/30 px-2 py-0.5 rounded border border-cyan-500/20">
+            <span className="text-[10px] font-mono text-[#FFE566]/80 uppercase tracking-widest bg-[#FFE566]/10 px-2 py-0.5 rounded border border-[#FFE566]/20">
               CV Analysis
             </span>
           </div>
-          <div className="text-xs font-bold text-slate-400 flex items-center gap-2 justify-end">
-            <span className="w-1.5 h-1.5 rounded-full bg-violet-500" />
+          <div className="text-xs font-bold text-white/70 flex items-center gap-2 justify-end">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C8E645]" />
             Xception Model
           </div>
         </div>
@@ -101,9 +101,9 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
   /* --- CASE 2: ERP SYSTEM (ENTERPRISE ARCHITECTURE) --- */
   if (id === "erp") {
     return (
-      <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 overflow-hidden group">
+      <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#1B2E6E] overflow-hidden group">
         {/* 1. Background Grid */}
-        <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,#3b82f620_1px,transparent_1px),linear-gradient(to_bottom,#3b82f620_1px,transparent_1px)] bg-size-[24px_24px]" />
+        <div className="absolute inset-0 opacity-20 bg-[linear-gradient(to_right,rgba(200,230,69,0.15)_1px,transparent_1px),linear-gradient(to_bottom,rgba(200,230,69,0.15)_1px,transparent_1px)] bg-size-[24px_24px]" />
 
         {/* 2. Architecture Diagram (Wireframe Style) */}
         <div className="relative z-10 w-full h-full flex items-center justify-center">
@@ -119,11 +119,11 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
             {/* Hexagon Outline */}
             <path
               d="M100 60 L135 80 V120 L100 140 L65 120 V80 L100 60 Z"
-              stroke="white"
+              stroke="#C8E645"
               strokeWidth="1.5"
-              fill="#1e293b"
+              fill="#1B2E6E"
               fillOpacity="0.8"
-              className="group-hover:stroke-blue-400 transition-colors"
+              className="group-hover:stroke-[#FFE566] transition-colors"
             />
             {/* Core Icon (Database symbol abstract) */}
             <ellipse
@@ -148,15 +148,15 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
                 cx="100"
                 cy="30"
                 r="16"
-                stroke="#3b82f6"
+                stroke="#C8E645"
                 strokeWidth="2"
-                fill="#0f172a"
+                fill="#1B2E6E"
               />
               <text
                 x="100"
                 y="34"
                 fontSize="10"
-                fill="#3b82f6"
+                fill="#C8E645"
                 textAnchor="middle"
                 fontWeight="bold"
               >
@@ -169,7 +169,7 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
               y1="46"
               x2="100"
               y2="60"
-              stroke="#3b82f6"
+              stroke="#C8E645"
               strokeWidth="1"
               strokeDasharray="3 3"
             />
@@ -183,15 +183,15 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
                 cx="40"
                 cy="140"
                 r="16"
-                stroke="#14b8a6"
+                stroke="#FFE566"
                 strokeWidth="2"
-                fill="#0f172a"
+                fill="#1B2E6E"
               />
               <text
                 x="40"
                 y="144"
                 fontSize="10"
-                fill="#14b8a6"
+                fill="#FFE566"
                 textAnchor="middle"
                 fontWeight="bold"
               >
@@ -204,7 +204,7 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
               y1="132"
               x2="65"
               y2="120"
-              stroke="#14b8a6"
+              stroke="#FFE566"
               strokeWidth="1"
               strokeDasharray="3 3"
             />
@@ -218,15 +218,15 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
                 cx="160"
                 cy="140"
                 r="16"
-                stroke="#8b5cf6"
+                stroke="#F5B8CC"
                 strokeWidth="2"
-                fill="#0f172a"
+                fill="#1B2E6E"
               />
               <text
                 x="160"
                 y="144"
                 fontSize="10"
-                fill="#8b5cf6"
+                fill="#F5B8CC"
                 textAnchor="middle"
                 fontWeight="bold"
               >
@@ -239,7 +239,7 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
               y1="132"
               x2="135"
               y2="120"
-              stroke="#8b5cf6"
+              stroke="#F5B8CC"
               strokeWidth="1"
               strokeDasharray="3 3"
             />
@@ -261,11 +261,11 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
 
         {/* 3. Badge Overlay */}
         <div className="absolute bottom-4 right-4 text-right z-20">
-          <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+          <div className="text-[10px] font-mono text-[#C5D8F5]/70 uppercase tracking-widest">
             System Architecture
           </div>
-          <div className="text-xs font-bold text-slate-400 flex items-center gap-2 justify-end">
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-500" />
+          <div className="text-xs font-bold text-[#C5D8F5] flex items-center gap-2 justify-end">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C8E645]" />
             Monorepo Design
           </div>
         </div>
@@ -276,11 +276,11 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
   /* --- CASE 3: MARIO CLONE (ENGINE / DEBUG VIEW) --- */
   if (id === "mario") {
     return (
-      <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-950 overflow-hidden group">
+      <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#FFE566] overflow-hidden group">
         {/* 1. Background Grid (Coordinate System) */}
         <div
-          className="absolute inset-0 opacity-20 
-          bg-[linear-gradient(to_right,#3b82f640_1px,transparent_1px),linear-gradient(to_bottom,#3b82f640_1px,transparent_1px)] 
+          className="absolute inset-0 opacity-20
+          bg-[linear-gradient(to_right,rgba(27,46,110,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(27,46,110,0.2)_1px,transparent_1px)]
           bg-size-[24px_24px]"
         />
 
@@ -300,14 +300,14 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
               y="130"
               width="200"
               height="30"
-              stroke="#334155"
+              stroke="rgba(27,46,110,0.4)"
               strokeWidth="2"
-              fill="#1e293b"
+              fill="rgba(27,46,110,0.15)"
               fillOpacity="0.5"
             />
             <path
               d="M0 130 L200 130"
-              stroke="#3b82f6"
+              stroke="rgba(27,46,110,0.5)"
               strokeWidth="1"
               strokeDasharray="4 2"
               strokeOpacity="0.5"
@@ -319,9 +319,9 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
               y="90"
               width="40"
               height="40"
-              stroke="#3b82f6"
+              stroke="#1B2E6E"
               strokeWidth="2"
-              fill="#1e293b"
+              fill="rgba(27,46,110,0.2)"
               fillOpacity="0.8"
             />
             <rect
@@ -329,9 +329,9 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
               y="70"
               width="48"
               height="20"
-              stroke="#3b82f6"
+              stroke="#1B2E6E"
               strokeWidth="2"
-              fill="#1e293b"
+              fill="rgba(27,46,110,0.2)"
               fillOpacity="0.8"
             />
 
@@ -342,18 +342,18 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
                 y="80"
                 width="30"
                 height="30"
-                stroke="#f97316"
+                stroke="#FF8C42"
                 strokeWidth="2"
-                fill="#f97316"
+                fill="#FF8C42"
                 fillOpacity="0.1"
               />
               <path
                 d="M55 95 L85 65"
-                stroke="#f97316"
+                stroke="#FF8C42"
                 strokeWidth="2"
                 markerEnd="url(#arrowhead)"
               />
-              <circle cx="55" cy="95" r="2" fill="#f97316" />
+              <circle cx="55" cy="95" r="2" fill="#FF8C42" />
             </g>
 
             {/* Interactive Object: Question Block */}
@@ -362,7 +362,7 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
               y="40"
               width="30"
               height="30"
-              stroke="#eab308"
+              stroke="#1B2E6E"
               strokeWidth="2"
               strokeDasharray="4 2"
               fill="transparent"
@@ -370,7 +370,7 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
             <text
               x="89"
               y="62"
-              fill="#eab308"
+              fill="#1B2E6E"
               fontSize="16"
               fontFamily="monospace"
               fontWeight="bold"
@@ -388,7 +388,7 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
                 refY="3.5"
                 orient="auto"
               >
-                <polygon points="0 0, 10 3.5, 0 7" fill="#f97316" />
+                <polygon points="0 0, 10 3.5, 0 7" fill="#FF8C42" />
               </marker>
             </defs>
           </svg>
@@ -396,11 +396,11 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
 
         {/* 3. Tech Badge Overlay */}
         <div className="absolute bottom-4 right-4 text-right z-20 flex flex-col items-end gap-1">
-          <div className="text-[10px] font-mono text-slate-500 uppercase tracking-widest">
+          <div className="text-[10px] font-mono text-[#1B2E6E]/60 uppercase tracking-widest">
             Engine Preview
           </div>
-          <div className="text-xs font-bold text-slate-400 flex items-center gap-2 justify-end">
-            <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+          <div className="text-xs font-bold text-[#1B2E6E] flex items-center gap-2 justify-end">
+            <span className="w-2 h-2 rounded-full bg-[#FF8C42] animate-pulse" />
             DirectX 10
           </div>
         </div>

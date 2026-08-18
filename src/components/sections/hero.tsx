@@ -51,7 +51,7 @@ export const Hero = () => {
       <Cloud className="w-80 h-40 top-0 right-0 translate-x-1/4 -translate-y-1/4 rotate-12" />
 
       {/* Content */}
-      <div className="container px-4 md:px-6 flex flex-col items-center text-center z-10">
+      <div className="container px-4 md:px-6 flex flex-col items-center text-center z-10 pb-20 md:pb-28">
         <motion.div
           variants={HERO_ANIMATION.container}
           initial="hidden"
@@ -164,6 +164,21 @@ export const Hero = () => {
             ))}
           </motion.div>
         </motion.div>
+      </div>
+      {/* Cloud wave transition */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none">
+        <svg
+          viewBox="0 0 1440 100"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full block"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          <path
+            d="M0,50 C120,100 240,0 360,50 C480,100 600,0 720,50 C840,100 960,0 1080,50 C1200,100 1320,0 1440,50 L1440,100 L0,100 Z"
+            className="fill-background"
+          />
+        </svg>
       </div>
     </section>
   );
