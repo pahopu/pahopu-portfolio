@@ -1,42 +1,34 @@
 import { ImageResponse } from "next/og";
 
-// --- CONFIGURATION ---
-// Use Edge Runtime for faster dynamic image generation
 export const runtime = "edge";
-
-// Standard favicon dimensions (32x32px)
-export const size = {
-  width: 32,
-  height: 32,
-};
+export const size = { width: 32, height: 32 };
 export const contentType = "image/png";
 
-// --- ICON GENERATOR ---
 export default function Icon() {
   return new ImageResponse(
     (
-      // ImageResponse uses standard CSS-in-JS for styling
       <div
         style={{
-          fontSize: 18,
-          background: "#0f172a", // Background: Slate-900 (Matches Dark Mode Navbar)
           width: "100%",
           height: "100%",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          color: "#3b82f6", // Text: Blue-500 (Primary Brand Color)
-          borderRadius: "6px", // Soft rounded corners
-          fontWeight: 700, // Bold font
+          background: "#5B8FE8",
+          borderRadius: "8px",
         }}
       >
-        {/* Symbol: Code brackets representing "Developer" */}
-        &lt;/&gt;
+        <svg viewBox="0 0 24 24" width="20" height="20">
+          <path
+            d="M12 2L14.39 8.26L21 9.27L16.5 13.97L17.78 21L12 17.77L6.22 21L7.5 13.97L3 9.27L9.61 8.26Z"
+            fill="#C8E645"
+            stroke="#C8E645"
+            stroke-width="1.5"
+            stroke-linejoin="round"
+          />
+        </svg>
       </div>
     ),
-    // Apply size configuration
-    {
-      ...size,
-    }
+    { ...size }
   );
 }

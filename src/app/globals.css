@@ -8,6 +8,11 @@
   50% { transform: translateY(-8px); }
 }
 
+@keyframes cursor-star {
+  0%   { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  100% { opacity: 0; transform: translate(-50%, -120%) scale(0.2) rotate(150deg); }
+}
+
 @theme inline {
   --animate-float: float 3s ease-in-out infinite;
   --color-background: var(--background);

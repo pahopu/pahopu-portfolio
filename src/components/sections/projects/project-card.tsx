@@ -22,6 +22,15 @@ import { useTranslations } from "next-intl";
 
 const MotionCard = motion(Card);
 
+// CONGBDAY accent colors cycling per card
+const CARD_ACCENTS = [
+  "hover:border-primary/50 hover:shadow-primary/15",
+  "hover:border-[#5B8FE8]/50 hover:shadow-[#5B8FE8]/15",
+  "hover:border-[#FFE566]/50 hover:shadow-[#FFE566]/15",
+  "hover:border-[#F5B8CC]/50 hover:shadow-[#F5B8CC]/15",
+  "hover:border-[#FF8C42]/50 hover:shadow-[#FF8C42]/15",
+];
+
 interface ProjectCardProps {
   project: (typeof PROJECTS)[0];
   index: number;
@@ -29,6 +38,7 @@ interface ProjectCardProps {
 
 export const ProjectCard = ({ project, index }: ProjectCardProps) => {
   const t = useTranslations("projects");
+  const accent = CARD_ACCENTS[index % CARD_ACCENTS.length];
 
   return (
     <MotionCard
@@ -45,7 +55,8 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
       }}
       style={{ willChange: "opacity, transform" }}
       className={cn(
-        "flex flex-col h-full overflow-hidden p-0 gap-0 transition-all duration-300 border bg-card hover:shadow-lg hover:shadow-primary/10 hover:border-primary/20",
+        "flex flex-col h-full overflow-hidden p-0 gap-0 transition-all duration-300 border bg-card hover:shadow-lg",
+        accent,
         project.featured ? "md:col-span-2 lg:grid lg:grid-cols-2 lg:gap-0" : ""
       )}
     >

@@ -56,7 +56,7 @@ export const Hero = () => {
   return (
     <section
       id="home"
-      className="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-[#5B8FE8] dark:bg-[#040D21]"
+      className="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-[#5B8FE8] dark:bg-[#040D21] transition-[background-color] duration-700"
     >
       {/* Yellow stars — day sky */}
       <Star size={56} className="top-[8%] left-[7%] text-[#FFE566] animate-bounce [animation-delay:200ms]" />

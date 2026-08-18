@@ -26,7 +26,7 @@ export const Projects = () => {
           className="mb-14 text-center"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 border border-primary/25 text-primary font-semibold text-sm mb-4">
-            ✨ {t("label")}
+            ★ {t("label")}
           </div>
           <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl">
             {t("heading")}
