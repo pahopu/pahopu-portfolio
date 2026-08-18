@@ -153,7 +153,7 @@ export const Hero = () => {
       </AnimatePresence>
 
       {/* Content */}
-      <div className="container px-4 md:px-6 flex flex-col items-center text-center z-10 pt-24 pb-20 md:pt-28 md:pb-28">
+      <div className="container px-4 md:px-6 flex flex-col items-center text-center z-10 pb-20 md:pb-28">
         <motion.div
           variants={HERO_ANIMATION.container}
           initial="hidden"
@@ -201,7 +201,7 @@ export const Hero = () => {
           {/* Subtitle */}
           <motion.div
             variants={HERO_ANIMATION.item}
-            className="mx-auto max-w-[700px] text-lg md:text-xl leading-relaxed flex flex-col gap-4"
+            className="mx-auto max-w-[700px] md:max-w-[860px] text-lg md:text-xl leading-relaxed flex flex-col gap-4"
           >
             <div className="flex items-center justify-center gap-2 text-[#C8E645] font-semibold bg-white/10 backdrop-blur-sm rounded-full px-5 py-1.5 border border-white/20 w-fit mx-auto">
               <Cpu className="h-5 w-5 shrink-0" />
