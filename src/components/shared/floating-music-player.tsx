@@ -184,18 +184,25 @@ export const FloatingMusicPlayer = () => {
 
             {/* Progress — draggable */}
             <div className="px-5 mb-1 select-none">
+              {/* Hit area: fixed height so layout never shifts on hover */}
               <div
                 ref={progressRef}
                 onMouseDown={handleProgressMouseDown}
                 className={cn(
-                  "relative rounded-full bg-muted group transition-all duration-150",
-                  isDragging ? "cursor-grabbing h-1.5" : "cursor-pointer h-1 hover:h-1.5"
+                  "relative h-4 flex items-center group",
+                  isDragging ? "cursor-grabbing" : "cursor-pointer"
                 )}
               >
-                <div
-                  className="absolute inset-y-0 left-0 rounded-full bg-linear-to-r from-primary to-[#5B8FE8]"
-                  style={{ width: `${progress}%` }}
-                />
+                {/* Visual bar: thin by default, thickens on hover/drag */}
+                <div className={cn(
+                  "absolute inset-x-0 rounded-full bg-muted transition-all duration-150",
+                  isDragging ? "h-1.5" : "h-1 group-hover:h-1.5"
+                )}>
+                  <div
+                    className="absolute inset-y-0 left-0 rounded-full bg-linear-to-r from-primary to-[#5B8FE8]"
+                    style={{ width: `${progress}%` }}
+                  />
+                </div>
                 {/* Thumb */}
                 <div
                   className={cn(
