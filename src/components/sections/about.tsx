@@ -22,27 +22,24 @@ export const About = () => {
   return (
     <section id="about" className="relative w-full py-24 overflow-hidden">
       {/* --- SECTION: BACKGROUND --- */}
-      <div className="absolute inset-0 bg-[#F0F6FF]/50 dark:bg-[#0F1B40]/20" />
-      <div
-        className="absolute inset-0 h-full w-full opacity-[0.4] dark:opacity-[0.25]"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 8L22 17L31 19L22 21L20 30L18 21L9 19L18 17L20 8Z' fill='%23FFE566' fill-opacity='0.6' /%3E%3C/svg%3E")`,
-          backgroundSize: "40px 40px",
-        }}
-      />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_90%)]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-[#5B8FE8]/8 rounded-full blur-[120px] -z-10" />
+      <div className="absolute inset-0 bg-[#F0F6FF]/60 dark:bg-[#0F1B40]/30" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-[#5B8FE8]/10 rounded-full blur-[150px] -z-10" />
+      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#C8E645]/8 rounded-full blur-[100px] -z-10" />
+      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#F5B8CC]/10 rounded-full blur-[80px] -z-10" />
 
       {/* --- SECTION: CONTENT CONTAINER --- */}
       <div className="container px-4 md:px-6 mx-auto max-w-6xl relative z-10">
         {/* --- HEADER --- */}
-        <div className="flex items-center gap-3 mb-12">
-          <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
-            <Terminal className="w-6 h-6 text-primary" />
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 border border-primary/25 text-primary font-semibold text-sm mb-4">
+            <Terminal className="w-4 h-4" /> About Me
           </div>
-          <h2 className="text-3xl font-bold tracking-tighter sm:text-4xl">
+          <h2 className="text-4xl font-bold sm:text-5xl">
             Engineering Profile
           </h2>
+          <p className="mt-3 text-muted-foreground max-w-xl mx-auto">
+            CS graduate, 1.5+ years building complex frontends. I care about code that scales.
+          </p>
         </div>
 
         {/* --- BENTO GRID LAYOUT --- */}
@@ -56,7 +53,7 @@ export const About = () => {
           {/* --- CARD 1: BIO (BLUE ACCENT) --- */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="md:col-span-2 relative overflow-hidden border-primary/20 bg-linear-to-br from-primary/5 via-card to-card"
+            className="md:col-span-2 relative overflow-hidden border-primary/20 bg-linear-to-br from-primary/5 via-card to-card rounded-3xl"
           >
             {/* Decoration Icon */}
             <div className="absolute -top-6 -right-6 opacity-[0.03] rotate-12 pointer-events-none">
@@ -88,7 +85,7 @@ export const About = () => {
           {/* --- CARD 2: GPA (AMBER ACCENT) --- */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="md:col-span-1 border-primary/20 bg-linear-to-br from-primary/10 via-card to-card relative overflow-hidden"
+            className="md:col-span-1 border-primary/20 bg-linear-to-br from-primary/10 via-card to-card relative overflow-hidden rounded-3xl"
           >
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#C8E64526,transparent_70%)]" />
 
@@ -122,7 +119,7 @@ export const About = () => {
           {/* --- CARD 3: EDUCATION (VIOLET ACCENT) --- */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="md:col-span-1 border-[#5B8FE8]/20 bg-linear-to-br from-[#5B8FE8]/5 via-card to-card"
+            className="md:col-span-1 border-[#5B8FE8]/20 bg-linear-to-br from-[#5B8FE8]/5 via-card to-card rounded-3xl"
           >
             <CardContent className="flex flex-col justify-center h-full space-y-6">
               <div className="flex items-center gap-2 text-[#5B8FE8] font-semibold text-base">
@@ -154,7 +151,7 @@ export const About = () => {
           {/* --- CARD 4: TECH STACK (EMERALD ACCENT) --- */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="md:col-span-2 border-[#FF8C42]/20 bg-linear-to-br from-[#FF8C42]/5 via-card to-card"
+            className="md:col-span-2 border-[#FF8C42]/20 bg-linear-to-br from-[#FF8C42]/5 via-card to-card rounded-3xl"
           >
             <CardContent className="p-0 h-full flex flex-col">
               {/* Internal Header */}

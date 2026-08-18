@@ -73,15 +73,9 @@ export const ContactSection = () => {
   return (
     <section id="contact" className="relative w-full py-24 overflow-hidden">
       {/* --- BACKGROUND --- */}
-      <div className="absolute inset-0 bg-slate-50/50 dark:bg-slate-950/20" />
-      <div
-        className="absolute inset-0 h-full w-full opacity-[0.1] dark:opacity-[0.25]"
-        style={{
-          backgroundImage: `repeating-linear-gradient(45deg, #64748b 0, #64748b 1px, transparent 0, transparent 50%)`,
-          backgroundSize: "40px 40px",
-        }}
-      />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-cyan-500/10 dark:bg-cyan-500/5 rounded-full blur-[100px] -z-10" />
+      <div className="absolute inset-0 bg-[#F0F8FF]/40 dark:bg-[#0F1B40]/20" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-[#C8E645]/10 rounded-full blur-[100px] -z-10" />
+      <div className="absolute top-0 left-0 w-[500px] h-[400px] bg-[#5B8FE8]/10 rounded-full blur-[100px] -z-10" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_90%)]" />
 
       <div className="container px-4 md:px-6 mx-auto max-w-6xl relative z-10">
@@ -95,13 +89,13 @@ export const ContactSection = () => {
           {/* --- SECTION: LEFT COLUMN (INFO) --- */}
           <div className="space-y-8">
             <motion.div variants={HERO_ANIMATION.item} className="space-y-4">
-              <div className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400 font-mono text-sm tracking-wider uppercase">
+              <div className="flex items-center gap-2 text-primary font-mono text-sm tracking-wider uppercase">
                 <Terminal className="w-4 h-4" />
                 <span>/contact-me</span>
               </div>
               <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl">
                 Let&apos;s build something <br />
-                <span className="text-cyan-600 dark:text-cyan-400">
+                <span className="text-primary">
                   exceptional.
                 </span>
               </h2>
@@ -114,10 +108,10 @@ export const ContactSection = () => {
 
             {/* Status Badge */}
             <motion.div variants={HERO_ANIMATION.item}>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-sm font-medium">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[#1B2E6E] dark:text-primary text-sm font-medium">
                 <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                 </span>
                 Open to new opportunities
               </div>
@@ -130,14 +124,14 @@ export const ContactSection = () => {
             >
               <Link
                 href="mailto:hoangphucpham.work@gmail.com"
-                className="flex items-center gap-4 p-4 rounded-xl border bg-card/50 hover:bg-cyan-500/5 hover:border-cyan-500/30 transition-all group"
+                className="flex items-center gap-4 p-4 rounded-xl border bg-card/50 hover:bg-primary/5 hover:border-primary/30 transition-all group"
               >
-                <div className="p-3 rounded-lg bg-cyan-500/10 text-cyan-600 group-hover:scale-110 transition-transform">
+                <div className="p-3 rounded-lg bg-primary/10 text-[#1B2E6E] dark:text-primary group-hover:scale-110 transition-transform">
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
                   <p className="text-sm text-muted-foreground">Email me at</p>
-                  <p className="font-semibold text-foreground group-hover:text-cyan-600 transition-colors">
+                  <p className="font-semibold text-foreground group-hover:text-primary transition-colors">
                     hoangphucpham.work@gmail.com
                   </p>
                 </div>
@@ -156,7 +150,7 @@ export const ContactSection = () => {
                 <Link
                   href="https://www.linkedin.com/in/pahopu"
                   target="_blank"
-                  className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border bg-card/50 hover:bg-blue-500/5 hover:border-blue-500/30 hover:text-blue-600 transition-all"
+                  className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border bg-card/50 hover:bg-[#5B8FE8]/10 hover:border-[#5B8FE8]/30 hover:text-[#5B8FE8] transition-all"
                 >
                   <Linkedin className="w-5 h-5" />
                   <span>LinkedIn</span>
@@ -168,14 +162,14 @@ export const ContactSection = () => {
           {/* --- SECTION: RIGHT COLUMN (FORM WITH HOOK FORM) --- */}
           <motion.div variants={HERO_ANIMATION.item}>
             {/* Styled MotionCard matching About section aesthetics (Cyan Accent) */}
-            <MotionCard className="border-cyan-500/20 bg-linear-to-br from-cyan-500/5 via-card to-card relative overflow-hidden shadow-lg">
+            <MotionCard className="border-primary/20 bg-linear-to-br from-primary/5 via-card to-card relative overflow-hidden shadow-lg">
               {/* Internal decorative gradient */}
               <div className="absolute top-0 right-0 p-6 opacity-5 -rotate-12 pointer-events-none">
                 <Send size={100} />
               </div>
 
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-cyan-600 dark:text-cyan-400">
+                <CardTitle className="flex items-center gap-2 text-[#1B2E6E] dark:text-primary">
                   <MessageSquare className="w-5 h-5" /> Send a message
                 </CardTitle>
                 <CardDescription>
@@ -198,7 +192,7 @@ export const ContactSection = () => {
                         className={`bg-background/50 focus:bg-background transition-colors ${
                           errors.user_name
                             ? "border-red-500 focus-visible:ring-red-500"
-                            : "focus-visible:ring-cyan-500/50 border-cyan-500/10"
+                            : "focus-visible:ring-primary/50 border-primary/10"
                         }`}
                       />
                     </div>
@@ -219,7 +213,7 @@ export const ContactSection = () => {
                         className={`bg-background/50 focus:bg-background transition-colors ${
                           errors.user_email
                             ? "border-red-500 focus-visible:ring-red-500"
-                            : "focus-visible:ring-cyan-500/50 border-cyan-500/10"
+                            : "focus-visible:ring-primary/50 border-primary/10"
                         }`}
                       />
                     </div>
@@ -237,7 +231,7 @@ export const ContactSection = () => {
                       className={`bg-background/50 focus:bg-background transition-colors ${
                         errors.subject
                           ? "border-red-500 focus-visible:ring-red-500"
-                          : "focus-visible:ring-cyan-500/50 border-cyan-500/10"
+                          : "focus-visible:ring-primary/50 border-primary/10"
                       }`}
                     />
                   </div>
@@ -253,7 +247,7 @@ export const ContactSection = () => {
                       className={`min-h-[150px] bg-background/50 focus:bg-background transition-colors resize-none ${
                         errors.message
                           ? "border-red-500 focus-visible:ring-red-500"
-                          : "focus-visible:ring-cyan-500/50 border-cyan-500/10"
+                          : "focus-visible:ring-primary/50 border-primary/10"
                       }`}
                       disabled={isSubmitting}
                     />
@@ -262,7 +256,7 @@ export const ContactSection = () => {
                   {/* Submit Button */}
                   <Button
                     type="submit"
-                    className="w-full gap-2 mt-2 bg-linear-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white border-none"
+                    className="w-full gap-2 mt-2 bg-primary text-[#1B2E6E] hover:bg-primary/90 font-bold rounded-full border-none"
                     size="lg"
                     disabled={isSubmitting || status === "success"}
                   >

@@ -18,6 +18,15 @@ const Star = ({ size, color, className }: { size: number; color: string; classNa
   </span>
 );
 
+const Cloud = ({ className }: { className?: string }) => (
+  <svg viewBox="0 0 200 100" className={cn("absolute pointer-events-none select-none opacity-20", className)} aria-hidden>
+    <ellipse cx="100" cy="70" rx="90" ry="40" fill="white" />
+    <ellipse cx="70" cy="55" rx="45" ry="35" fill="white" />
+    <ellipse cx="130" cy="50" rx="50" ry="38" fill="white" />
+    <ellipse cx="100" cy="45" rx="60" ry="38" fill="white" />
+  </svg>
+);
+
 export const Hero = () => {
   return (
     <section
@@ -36,6 +45,10 @@ export const Hero = () => {
       <Star size={28} color="#C5D8F5" className="top-[22%] left-[18%]" />
       <Star size={32} color="#C5D8F5" className="bottom-[30%] right-[18%]" />
       <Star size={20} color="#C5D8F5" className="top-[60%] left-[12%]" />
+
+      {/* Cloud shapes */}
+      <Cloud className="w-96 h-48 bottom-0 left-0 -translate-x-1/4 translate-y-1/4" />
+      <Cloud className="w-80 h-40 top-0 right-0 translate-x-1/4 -translate-y-1/4 rotate-12" />
 
       {/* Content */}
       <div className="container px-4 md:px-6 flex flex-col items-center text-center z-10">
@@ -103,7 +116,7 @@ export const Hero = () => {
               href="#contact"
               className={cn(
                 buttonVariants({ size: "lg" }),
-                "group h-12 px-8 text-base font-bold bg-[#C8E645] text-[#1B2E6E] hover:bg-[#d4ed4f] hover:shadow-lg transition-all duration-300 border-0"
+                "group h-12 px-8 text-base font-bold bg-[#C8E645] text-[#1B2E6E] hover:bg-[#d4ed4f] hover:shadow-lg transition-all duration-300 border-0 rounded-full"
               )}
             >
               Contact Me
@@ -114,7 +127,7 @@ export const Hero = () => {
               href="#projects"
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "hidden md:inline-flex h-12 px-8 text-base font-semibold bg-white/10 backdrop-blur-sm border-white/40 text-white hover:bg-white/20"
+                "hidden md:inline-flex h-12 px-8 text-base font-semibold bg-white/10 backdrop-blur-sm border-white/40 text-white hover:bg-white/20 rounded-full"
               )}
             >
               View Projects <Briefcase className="ml-2 h-4 w-4" />
@@ -126,7 +139,7 @@ export const Hero = () => {
               rel="noopener noreferrer"
               className={cn(
                 buttonVariants({ variant: "outline", size: "lg" }),
-                "md:hidden h-12 px-8 text-base font-semibold bg-white/10 backdrop-blur-sm border-white/40 text-white hover:bg-white/20"
+                "md:hidden h-12 px-8 text-base font-semibold bg-white/10 backdrop-blur-sm border-white/40 text-white hover:bg-white/20 rounded-full"
               )}
             >
               Download CV <Download className="ml-2 h-4 w-4" />

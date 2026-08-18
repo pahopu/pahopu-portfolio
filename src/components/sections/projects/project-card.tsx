@@ -42,7 +42,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
       }}
       style={{ willChange: "opacity, transform" }}
       className={cn(
-        "flex flex-col h-full overflow-hidden p-0 gap-0 transition-all duration-300 border bg-card hover:shadow-xl hover:border-primary/20",
+        "flex flex-col h-full overflow-hidden p-0 gap-0 transition-all duration-300 border bg-card hover:shadow-lg hover:shadow-primary/10 hover:border-primary/20",
         project.featured ? "md:col-span-2 lg:grid lg:grid-cols-2 lg:gap-0" : ""
       )}
     >
@@ -97,7 +97,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
               <Badge
                 key={tag}
                 variant="outline"
-                className="bg-primary/5 border-primary/20"
+                className="bg-primary/5 border-primary/20 rounded-full"
               >
                 {tag}
               </Badge>
