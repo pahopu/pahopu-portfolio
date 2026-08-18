@@ -93,7 +93,7 @@ export const Experience = () => {
                   <ul className="space-y-2.5">
                     {job.highlights.map((h, i) => (
                       <li key={i} className="flex items-start gap-2.5 text-sm text-foreground/80 leading-relaxed">
-                        <StarIcon size={12} color={accent.star} />
+                        <span className="mt-[3px] shrink-0"><StarIcon size={12} color={accent.star} /></span>
                         <span>{h}</span>
                       </li>
                     ))}

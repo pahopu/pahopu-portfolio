@@ -2,9 +2,10 @@
 
 import { Download, Menu } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
-import { usePathname, useRouter } from "@/i18n/navigation";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useTheme } from "next-themes";
 
 import { ModeToggle } from "@/components/shared/mode-toggle";
 import { Button } from "@/components/ui/button";
@@ -21,13 +22,20 @@ import { cn } from "@/lib/utils";
 
 const TRAIL_COLORS = ["#C8E645", "#FFE566", "#5B8FE8", "#F5B8CC", "#FF8C42"];
 
-// CONGBDAY star badge for the logo
-const LogoStar = () => (
-  <div className="w-7 h-7 rounded-full bg-[#5B8FE8] flex items-center justify-center shrink-0 shadow-sm">
+// Logo badge: always shows a star, colors transition smoothly with the theme
+const LogoBadge = ({ isDark }: { isDark: boolean }) => (
+  <div
+    className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 shadow-sm"
+    style={{
+      backgroundColor: isDark ? "#1B2E6E" : "#5B8FE8",
+      color: isDark ? "#FFE566" : "#C8E645",
+      transition: "background-color 0.5s, color 0.5s",
+    }}
+  >
     <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden>
       <path
         d="M12 2L14.39 8.26L21 9.27L16.5 13.97L17.78 21L12 17.77L6.22 21L7.5 13.97L3 9.27L9.61 8.26Z"
-        fill="#C8E645" stroke="#C8E645" strokeWidth="1.5" strokeLinejoin="round"
+        fill="currentColor" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
       />
     </svg>
   </div>
@@ -37,19 +45,22 @@ export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [trailEnabled, setTrailEnabled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string>("");
 
   const locale = useLocale();
-  const router = useRouter();
-  const pathname = usePathname();
-  const t = useTranslations("nav");
 
-  // Logo click counter for cursor trail easter egg
+  const t = useTranslations("nav");
+  const { resolvedTheme } = useTheme();
+
+  const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
+  const isDark = mounted && resolvedTheme === "dark";
+
   const logoClickCount = useRef(0);
   const logoClickTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const switchLocale = () => {
     const next = locale === "en" ? "vi" : "en";
-    router.replace(pathname, { locale: next });
+    window.location.href = `/${next}`;
   };
 
   const handleLogoClick = (e: React.MouseEvent) => {
@@ -59,9 +70,29 @@ export const Navbar = () => {
     logoClickTimer.current = setTimeout(() => { logoClickCount.current = 0; }, 1800);
     if (logoClickCount.current >= 5) {
       logoClickCount.current = 0;
-      setTrailEnabled((prev) => !prev);
+      setTrailEnabled((prev: boolean) => !prev);
     }
   };
+
+  // Active section tracking via IntersectionObserver
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible.length > 0) setActiveSection(`#${visible[0].target.id}`);
+      },
+      { threshold: 0.3, rootMargin: "-10% 0px -60% 0px" }
+    );
+
+    NAV_LINKS.forEach((link) => {
+      const el = document.getElementById(link.href.slice(1));
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   /* Cursor star trail effect */
   useEffect(() => {
@@ -100,11 +131,11 @@ export const Navbar = () => {
 
   const logoEl = (
     <span className="flex items-center gap-2 transition-transform hover:scale-105">
-      <LogoStar />
-      <span className={cn(
-        "font-bold text-xl tracking-tight font-display",
-        trailEnabled ? "text-primary" : "text-foreground"
-      )}>
+      <LogoBadge isDark={isDark} />
+      <span
+        className={cn("font-bold text-xl tracking-tight", trailEnabled ? "text-primary" : "text-foreground")}
+        style={{ fontFamily: "var(--font-fredoka)" }}
+      >
         pahopu
       </span>
     </span>
@@ -135,7 +166,14 @@ export const Navbar = () => {
             <Link
               key={link.href}
               href={link.href}
-              className="text-sm font-medium hover:text-primary transition-colors"
+              className={cn(
+                "text-sm font-medium transition-colors relative group",
+                "after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:rounded-full after:bg-primary",
+                "after:transition-transform after:duration-300 after:origin-left",
+                activeSection === link.href
+                  ? "text-primary after:scale-x-100"
+                  : "text-foreground/70 hover:text-primary after:scale-x-0 group-hover:after:scale-x-100"
+              )}
             >
               {t(link.key as "about" | "skills" | "projects" | "experience" | "contact")}
             </Link>
@@ -144,7 +182,7 @@ export const Navbar = () => {
           <div className="flex items-center gap-4">
             <button
               onClick={switchLocale}
-              className="text-xs font-bold px-2.5 py-1 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all"
+              className="text-xs font-bold px-2.5 py-1 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all cursor-pointer"
               aria-label="Switch language"
             >
               {locale === "en" ? "VI" : "EN"}
@@ -172,8 +210,8 @@ export const Navbar = () => {
               <SheetHeader className="text-left border-b px-6 py-4">
                 <SheetTitle>
                   <span className="flex items-center gap-2">
-                    <LogoStar />
-                    <span className="font-bold text-xl font-display">pahopu</span>
+                    <LogoBadge isDark={isDark} />
+                    <span className="font-bold text-xl" style={{ fontFamily: "var(--font-fredoka)" }}>pahopu</span>
                   </span>
                 </SheetTitle>
                 <SheetDescription className="sr-only">Mobile Navigation Menu</SheetDescription>
@@ -185,7 +223,10 @@ export const Navbar = () => {
                     key={link.href}
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="block py-4 px-6 text-lg font-medium text-foreground/80 hover:text-primary hover:bg-accent/50 hover:pl-8 transition-all border-b border-border/40 last:border-0"
+                    className={cn(
+                      "block py-4 px-6 text-lg font-medium hover:text-primary hover:bg-accent/50 hover:pl-8 transition-all border-b border-border/40 last:border-0",
+                      activeSection === link.href ? "text-primary" : "text-foreground/80"
+                    )}
                   >
                     {t(link.key as "about" | "skills" | "projects" | "experience" | "contact")}
                   </Link>
@@ -195,7 +236,7 @@ export const Navbar = () => {
               <div className="mt-auto p-6 border-t flex flex-col gap-3">
                 <button
                   onClick={switchLocale}
-                  className="w-full text-sm font-bold py-2.5 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all"
+                  className="w-full text-sm font-bold py-2.5 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all cursor-pointer"
                   aria-label="Switch language"
                 >
                   {locale === "en" ? "Switch to Vietnamese (VI)" : "Switch to English (EN)"}

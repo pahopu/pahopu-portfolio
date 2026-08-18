@@ -4,11 +4,20 @@ import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { HERO_ANIMATION } from "@/constants";
 import { motion } from "framer-motion";
+import {
+  Award,
+  Briefcase,
+  Code2,
+  Cpu,
+  GraduationCap,
+  Layers,
+  Rocket,
+  Sparkles,
+} from "lucide-react";
 import { useTranslations } from "next-intl";
 
 const MotionCard = motion(Card);
 
-// Rotating star decoration used in card corners
 const StarDeco = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} aria-hidden>
     <path
@@ -23,7 +32,6 @@ export const About = () => {
 
   return (
     <section id="about" className="relative w-full py-24 overflow-hidden">
-      {/* Background blobs */}
       <div className="absolute inset-0 bg-[#F0F6FF]/60 dark:bg-[#0F1B40]/30" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-[#5B8FE8]/8 rounded-full blur-[150px] -z-10" />
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/6 rounded-full blur-[100px] -z-10" />
@@ -44,102 +52,118 @@ export const About = () => {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-5"
+          className="flex flex-col gap-5"
         >
-          {/* Liner Notes card */}
+          {/* ── Bio card (full width) ── */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="md:col-span-2 rounded-3xl relative overflow-hidden border-primary/20 bg-linear-to-br from-primary/5 via-card to-card"
+            className="rounded-3xl relative overflow-hidden border-primary/20 bg-linear-to-br from-primary/5 via-card to-card"
           >
-            {/* Corner star deco */}
-            <StarDeco className="absolute -top-4 -right-4 w-24 h-24 text-primary/5 rotate-12 pointer-events-none" />
-            <StarDeco className="absolute -bottom-6 -left-6 w-32 h-32 text-[#5B8FE8]/5 -rotate-12 pointer-events-none" />
+            <StarDeco className="absolute -top-4 -right-4 w-28 h-28 text-primary/5 rotate-12 pointer-events-none" />
+            <StarDeco className="absolute -bottom-6 -left-6 w-36 h-36 text-[#5B8FE8]/5 -rotate-12 pointer-events-none" />
 
-            <CardContent className="p-6 md:p-8 space-y-5">
-              <div className="flex items-center gap-2 text-primary font-semibold text-lg">
-                <span className="text-xl">✦</span> {t("mindset_label")}
+            <CardContent className="p-6 md:p-8">
+              {/* Decorative label divider */}
+              <div className="flex items-center gap-3 mb-5">
+                <div className="h-px flex-1 bg-border" />
+                <span className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-primary/80">
+                  <Sparkles className="h-3 w-3" />
+                  {t("mindset_label")}
+                </span>
+                <div className="h-px flex-1 bg-border" />
               </div>
-              <p className="text-muted-foreground leading-relaxed text-lg">{t("bio_1")}</p>
-              <p className="text-muted-foreground leading-relaxed">{t("bio_2")}</p>
 
-              {/* Credits strip — album liner style */}
-              <div className="pt-3 border-t border-primary/10 space-y-2">
-                <div className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                  <span className="text-[#5B8FE8] text-base leading-none mt-0.5">🎓</span>
+              {/* Bio text — 2-col on md+ */}
+              <div className="grid md:grid-cols-2 gap-4 mb-5">
+                <p className="text-muted-foreground leading-relaxed">{t("bio_1")}</p>
+                <p className="text-muted-foreground leading-relaxed">{t("bio_2")}</p>
+              </div>
+
+              {/* Edu / Awards divider */}
+              <div className="flex items-center gap-3 mb-4">
+                <div className="h-px flex-1 bg-border" />
+                <span className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest text-muted-foreground/70">
+                  <GraduationCap className="h-3 w-3" />
+                  {t("edu_label")}
+                </span>
+                <div className="h-px flex-1 bg-border" />
+              </div>
+
+              {/* Edu / Awards */}
+              <div className="flex flex-col sm:flex-row gap-3 mb-6">
+                <div className="flex items-start gap-3 text-sm text-muted-foreground flex-1">
+                  <span className="p-1 rounded-md bg-[#5B8FE8]/10 text-[#5B8FE8] shrink-0 mt-0.5">
+                    <GraduationCap className="h-3.5 w-3.5" />
+                  </span>
                   <span>{t("edu_line")}</span>
                 </div>
-                <div className="flex items-start gap-2.5 text-sm text-muted-foreground">
-                  <span className="text-[#FFE566] text-base leading-none mt-0.5">🏆</span>
+                <div className="flex items-start gap-3 text-sm text-muted-foreground flex-1">
+                  <span className="p-1 rounded-md bg-[#FFE566]/20 text-[#B8930A] dark:text-[#FFE566] shrink-0 mt-0.5">
+                    <Award className="h-3.5 w-3.5" />
+                  </span>
                   <span>{t("awards_line")}</span>
+                </div>
+              </div>
+
+              {/* Stats strip */}
+              <div className="grid grid-cols-3 gap-4 pt-5 border-t border-border">
+                {/* GPA */}
+                <div className="flex flex-col items-center text-center gap-2">
+                  <span className="p-2 rounded-xl bg-primary/15 text-primary">
+                    <GraduationCap className="h-5 w-5" />
+                  </span>
+                  <div className="text-3xl font-extrabold text-primary leading-none">{t("gpa")}</div>
+                  <div className="text-xs text-muted-foreground uppercase tracking-widest leading-tight">{t("gpa_label")}</div>
+                  <Badge variant="outline" className="rounded-full border-primary/40 text-primary bg-primary/15 text-xs px-2 py-0.5">
+                    {t("gpa_badge")}
+                  </Badge>
+                </div>
+
+                {/* Experience */}
+                <div className="flex flex-col items-center text-center gap-2 border-x border-border px-4">
+                  <span className="p-2 rounded-xl bg-[#5B8FE8]/15 text-[#5B8FE8]">
+                    <Briefcase className="h-5 w-5" />
+                  </span>
+                  <div className="text-3xl font-extrabold text-[#5B8FE8] leading-none">{t("exp_number")}</div>
+                  <div className="text-xs text-muted-foreground uppercase tracking-widest leading-tight">{t("exp_label")}</div>
+                </div>
+
+                {/* Projects */}
+                <div className="flex flex-col items-center text-center gap-2">
+                  <span className="p-2 rounded-xl bg-[#FFE566]/30 text-[#1B2E6E] dark:text-[#FFE566]">
+                    <Rocket className="h-5 w-5" />
+                  </span>
+                  <div className="text-3xl font-extrabold text-[#1B2E6E] dark:text-[#FFE566] leading-none">{t("projects_number")}</div>
+                  <div className="text-xs text-muted-foreground uppercase tracking-widest leading-tight">{t("projects_label")}</div>
                 </div>
               </div>
             </CardContent>
           </MotionCard>
 
-          {/* Award sticker badges column */}
-          <div className="md:col-span-1 flex flex-col gap-4">
-            {/* GPA sticker */}
-            <MotionCard
-              variants={HERO_ANIMATION.item}
-              className="rounded-3xl text-center border-primary/20 bg-linear-to-br from-primary/15 via-card to-card flex-1 relative overflow-hidden"
-            >
-              <StarDeco className="absolute top-2 right-2 w-8 h-8 text-primary/15" />
-              <CardContent className="flex flex-col items-center justify-center h-full py-7 px-4">
-                <span className="text-3xl mb-1">🎓</span>
-                <div className="text-5xl font-extrabold text-primary leading-none mb-1">{t("gpa")}</div>
-                <div className="text-xs text-muted-foreground uppercase tracking-widest">{t("gpa_label")}</div>
-                <Badge variant="outline" className="mt-3 rounded-full border-primary/30 text-[#1B2E6E] dark:text-primary-foreground bg-primary/10 text-xs">
-                  {t("gpa_badge")}
-                </Badge>
-              </CardContent>
-            </MotionCard>
-
-            {/* Experience sticker */}
-            <MotionCard
-              variants={HERO_ANIMATION.item}
-              className="rounded-3xl text-center border-[#5B8FE8]/20 bg-linear-to-br from-[#5B8FE8]/10 via-card to-card flex-1"
-            >
-              <CardContent className="flex flex-col items-center justify-center h-full py-7 px-4">
-                <span className="text-3xl mb-1">⚡</span>
-                <div className="text-5xl font-extrabold text-[#5B8FE8] leading-none mb-1">{t("exp_number")}</div>
-                <div className="text-xs text-muted-foreground uppercase tracking-widest">{t("exp_label")}</div>
-              </CardContent>
-            </MotionCard>
-
-            {/* Projects sticker */}
-            <MotionCard
-              variants={HERO_ANIMATION.item}
-              className="rounded-3xl text-center border-[#FFE566]/30 bg-linear-to-br from-[#FFE566]/20 via-card to-card flex-1"
-            >
-              <CardContent className="flex flex-col items-center justify-center h-full py-7 px-4">
-                <span className="text-3xl mb-1">🚀</span>
-                <div className="text-5xl font-extrabold text-[#1B2E6E] dark:text-[#FFE566] leading-none mb-1">{t("projects_number")}</div>
-                <div className="text-xs text-muted-foreground uppercase tracking-widest">{t("projects_label")}</div>
-              </CardContent>
-            </MotionCard>
-          </div>
-
-          {/* "Produced With" credits card */}
+          {/* ── Technical Arsenal ── */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="md:col-span-3 rounded-3xl border-[#FF8C42]/20 bg-linear-to-br from-[#FF8C42]/5 via-card to-card"
+            className="rounded-3xl border-[#FF8C42]/20 bg-linear-to-br from-[#FF8C42]/5 via-card to-card"
           >
-            <CardContent className="p-0 h-full flex flex-col">
-              <div className="p-5 border-b border-[#FF8C42]/10 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-[#FF8C42] font-semibold">
-                  <span>⚡</span> {t("stack_label")}
+            <CardContent className="p-5 md:p-6">
+              <div className="flex items-center justify-between mb-5">
+                <div className="flex items-center gap-2.5 text-[#FF8C42] font-semibold">
+                  <span className="p-1.5 rounded-lg bg-[#FF8C42]/15">
+                    <Code2 className="h-4 w-4" />
+                  </span>
+                  {t("stack_label")}
                 </div>
-                {/* Decorative traffic-light dots (album art nod) */}
-                <div className="flex gap-1.5 opacity-50">
+                <div className="flex gap-1.5 opacity-40">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#FF8C42]/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-[#FFE566]/60" />
                   <div className="w-2.5 h-2.5 rounded-full bg-primary/60" />
                 </div>
               </div>
-              <div className="p-5 grid sm:grid-cols-2 gap-6">
+
+              <div className="grid sm:grid-cols-2 gap-6">
                 <div className="space-y-3">
                   <h4 className="text-xs font-bold uppercase text-muted-foreground tracking-wider flex items-center gap-1.5">
-                    🎨 {t("core_label")}
+                    <Layers className="h-3.5 w-3.5" /> {t("core_label")}
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {["JavaScript (ES6+)", "TypeScript", "Vue 3", "React", "Next.js", "Quasar", "Tailwind CSS"].map((tech) => (
@@ -151,7 +175,7 @@ export const About = () => {
                 </div>
                 <div className="space-y-3">
                   <h4 className="text-xs font-bold uppercase text-muted-foreground tracking-wider flex items-center gap-1.5">
-                    🔬 {t("cs_label")}
+                    <Cpu className="h-3.5 w-3.5" /> {t("cs_label")}
                   </h4>
                   <div className="flex flex-wrap gap-2">
                     {["C/C++", "Python", "PyTorch", "OpenCV", "MS SQL Server", "Git/GitHub"].map((tech) => (

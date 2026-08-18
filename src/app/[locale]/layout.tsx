@@ -1,26 +1,22 @@
 import { EasterEgg } from "@/components/shared/easter-egg";
+import { DynamicFavicon } from "@/components/shared/dynamic-favicon";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Navbar } from "@/components/shared/navbar";
 import { ScrollProgress } from "@/components/shared/scroll-progress";
 import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Fredoka, Geist, Geist_Mono } from "next/font/google";
+import { Nunito, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 import "../globals.css";
 
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+const nunito = Nunito({
+  variable: "--font-nunito",
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600", "700", "800"],
   display: "swap",
-});
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
 });
 
 const geistMono = Geist_Mono({
@@ -70,8 +66,11 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/icon",
-    shortcut: "/icon",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon", type: "image/png" },
+    ],
+    shortcut: "/favicon.svg",
     apple: "/icon",
   },
 
@@ -103,25 +102,26 @@ export default async function LocaleLayout({
   if (!routing.locales.includes(locale as "en" | "vi")) {
     notFound();
   }
+  setRequestLocale(locale);
   const messages = await getMessages();
 
   return (
     <html lang={locale} suppressHydrationWarning>
       <body
         className={cn(
-          geistSans.variable,
+          nunito.variable,
           geistMono.variable,
-          fredoka.variable,
           "font-sans antialiased bg-background text-foreground"
         )}
       >
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <ThemeProvider
             attribute="class"
-            defaultTheme="system"
+            defaultTheme="light"
             enableSystem
             disableTransitionOnChange
           >
+            <DynamicFavicon />
             <ScrollProgress />
             <Navbar />
             <main className="pt-16 min-h-screen text-foreground">{children}</main>

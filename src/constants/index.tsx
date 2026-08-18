@@ -45,7 +45,142 @@ export const HERO_SOCIALS = [
 
 /* --- SECTION: PROJECTS DATA --- */
 export const PROJECTS = [
-  /* --- PROJECT 1: ERP SYSTEM --- */
+  /* --- PROJECT 1: CARELINK --- */
+  {
+    id: "carelink",
+    title: "CareLink — Healthcare Platform",
+    description:
+      "A multi-portal healthcare platform with 3 Vue 3 applications (Admin, Doctor, Provider) for managing providers, patients, appointments, and clinical data. Built for Spring Knowledge Global.",
+    image: "",
+    tags: ["Vue 3", "TypeScript", "Vuetify 3", "UnoCSS", "Pinia", "AG Grid", "Firebase", "CASL"],
+    links: { demo: null, github: null },
+    achievements: [
+      "Statistics Dashboards across 3 portals — KPIs, trend charts, commission calculations, and smart PDF/Excel export with auto page-break slicing.",
+      "End-to-end Provider/Facility management with Google Maps integration, file uploads, and CASL role-based access control.",
+      "Patient document module with PDF viewer, thumbnails, deduplication, and search; Indication slip sharing with QR code and geocoding.",
+    ],
+    featured: false,
+    caseStudy: {
+      type: "complex",
+      overview: {
+        challenge:
+          "Three distinct user groups (Admins, Doctors, Providers) needed tailored workflows with shared business logic — and the platform was mid-project rebranded from MedLink to CareLink across all portals.",
+        solution:
+          "Shared architecture with Vuetify 3 + UnoCSS + Pinia across all 3 portals, with CASL-based permission gating per user type. Led the rebrand execution — updating component names, i18n strings, dark mode tokens, and assets across the entire codebase.",
+        impact:
+          "Delivered a cohesive multi-portal product with consistent UX, permission-aware feature access, and a full-featured Statistics Dashboard as the primary analytical tool for all three user groups.",
+      },
+      diagram: {
+        type: "hub-spoke" as const,
+        title: "3-Portal Architecture",
+        nodes: [{ label: "Admin Portal" }, { label: "Doctor Portal" }, { label: "Provider Portal" }],
+      },
+      modules: [
+        {
+          id: "statistics",
+          name: "Statistics Dashboard",
+          icon: "LayoutDashboard",
+          star: {
+            situation: "All three portals needed analytical dashboards with KPIs, revenue, patient flow, appointment TAT, and commission visibility.",
+            task: "Build rich, interactive dashboards with chart visualizations and exportable reports for each portal.",
+            action: [
+              "KPI Cards & Trend Charts: Chart.js/ApexCharts visualizations for revenue, retention, and TAT metrics tailored per portal.",
+              "Smart PDF/Excel Export: Auto page-break pipeline with custom font embedding for high-fidelity report generation.",
+              "Provider Dashboard (~10k lines): Built the Provider Statistics module from scratch in a single focused sprint.",
+            ],
+            result: "Each portal has a fully featured, export-ready dashboard as its primary analytical surface.",
+          },
+        },
+        {
+          id: "provider-mgmt",
+          name: "Provider & Patient Management",
+          icon: "Users",
+          star: {
+            situation: "Admins needed to manage provider onboarding, facility verification, and patient records across a growing network.",
+            task: "Build end-to-end management flows with map integration, file handling, and permission-gated actions.",
+            action: [
+              "Provider/Facility CRUD: Create, approve, restore, and deactivate providers with Google Maps location picker and multi-file upload.",
+              "Patient Documents: Viewer, thumbnail strip, deduplication logic, and search for patient attachments.",
+              "Indication Slips: Responsive PDF preview with QR code generation and geocoding for sharing.",
+            ],
+            result: "Admins and doctors can manage the full provider/patient lifecycle from a single, cohesive interface.",
+          },
+        },
+      ],
+    },
+  },
+
+  /* --- PROJECT 2: UNI-VOICE --- */
+  {
+    id: "uni-voice",
+    title: "Uni-Voice — Hazard Map Admin System",
+    description:
+      "An admin system for Japanese municipal disaster-response operators to manage hazard maps, shelter locations, and evacuation data. Built for Spring Knowledge Global.",
+    image: "",
+    tags: ["Vue 3", "Quasar", "TypeScript", "AWS S3", "AWS Amplify", "Leaflet", "GeoJSON", "AG Grid"],
+    links: { demo: null, github: null },
+    achievements: [
+      "Interactive shelter mapping with Leaflet + Google Maps, GeoJSON polygon layers, and clustering for prefecture-level data management.",
+      "Map tile generation job system — stepper wizard UI, S3-backed pipeline, drag-and-drop layer ordering.",
+      "Machine translation pipeline (Google Translate API) for multilingual shelter data; bulk CSV import/export by prefecture.",
+    ],
+    featured: false,
+    caseStudy: {
+      type: "complex",
+      overview: {
+        challenge:
+          "Japanese municipal operators needed to manage complex geospatial datasets — shelter locations, hazard zones, evacuation routes — across multiple prefectures, with multilingual output requirements.",
+        solution:
+          "Vue 3 + Quasar admin backed by AWS S3/Cognito/Amplify, with Leaflet for interactive mapping, AG Grid for bulk data management, and a Google Translate integration for automated multilingual data generation.",
+        impact:
+          "Delivered a full-featured geospatial admin tool enabling operators to manage, translate, and publish hazard map data without manual GIS tooling.",
+      },
+      diagram: {
+        type: "pipeline" as const,
+        title: "Map Tile Pipeline",
+        nodes: [
+          { label: "Input", sub: "Layer Config" },
+          { label: "Wizard", sub: "Stepper UI" },
+          { label: "Generate", sub: "S3 Job" },
+          { label: "Publish", sub: "Tile Output" },
+        ],
+      },
+      modules: [
+        {
+          id: "mapping",
+          name: "Shelter Mapping",
+          icon: "MapPin",
+          star: {
+            situation: "Operators needed to view and edit hundreds of shelter locations across multiple prefectures on an interactive map.",
+            task: "Build a geospatial management UI with clustering, GeoJSON layer support, and inline editing.",
+            action: [
+              "Interactive Map: Leaflet + Google Maps with GeoJSON polygon layers, marker clustering, and click-to-edit shelter details.",
+              "Bulk CSV Import/Export: Prefecture-level CSV pipeline for uploading and downloading shelter datasets.",
+              "Translation Pipeline: Google Translate API integration to auto-generate multilingual shelter names and descriptions.",
+            ],
+            result: "Operators can manage the full shelter dataset visually and export translation-ready data for multilingual publications.",
+          },
+        },
+        {
+          id: "tile-gen",
+          name: "Map Tile Generation",
+          icon: "Layers",
+          star: {
+            situation: "Publishing updated hazard maps required a complex multi-step pipeline — layer ordering, tile generation, S3 upload — with no existing UI.",
+            task: "Build a guided wizard UI for the tile generation job system with progress tracking and layer management.",
+            action: [
+              "Stepper Wizard: Multi-step form guiding operators through layer selection, ordering (drag-and-drop), and job submission.",
+              "S3 Pipeline Integration: Connected wizard output to the backend tile generation job with real-time status polling.",
+              "Tag Management: Cross-resource tag CRUD with AG Grid mapping and deduplication across the system.",
+            ],
+            result: "Operators can publish updated hazard maps through a guided UI without needing direct S3 or CLI access.",
+          },
+        },
+      ],
+    },
+  },
+
+  /* --- PROJECT 3: ERP SYSTEM --- */
   {
     id: "erp",
     title: "DIVA ERP - Large-scale Enterprise System",
@@ -140,7 +275,7 @@ export const PROJECTS = [
     },
   },
 
-  /* --- PROJECT 2: IMAGE LENS --- */
+  /* --- PROJECT 4: IMAGE LENS --- */
   {
     id: "image-lens",
     title: "Image Lens - AI Visual Search",
@@ -216,7 +351,7 @@ export const PROJECTS = [
     },
   },
 
-  /* --- PROJECT 3: MARIO CLONE --- */
+  /* --- PROJECT 5: MARIO CLONE --- */
   {
     id: "mario",
     title: "Super Mario Bros 3 - Engine Recreation",
@@ -286,141 +421,6 @@ export const PROJECTS = [
             ],
             result:
               "Achieved bug-free movement and interactions, replicating the 'tight' control feel of the original game.",
-          },
-        },
-      ],
-    },
-  },
-
-  /* --- PROJECT 4: CARELINK --- */
-  {
-    id: "carelink",
-    title: "CareLink — Healthcare Platform",
-    description:
-      "A multi-portal healthcare platform with 3 Vue 3 applications (Admin, Doctor, Provider) for managing providers, patients, appointments, and clinical data. Built for Spring Knowledge Global.",
-    image: "",
-    tags: ["Vue 3", "TypeScript", "Vuetify 3", "UnoCSS", "Pinia", "AG Grid", "Firebase", "CASL"],
-    links: { demo: null, github: null },
-    achievements: [
-      "Statistics Dashboards across 3 portals — KPIs, trend charts, commission calculations, and smart PDF/Excel export with auto page-break slicing.",
-      "End-to-end Provider/Facility management with Google Maps integration, file uploads, and CASL role-based access control.",
-      "Patient document module with PDF viewer, thumbnails, deduplication, and search; Indication slip sharing with QR code and geocoding.",
-    ],
-    featured: false,
-    caseStudy: {
-      type: "complex",
-      overview: {
-        challenge:
-          "Three distinct user groups (Admins, Doctors, Providers) needed tailored workflows with shared business logic — and the platform was mid-project rebranded from MedLink to CareLink across all portals.",
-        solution:
-          "Shared architecture with Vuetify 3 + UnoCSS + Pinia across all 3 portals, with CASL-based permission gating per user type. Led the rebrand execution — updating component names, i18n strings, dark mode tokens, and assets across the entire codebase.",
-        impact:
-          "Delivered a cohesive multi-portal product with consistent UX, permission-aware feature access, and a full-featured Statistics Dashboard as the primary analytical tool for all three user groups.",
-      },
-      diagram: {
-        type: "hub-spoke" as const,
-        title: "3-Portal Architecture",
-        nodes: [{ label: "Admin Portal" }, { label: "Doctor Portal" }, { label: "Provider Portal" }],
-      },
-      modules: [
-        {
-          id: "statistics",
-          name: "Statistics Dashboard",
-          icon: "LayoutDashboard",
-          star: {
-            situation: "All three portals needed analytical dashboards with KPIs, revenue, patient flow, appointment TAT, and commission visibility.",
-            task: "Build rich, interactive dashboards with chart visualizations and exportable reports for each portal.",
-            action: [
-              "KPI Cards & Trend Charts: Chart.js/ApexCharts visualizations for revenue, retention, and TAT metrics tailored per portal.",
-              "Smart PDF/Excel Export: Auto page-break pipeline with custom font embedding for high-fidelity report generation.",
-              "Provider Dashboard (~10k lines): Built the Provider Statistics module from scratch in a single focused sprint.",
-            ],
-            result: "Each portal has a fully featured, export-ready dashboard as its primary analytical surface.",
-          },
-        },
-        {
-          id: "provider-mgmt",
-          name: "Provider & Patient Management",
-          icon: "Users",
-          star: {
-            situation: "Admins needed to manage provider onboarding, facility verification, and patient records across a growing network.",
-            task: "Build end-to-end management flows with map integration, file handling, and permission-gated actions.",
-            action: [
-              "Provider/Facility CRUD: Create, approve, restore, and deactivate providers with Google Maps location picker and multi-file upload.",
-              "Patient Documents: Viewer, thumbnail strip, deduplication logic, and search for patient attachments.",
-              "Indication Slips: Responsive PDF preview with QR code generation and geocoding for sharing.",
-            ],
-            result: "Admins and doctors can manage the full provider/patient lifecycle from a single, cohesive interface.",
-          },
-        },
-      ],
-    },
-  },
-
-  /* --- PROJECT 5: UNI-VOICE --- */
-  {
-    id: "uni-voice",
-    title: "Uni-Voice — Hazard Map Admin System",
-    description:
-      "An admin system for Japanese municipal disaster-response operators to manage hazard maps, shelter locations, and evacuation data. Built for Spring Knowledge Global.",
-    image: "",
-    tags: ["Vue 3", "Quasar", "TypeScript", "AWS S3", "AWS Amplify", "Leaflet", "GeoJSON", "AG Grid"],
-    links: { demo: null, github: null },
-    achievements: [
-      "Interactive shelter mapping with Leaflet + Google Maps, GeoJSON polygon layers, and clustering for prefecture-level data management.",
-      "Map tile generation job system — stepper wizard UI, S3-backed pipeline, drag-and-drop layer ordering.",
-      "Machine translation pipeline (Google Translate API) for multilingual shelter data; bulk CSV import/export by prefecture.",
-    ],
-    featured: false,
-    caseStudy: {
-      type: "complex",
-      overview: {
-        challenge:
-          "Japanese municipal operators needed to manage complex geospatial datasets — shelter locations, hazard zones, evacuation routes — across multiple prefectures, with multilingual output requirements.",
-        solution:
-          "Vue 3 + Quasar admin backed by AWS S3/Cognito/Amplify, with Leaflet for interactive mapping, AG Grid for bulk data management, and a Google Translate integration for automated multilingual data generation.",
-        impact:
-          "Delivered a full-featured geospatial admin tool enabling operators to manage, translate, and publish hazard map data without manual GIS tooling.",
-      },
-      diagram: {
-        type: "pipeline" as const,
-        title: "Map Tile Pipeline",
-        nodes: [
-          { label: "Input", sub: "Layer Config" },
-          { label: "Wizard", sub: "Stepper UI" },
-          { label: "Generate", sub: "S3 Job" },
-          { label: "Publish", sub: "Tile Output" },
-        ],
-      },
-      modules: [
-        {
-          id: "mapping",
-          name: "Shelter Mapping",
-          icon: "MapPin",
-          star: {
-            situation: "Operators needed to view and edit hundreds of shelter locations across multiple prefectures on an interactive map.",
-            task: "Build a geospatial management UI with clustering, GeoJSON layer support, and inline editing.",
-            action: [
-              "Interactive Map: Leaflet + Google Maps with GeoJSON polygon layers, marker clustering, and click-to-edit shelter details.",
-              "Bulk CSV Import/Export: Prefecture-level CSV pipeline for uploading and downloading shelter datasets.",
-              "Translation Pipeline: Google Translate API integration to auto-generate multilingual shelter names and descriptions.",
-            ],
-            result: "Operators can manage the full shelter dataset visually and export translation-ready data for multilingual publications.",
-          },
-        },
-        {
-          id: "tile-gen",
-          name: "Map Tile Generation",
-          icon: "Layers",
-          star: {
-            situation: "Publishing updated hazard maps required a complex multi-step pipeline — layer ordering, tile generation, S3 upload — with no existing UI.",
-            task: "Build a guided wizard UI for the tile generation job system with progress tracking and layer management.",
-            action: [
-              "Stepper Wizard: Multi-step form guiding operators through layer selection, ordering (drag-and-drop), and job submission.",
-              "S3 Pipeline Integration: Connected wizard output to the backend tile generation job with real-time status polling.",
-              "Tag Management: Cross-resource tag CRUD with AG Grid mapping and deduplication across the system.",
-            ],
-            result: "Operators can publish updated hazard maps through a guided UI without needing direct S3 or CLI access.",
           },
         },
       ],
