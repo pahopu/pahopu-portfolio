@@ -4,11 +4,33 @@ import { EXPERIENCE } from "@/constants";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Briefcase } from "lucide-react";
+import { useTranslations } from "next-intl";
+
+// Rounded SVG star for timeline markers — color via CSS currentColor
+const StarIcon = ({ className, size = 20, color }: { className?: string; size?: number; color?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    className={cn("shrink-0", className)}
+    style={{ color }}
+    aria-hidden
+  >
+    <path
+      d="M12 2L14.39 8.26L21 9.27L16.5 13.97L17.78 21L12 17.77L6.22 21L7.5 13.97L3 9.27L9.61 8.26Z"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
 
 export const Experience = () => {
+  const t = useTranslations("experience");
+
   return (
     <section id="experience" className="relative w-full py-20 md:py-28 overflow-hidden">
-      {/* Background */}
       <div className="absolute inset-0 bg-[#F0F6FF]/50 dark:bg-[#0F1B40]/20" />
       <div className="absolute top-1/2 right-0 w-[500px] h-[400px] bg-[#F5B8CC]/8 rounded-full blur-[120px] -z-10" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[300px] bg-[#5B8FE8]/8 rounded-full blur-[100px] -z-10" />
@@ -23,17 +45,16 @@ export const Experience = () => {
           className="text-center mb-16"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F5B8CC]/20 border border-[#F5B8CC]/30 text-[#C44D72] dark:text-[#F5B8CC] font-semibold text-sm mb-4">
-            <Briefcase className="w-4 h-4" /> Experience
+            <Briefcase className="w-4 h-4" /> {t("label")}
           </div>
-          <h2 className="text-4xl font-bold sm:text-5xl">Where I&apos;ve Worked</h2>
+          <h2 className="text-4xl font-bold sm:text-5xl">{t("heading")}</h2>
           <p className="mt-3 text-muted-foreground max-w-md mx-auto">
-            My professional journey so far
+            {t("subheading")}
           </p>
         </motion.div>
 
         {/* Timeline */}
         <div className="relative max-w-4xl mx-auto">
-          {/* Center vertical line (desktop) / left line (mobile) */}
           <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-primary/40 via-[#5B8FE8]/30 to-[#F5B8CC]/20 md:-translate-x-px" />
 
           <div className="space-y-14">
@@ -46,16 +67,9 @@ export const Experience = () => {
                 transition={{ duration: 0.5, delay: index * 0.15 }}
                 className="relative flex flex-col md:flex-row gap-0"
               >
-                {/* Star marker on the line */}
-                <div
-                  className={cn(
-                    "absolute top-6 z-10 text-xl leading-none",
-                    "left-5 md:left-1/2 -translate-x-1/2"
-                  )}
-                  style={{ color: index === 0 ? "#C8E645" : "#5B8FE8" }}
-                  aria-hidden
-                >
-                  ★
+                {/* Rounded star marker on the timeline line */}
+                <div className="absolute top-5 z-10 left-5 md:left-1/2 -translate-x-1/2">
+                  <StarIcon size={20} color={index === 0 ? "#C8E645" : "#5B8FE8"} />
                 </div>
 
                 {/* Card — alternates sides on desktop */}
@@ -94,7 +108,7 @@ export const Experience = () => {
                             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
                             <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-primary" />
                           </span>
-                          Current
+                          {t("current")}
                         </span>
                       )}
                     </div>
@@ -107,13 +121,11 @@ export const Experience = () => {
                     <ul className="space-y-2">
                       {job.highlights.map((h, i) => (
                         <li key={i} className="flex items-start gap-2.5 text-sm text-foreground/80 leading-relaxed">
-                          <span
-                            className="mt-1.5 text-[10px] shrink-0 leading-none"
-                            style={{ color: index === 0 ? "#C8E645" : "#5B8FE8" }}
-                            aria-hidden
-                          >
-                            ★
-                          </span>
+                          <StarIcon
+                            size={12}
+                            className="mt-1"
+                            color={index === 0 ? "#C8E645" : "#5B8FE8"}
+                          />
                           {h}
                         </li>
                       ))}

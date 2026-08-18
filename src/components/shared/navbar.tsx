@@ -1,7 +1,7 @@
 "use client";
 
 import { Download, Menu } from "lucide-react";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -28,6 +28,7 @@ export const Navbar = () => {
   const locale = useLocale();
   const router = useRouter();
   const pathname = usePathname();
+  const t = useTranslations("nav");
 
   const switchLocale = () => {
     const next = locale === "en" ? "vi" : "en";
@@ -73,7 +74,7 @@ export const Navbar = () => {
               href={link.href}
               className="text-sm font-medium hover:text-primary transition-colors"
             >
-              {link.label}
+              {t(link.key as "about" | "skills" | "projects" | "experience" | "contact")}
             </Link>
           ))}
 
@@ -92,7 +93,7 @@ export const Navbar = () => {
               rel="noopener noreferrer"
             >
               <Button size="sm" variant="default" className="whitespace-nowrap">
-                Download CV <Download className="h-4 w-4 ml-2" />
+                {t("download_cv")} <Download className="h-4 w-4 ml-2" />
               </Button>
             </a>
           </div>
@@ -136,7 +137,7 @@ export const Navbar = () => {
                     onClick={() => setIsOpen(false)}
                     className="block py-4 px-6 text-lg font-medium text-foreground/80 hover:text-primary hover:bg-accent/50 hover:pl-8 transition-all border-b border-border/40 last:border-0"
                   >
-                    {link.label}
+                    {t(link.key as "about" | "skills" | "projects" | "experience" | "contact")}
                   </Link>
                 ))}
               </div>

@@ -3,11 +3,11 @@ import { Github, Linkedin, Mail } from "lucide-react";
 
 /* --- SECTION: NAVIGATION LINKS --- */
 export const NAV_LINKS = [
-  { label: "About", href: "#about" },
-  { label: "Skills", href: "#skills" },
-  { label: "Projects", href: "#projects" },
-  { label: "Experience", href: "#experience" },
-  { label: "Contact", href: "#contact" },
+  { key: "about", label: "About", href: "#about" },
+  { key: "skills", label: "Skills", href: "#skills" },
+  { key: "projects", label: "Projects", href: "#projects" },
+  { key: "experience", label: "Experience", href: "#experience" },
+  { key: "contact", label: "Contact", href: "#contact" },
 ];
 
 /* --- SECTION: HERO ANIMATION & SOCIALS --- */
@@ -433,7 +433,7 @@ export const SKILLS = [
   {
     category: "Frontend Frameworks",
     items: [
-      { name: "Vue 3", icon: "vue" },
+      { name: "Vue 3", icon: "vuedotjs" },
       { name: "React", icon: "react" },
       { name: "Next.js", icon: "nextdotjs" },
       { name: "Quasar", icon: "quasar" },
@@ -461,7 +461,7 @@ export const SKILLS = [
     category: "State & Data",
     items: [
       { name: "Pinia", icon: "pinia" },
-      { name: "AG Grid", icon: "aggrid" },
+      { name: "Axios", icon: "axios" },
       { name: "Firebase", icon: "firebase" },
       { name: "Git", icon: "git" },
     ],
@@ -469,8 +469,8 @@ export const SKILLS = [
   {
     category: "Cloud & Infra",
     items: [
-      { name: "AWS S3", icon: "amazons3" },
-      { name: "AWS Amplify", icon: "awsamplify" },
+      { name: "Vercel", icon: "vercel" },
+      { name: "GitHub", icon: "github" },
       { name: "Python", icon: "python" },
       { name: "Leaflet", icon: "leaflet" },
     ],

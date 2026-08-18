@@ -26,9 +26,9 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form"; // Import Hook Form
+import { SubmitHandler, useForm } from "react-hook-form";
+import { useTranslations } from "next-intl";
 
-/* --- SECTION: TYPES --- */
 type ContactFormInputs = {
   user_name: string;
   user_email: string;
@@ -36,14 +36,12 @@ type ContactFormInputs = {
   message: string;
 };
 
-/* --- SECTION: SETUP --- */
 const MotionCard = motion(Card);
 
 export const ContactSection = () => {
-  /* --- STATE --- */
+  const t = useTranslations("contact");
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-  /* --- HOOK FORM SETUP --- */
   const {
     register,
     handleSubmit,
@@ -51,7 +49,6 @@ export const ContactSection = () => {
     formState: { errors, isSubmitting },
   } = useForm<ContactFormInputs>();
 
-  /* --- HANDLER --- */
   const onSubmit: SubmitHandler<ContactFormInputs> = async (data) => {
     setStatus("idle");
     try {
@@ -72,7 +69,6 @@ export const ContactSection = () => {
 
   return (
     <section id="contact" className="relative w-full py-24 overflow-hidden">
-      {/* --- BACKGROUND --- */}
       <div className="absolute inset-0 bg-[#F0F8FF]/40 dark:bg-[#0F1B40]/20" />
       <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-[#C8E645]/10 rounded-full blur-[100px] -z-10" />
       <div className="absolute top-0 left-0 w-[500px] h-[400px] bg-[#5B8FE8]/10 rounded-full blur-[100px] -z-10" />
@@ -86,7 +82,7 @@ export const ContactSection = () => {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 gap-12 lg:gap-24 items-start"
         >
-          {/* --- SECTION: LEFT COLUMN (INFO) --- */}
+          {/* Left column */}
           <div className="space-y-8">
             <motion.div variants={HERO_ANIMATION.item} className="space-y-4">
               <div className="flex items-center gap-2 text-primary font-mono text-sm tracking-wider uppercase">
@@ -94,34 +90,25 @@ export const ContactSection = () => {
                 <span>/contact-me</span>
               </div>
               <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl">
-                Let&apos;s build something <br />
-                <span className="text-primary">
-                  exceptional.
-                </span>
+                {t("heading")} <br />
+                <span className="text-primary">{t("accent")}</span>
               </h2>
               <p className="text-muted-foreground text-lg leading-relaxed max-w-md">
-                Whether you have a question about my stack, a project proposal,
-                or just want to discuss the latest in Front-End engineering — my
-                inbox is always open.
+                {t("subheading")}
               </p>
             </motion.div>
 
-            {/* Status Badge */}
             <motion.div variants={HERO_ANIMATION.item}>
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-[#1B2E6E] dark:text-primary text-sm font-medium">
                 <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
                 </span>
-                Open to new opportunities
+                {t("open_label")}
               </div>
             </motion.div>
 
-            {/* Direct Links */}
-            <motion.div
-              variants={HERO_ANIMATION.item}
-              className="space-y-4 font-medium"
-            >
+            <motion.div variants={HERO_ANIMATION.item} className="space-y-4 font-medium">
               <Link
                 href="mailto:hoangphucpham.work@gmail.com"
                 className="flex items-center gap-4 p-4 rounded-xl border bg-card/50 hover:bg-primary/5 hover:border-primary/30 transition-all group"
@@ -130,7 +117,7 @@ export const ContactSection = () => {
                   <Mail className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-sm text-muted-foreground">Email me at</p>
+                  <p className="text-sm text-muted-foreground">{t("email_prompt")}</p>
                   <p className="font-semibold text-foreground group-hover:text-primary transition-colors">
                     hoangphucpham.work@gmail.com
                   </p>
@@ -159,31 +146,26 @@ export const ContactSection = () => {
             </motion.div>
           </div>
 
-          {/* --- SECTION: RIGHT COLUMN (FORM WITH HOOK FORM) --- */}
+          {/* Right column — form */}
           <motion.div variants={HERO_ANIMATION.item}>
-            {/* Styled MotionCard matching About section aesthetics (Cyan Accent) */}
             <MotionCard className="border-primary/20 bg-linear-to-br from-primary/5 via-card to-card relative overflow-hidden shadow-lg">
-              {/* Internal decorative gradient */}
               <div className="absolute top-0 right-0 p-6 opacity-5 -rotate-12 pointer-events-none">
                 <Send size={100} />
               </div>
 
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-[#1B2E6E] dark:text-primary">
-                  <MessageSquare className="w-5 h-5" /> Send a message
+                  <MessageSquare className="w-5 h-5" /> {t("send_label")}
                 </CardTitle>
-                <CardDescription>
-                  I usually respond within 24 hours.
-                </CardDescription>
+                <CardDescription>{t("response_note")}</CardDescription>
               </CardHeader>
 
               <CardContent>
                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                   <div className="grid grid-cols-2 gap-4">
-                    {/* Name Input */}
                     <div className="space-y-2">
                       <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
-                        Name
+                        {t("name_label")}
                       </label>
                       <Input
                         {...register("user_name", { required: true })}
@@ -196,11 +178,9 @@ export const ContactSection = () => {
                         }`}
                       />
                     </div>
-
-                    {/* Email Input */}
                     <div className="space-y-2">
                       <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
-                        Email
+                        {t("email_label")}
                       </label>
                       <Input
                         {...register("user_email", {
@@ -219,14 +199,13 @@ export const ContactSection = () => {
                     </div>
                   </div>
 
-                  {/* Subject Input */}
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
-                      Subject
+                      {t("subject_label")}
                     </label>
                     <Input
                       {...register("subject", { required: true })}
-                      placeholder="Project Inquiry / Tech Talk"
+                      placeholder={t("subject_placeholder")}
                       disabled={isSubmitting}
                       className={`bg-background/50 focus:bg-background transition-colors ${
                         errors.subject
@@ -236,14 +215,13 @@ export const ContactSection = () => {
                     />
                   </div>
 
-                  {/* Message Input */}
                   <div className="space-y-2">
                     <label className="text-xs font-bold uppercase text-muted-foreground tracking-wider">
-                      Message
+                      {t("message_label")}
                     </label>
                     <Textarea
                       {...register("message", { required: true })}
-                      placeholder="Tell me about your project..."
+                      placeholder={t("message_placeholder")}
                       className={`min-h-[150px] bg-background/50 focus:bg-background transition-colors resize-none ${
                         errors.message
                           ? "border-red-500 focus-visible:ring-red-500"
@@ -253,7 +231,6 @@ export const ContactSection = () => {
                     />
                   </div>
 
-                  {/* Submit Button */}
                   <Button
                     type="submit"
                     className="w-full gap-2 mt-2 bg-primary text-[#1B2E6E] hover:bg-primary/90 font-bold rounded-full border-none"
@@ -263,30 +240,28 @@ export const ContactSection = () => {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        Sending...
+                        {t("sending_btn")}
                       </>
                     ) : status === "success" ? (
                       <>
                         <CheckCircle2 className="h-4 w-4" />
-                        Message Sent
+                        {t("sent_btn")}
                       </>
                     ) : (
                       <>
-                        Send Message <ArrowRight className="h-4 w-4" />
+                        {t("send_btn")} <ArrowRight className="h-4 w-4" />
                       </>
                     )}
                   </Button>
 
-                  {/* Status Messages */}
                   {status === "error" && (
                     <p className="text-xs text-red-500 text-center animate-in fade-in slide-in-from-top-1">
-                      Something went wrong. Please try again or email me
-                      directly.
+                      {t("error_msg")}
                     </p>
                   )}
                   {Object.keys(errors).length > 0 && (
                     <p className="text-xs text-red-500 text-center animate-in fade-in slide-in-from-top-1">
-                      Please fill in all required fields.
+                      {t("validation_msg")}
                     </p>
                   )}
                 </form>

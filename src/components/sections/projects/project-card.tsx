@@ -18,6 +18,7 @@ import Link from "next/link";
 import { ResponsiveModal } from "@/components/shared/responsive-modal";
 import { ProjectCaseStudy } from "./project-case-study";
 import { ProjectImage } from "./project-image";
+import { useTranslations } from "next-intl";
 
 const MotionCard = motion(Card);
 
@@ -27,6 +28,8 @@ interface ProjectCardProps {
 }
 
 export const ProjectCard = ({ project, index }: ProjectCardProps) => {
+  const t = useTranslations("projects");
+
   return (
     <MotionCard
       initial={{ opacity: 0, y: 50 }}
@@ -70,7 +73,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
             </CardTitle>
             {project.links.demo === null && project.links.github === null && (
               <Badge variant="secondary" className="gap-1 shrink-0">
-                <Lock className="h-3 w-3" /> Private
+                <Lock className="h-3 w-3" /> {t("private_badge")}
               </Badge>
             )}
           </div>
@@ -112,21 +115,19 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
             {project.links.github && (
               <Link href={project.links.github} target="_blank">
                 <Button variant="outline" size="sm" className="gap-2">
-                  <Github className="h-4 w-4" /> Code
+                  <Github className="h-4 w-4" /> {t("code")}
                 </Button>
               </Link>
             )}
 
-            {/* Demo */}
             {project.links.demo && (
               <Link href={project.links.demo} target="_blank">
                 <Button size="sm" className="gap-2">
-                  <ExternalLink className="h-4 w-4" /> Live Demo
+                  <ExternalLink className="h-4 w-4" /> {t("live_demo")}
                 </Button>
               </Link>
             )}
 
-            {/* Case Study Modal Trigger */}
             {project.caseStudy ? (
               <ResponsiveModal
                 title={project.title}
@@ -134,11 +135,10 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                 content={<ProjectCaseStudy data={project.caseStudy} />}
               >
                 <Button variant="default" size="sm" className="gap-2">
-                  <Eye className="h-4 w-4" /> Read Case Study
+                  <Eye className="h-4 w-4" /> {t("case_study")}
                 </Button>
               </ResponsiveModal>
             ) : (
-              // Fallback for Private Projects
               project.links.demo === null &&
               project.links.github === null && (
                 <Button
@@ -146,7 +146,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
                   size="sm"
                   className="gap-2 cursor-not-allowed opacity-70 px-0 hover:bg-transparent"
                 >
-                  Internal Enterprise System
+                  {t("internal_label")}
                 </Button>
               )
             )}

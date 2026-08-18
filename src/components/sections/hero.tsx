@@ -7,19 +7,30 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { ArrowRight, Briefcase, Cpu, Download } from "lucide-react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
-const Star = ({ size, color, className }: { size: number; color: string; className?: string }) => (
-  <span
-    className={cn("select-none pointer-events-none absolute font-bold leading-none", className)}
-    style={{ fontSize: size, color, lineHeight: 1 }}
+// Rounded SVG star — strokeLinejoin="round" softens the points
+const Star = ({ size, className }: { size: number; className?: string }) => (
+  <svg
+    viewBox="0 0 24 24"
+    width={size}
+    height={size}
+    className={cn("absolute pointer-events-none select-none", className)}
     aria-hidden
   >
-    ★
-  </span>
+    <path
+      d="M12 2L14.39 8.26L21 9.27L16.5 13.97L17.78 21L12 17.77L6.22 21L7.5 13.97L3 9.27L9.61 8.26Z"
+      fill="currentColor"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinejoin="round"
+    />
+  </svg>
 );
 
+// Clouds — light mode only
 const Cloud = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 200 100" className={cn("absolute pointer-events-none select-none opacity-20", className)} aria-hidden>
+  <svg viewBox="0 0 200 100" className={cn("absolute pointer-events-none select-none opacity-20 dark:hidden", className)} aria-hidden>
     <ellipse cx="100" cy="70" rx="90" ry="40" fill="white" />
     <ellipse cx="70" cy="55" rx="45" ry="35" fill="white" />
     <ellipse cx="130" cy="50" rx="50" ry="38" fill="white" />
@@ -27,26 +38,50 @@ const Cloud = ({ className }: { className?: string }) => (
   </svg>
 );
 
+// Crescent moon — dark mode only
+const Moon = ({ className }: { className?: string }) => (
+  <svg
+    viewBox="0 0 100 100"
+    className={cn("absolute pointer-events-none select-none hidden dark:block", className)}
+    aria-hidden
+  >
+    <circle cx="50" cy="50" r="38" fill="#FFE566" opacity="0.92" />
+    <circle cx="68" cy="36" r="32" fill="#040D21" />
+  </svg>
+);
+
 export const Hero = () => {
+  const t = useTranslations("hero");
+
   return (
     <section
       id="home"
-      className="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden"
-      style={{ backgroundColor: "#5B8FE8" }}
+      className="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-[#5B8FE8] dark:bg-[#040D21]"
     >
-      {/* Yellow stars — scattered like album art */}
-      <Star size={56} color="#FFE566" className="top-[8%] left-[7%] animate-bounce [animation-delay:200ms]" />
-      <Star size={80} color="#FFE566" className="top-[12%] right-[9%] animate-bounce [animation-delay:800ms]" />
-      <Star size={44} color="#FFE566" className="bottom-[18%] left-[4%] animate-bounce [animation-delay:1500ms]" />
-      <Star size={68} color="#FFE566" className="bottom-[12%] right-[6%] animate-bounce [animation-delay:500ms]" />
-      <Star size={36} color="#FFE566" className="top-[45%] left-[1%] animate-bounce [animation-delay:1200ms]" />
-      <Star size={52} color="#FFE566" className="top-[30%] right-[2%] animate-bounce [animation-delay:300ms]" />
-      {/* Baby blue stars (lighter, background layer) */}
-      <Star size={28} color="#C5D8F5" className="top-[22%] left-[18%]" />
-      <Star size={32} color="#C5D8F5" className="bottom-[30%] right-[18%]" />
-      <Star size={20} color="#C5D8F5" className="top-[60%] left-[12%]" />
+      {/* Yellow stars — day sky */}
+      <Star size={56} className="top-[8%] left-[7%] text-[#FFE566] animate-bounce [animation-delay:200ms]" />
+      <Star size={80} className="top-[12%] right-[9%] text-[#FFE566] dark:hidden animate-bounce [animation-delay:800ms]" />
+      <Star size={44} className="bottom-[18%] left-[4%] text-[#FFE566] dark:text-[#FFF0B0] animate-bounce [animation-delay:1500ms]" />
+      <Star size={68} className="bottom-[12%] right-[6%] text-[#FFE566] dark:text-[#FFF0B0] animate-bounce [animation-delay:500ms]" />
+      <Star size={36} className="top-[45%] left-[1%] text-[#FFE566] dark:text-[#FFF0B0] animate-bounce [animation-delay:1200ms]" />
+      <Star size={52} className="top-[30%] right-[2%] text-[#FFE566] dark:text-[#FFF0B0] animate-bounce [animation-delay:300ms]" />
 
-      {/* Cloud shapes */}
+      {/* Baby blue accent stars */}
+      <Star size={28} className="top-[22%] left-[18%] text-[#C5D8F5] dark:text-white/40" />
+      <Star size={32} className="bottom-[30%] right-[18%] text-[#C5D8F5] dark:text-white/35" />
+      <Star size={20} className="top-[60%] left-[12%] text-[#C5D8F5] dark:text-white/30" />
+
+      {/* Night sky extras — dark mode only */}
+      <Star size={14} className="hidden dark:block top-[18%] left-[35%] text-white/50" />
+      <Star size={10} className="hidden dark:block top-[55%] right-[28%] text-white/35" />
+      <Star size={16} className="hidden dark:block top-[40%] left-[52%] text-white/25" />
+      <Star size={11} className="hidden dark:block bottom-[25%] left-[25%] text-white/40" />
+      <Star size={13} className="hidden dark:block top-[70%] right-[38%] text-white/30" />
+
+      {/* Crescent moon — dark mode only, replaces big top-right star */}
+      <Moon className="w-24 h-24 top-[6%] right-[7%]" />
+
+      {/* Cloud shapes — light mode only */}
       <Cloud className="w-96 h-48 bottom-0 left-0 -translate-x-1/4 translate-y-1/4" />
       <Cloud className="w-80 h-40 top-0 right-0 translate-x-1/4 -translate-y-1/4 rotate-12" />
 
@@ -68,7 +103,7 @@ export const Hero = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C8E645] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C8E645]" />
               </span>
-              <span>Ready for new challenges</span>
+              <span>{t("badge")}</span>
             </Badge>
           </motion.div>
 
@@ -77,9 +112,7 @@ export const Hero = () => {
             variants={HERO_ANIMATION.item}
             className="text-4xl font-bold tracking-tight sm:text-6xl md:text-7xl"
           >
-            <span className="text-white drop-shadow-sm">
-              Hi, I&apos;m pahopu <span className="animate-wave inline-block">👋</span>
-            </span>
+            <span className="text-white drop-shadow-sm">{t("headline")}</span>
             <br />
             <span
               className="block mt-3 animate-gradient-text"
@@ -87,7 +120,7 @@ export const Hero = () => {
                 backgroundImage: "linear-gradient(to right, #C8E645, #FFE566, #C5D8F5, #F5B8CC, #C8E645)",
               }}
             >
-              Front-End Developer
+              {t("role")}
             </span>
           </motion.h1>
 
@@ -98,13 +131,9 @@ export const Hero = () => {
           >
             <div className="flex items-center justify-center gap-2 text-[#C8E645] font-semibold">
               <Cpu className="h-5 w-5" />
-              <span>Solid Computer Science Foundation</span>
+              <span>{t("foundation")}</span>
             </div>
-            <p>
-              I build scalable, high-performance web applications. While I specialize in the{" "}
-              <strong className="text-white font-semibold">React ecosystem</strong>, I remain{" "}
-              <strong className="text-white font-semibold">flexible</strong> to adapt to any technology needed.
-            </p>
+            <p>{t("tagline")}</p>
           </motion.div>
 
           {/* CTA Buttons */}
@@ -119,7 +148,7 @@ export const Hero = () => {
                 "group h-12 px-8 text-base font-bold bg-[#C8E645] text-[#1B2E6E] hover:bg-[#d4ed4f] hover:shadow-lg transition-all duration-300 border-0 rounded-full"
               )}
             >
-              Contact Me
+              {t("cta_contact")}
               <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
 
@@ -130,7 +159,7 @@ export const Hero = () => {
                 "hidden md:inline-flex h-12 px-8 text-base font-semibold bg-white/10 backdrop-blur-sm border-white/40 text-white hover:bg-white/20 rounded-full"
               )}
             >
-              View Projects <Briefcase className="ml-2 h-4 w-4" />
+              {t("cta_projects")} <Briefcase className="ml-2 h-4 w-4" />
             </Link>
 
             <a
@@ -142,7 +171,7 @@ export const Hero = () => {
                 "md:hidden h-12 px-8 text-base font-semibold bg-white/10 backdrop-blur-sm border-white/40 text-white hover:bg-white/20 rounded-full"
               )}
             >
-              Download CV <Download className="ml-2 h-4 w-4" />
+              {t("cta_cv")} <Download className="ml-2 h-4 w-4" />
             </a>
           </motion.div>
 
@@ -165,7 +194,8 @@ export const Hero = () => {
           </motion.div>
         </motion.div>
       </div>
-      {/* Cloud wave transition */}
+
+      {/* Cloud wave transition — fill adapts to light/dark background */}
       <div className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none">
         <svg
           viewBox="0 0 1440 100"

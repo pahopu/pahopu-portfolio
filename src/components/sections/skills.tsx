@@ -4,6 +4,7 @@ import { SKILLS } from "@/constants";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import * as SimpleIcons from "simple-icons";
+import { useTranslations } from "next-intl";
 
 // Cycle through CONGBDAY colors per category
 const CATEGORY_COLORS = [
@@ -21,6 +22,8 @@ function getIcon(slug: string): string | null {
 }
 
 export const Skills = () => {
+  const t = useTranslations("skills");
+
   return (
     <section id="skills" className="relative w-full py-20 md:py-28 overflow-hidden">
       {/* Soft background */}
@@ -38,11 +41,11 @@ export const Skills = () => {
           className="text-center mb-14"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#5B8FE8]/15 border border-[#5B8FE8]/25 text-[#5B8FE8] font-semibold text-sm mb-4">
-            ✦ Skills
+            ✦ {t("label")}
           </div>
-          <h2 className="text-4xl font-bold sm:text-5xl">Tech Stack</h2>
+          <h2 className="text-4xl font-bold sm:text-5xl">{t("heading")}</h2>
           <p className="mt-3 text-muted-foreground max-w-md mx-auto">
-            Technologies I use to build things
+            {t("subheading")}
           </p>
         </motion.div>
 
