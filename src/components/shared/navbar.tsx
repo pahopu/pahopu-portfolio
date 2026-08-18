@@ -1,6 +1,8 @@
 "use client";
 
 import { Download, Menu } from "lucide-react";
+import { useLocale } from "next-intl";
+import { usePathname, useRouter } from "@/i18n/navigation";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
@@ -21,6 +23,16 @@ export const Navbar = () => {
   /* --- STATE --- */
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+
+  /* --- LOCALE --- */
+  const locale = useLocale();
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const switchLocale = () => {
+    const next = locale === "en" ? "vi" : "en";
+    router.replace(pathname, { locale: next });
+  };
 
   /* --- SCROLL EFFECT --- */
   useEffect(() => {
@@ -66,6 +78,13 @@ export const Navbar = () => {
           ))}
 
           <div className="flex items-center gap-4">
+            <button
+              onClick={switchLocale}
+              className="text-xs font-bold px-2.5 py-1 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all"
+              aria-label="Switch language"
+            >
+              {locale === "en" ? "VI" : "EN"}
+            </button>
             <ModeToggle />
             <a
               href="/files/resume.pdf"
@@ -123,7 +142,14 @@ export const Navbar = () => {
               </div>
 
               {/* --- MOBILE FOOTER --- */}
-              <div className="mt-auto p-6 border-t">
+              <div className="mt-auto p-6 border-t flex flex-col gap-3">
+                <button
+                  onClick={switchLocale}
+                  className="w-full text-sm font-bold py-2.5 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all"
+                  aria-label="Switch language"
+                >
+                  {locale === "en" ? "Switch to Vietnamese (VI)" : "Switch to English (EN)"}
+                </button>
                 <a
                   href="/files/resume.pdf"
                   target="_blank"

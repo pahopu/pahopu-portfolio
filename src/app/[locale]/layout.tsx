@@ -1,10 +1,14 @@
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Navbar } from "@/components/shared/navbar";
 import { ScrollProgress } from "@/components/shared/scroll-progress";
+import { routing } from "@/i18n/routing";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
 import { Fredoka, Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { NextIntlClientProvider } from "next-intl";
+import { getMessages } from "next-intl/server";
+import { notFound } from "next/navigation";
+import "../globals.css";
 
 const fredoka = Fredoka({
   variable: "--font-fredoka",
@@ -83,13 +87,25 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }));
+}
+
+export default async function LocaleLayout({
   children,
-}: Readonly<{
+  params,
+}: {
   children: React.ReactNode;
-}>) {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  if (!routing.locales.includes(locale as "en" | "vi")) {
+    notFound();
+  }
+  const messages = await getMessages();
+
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={cn(
           geistSans.variable,
@@ -98,16 +114,18 @@ export default function RootLayout({
           "font-sans antialiased bg-background text-foreground"
         )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ScrollProgress />
-          <Navbar />
-          <main className="pt-16 min-h-screen text-foreground">{children}</main>
-        </ThemeProvider>
+        <NextIntlClientProvider messages={messages}>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <ScrollProgress />
+            <Navbar />
+            <main className="pt-16 min-h-screen text-foreground">{children}</main>
+          </ThemeProvider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );
