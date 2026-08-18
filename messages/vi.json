@@ -80,6 +80,16 @@
     "validation_msg": "Vui lòng điền đầy đủ các trường bắt buộc.",
     "response_note": "Tôi thường phản hồi trong vòng 24 giờ."
   },
+  "player": {
+    "now_playing": "Đang phát",
+    "paused": "Đã dừng",
+    "picks": "♪ nhạc của pahopu",
+    "collapse": "Thu gọn",
+    "mute": "Tắt tiếng",
+    "unmute": "Bật tiếng",
+    "play": "Phát",
+    "pause": "Dừng"
+  },
   "footer": {
     "built_with": "Xây dựng với Next.js & ❤️",
     "rights": "Bản quyền được bảo lưu."

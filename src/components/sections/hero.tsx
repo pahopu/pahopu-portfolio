@@ -153,7 +153,7 @@ export const Hero = () => {
       </AnimatePresence>
 
       {/* Content */}
-      <div className="container px-4 md:px-6 flex flex-col items-center text-center z-10 pb-20 md:pb-28">
+      <div className="container px-4 md:px-6 flex flex-col items-center text-center z-10 pt-24 pb-20 md:pt-28 md:pb-28">
         <motion.div
           variants={HERO_ANIMATION.container}
           initial="hidden"

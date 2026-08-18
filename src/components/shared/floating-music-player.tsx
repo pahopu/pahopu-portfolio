@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Volume2, VolumeX } from "lucide-react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 const TRACK = {
@@ -13,15 +14,15 @@ const TRACK = {
   cover: "/images/congbday_theme.png",
 };
 
-const EqBars = () => (
+const EqBars = ({ compact = false }: { compact?: boolean }) => (
   <div className="flex items-end gap-[2px] h-3 shrink-0">
     {[0, 1, 2].map((i) => (
       <div
         key={i}
-        className="w-[3px] rounded-full bg-primary"
+        className="w-[3px] rounded-full bg-primary transition-all duration-300"
         style={{
-          height: "3px",
-          animation: `eq-bar 0.8s ease-in-out ${i * 0.18}s infinite`,
+          height: compact ? "2px" : "3px",
+          animation: `${compact ? "eq-bar-sm" : "eq-bar"} 0.8s ease-in-out ${i * 0.18}s infinite`,
         }}
       />
     ))}
@@ -36,14 +37,17 @@ function formatTime(s: number) {
 }
 
 export const FloatingMusicPlayer = () => {
+  const t = useTranslations("player");
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const progressRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
+  const [isPillHovered, setIsPillHovered] = useState(false);
 
   useEffect(() => {
     const audio = new Audio(TRACK.src);
@@ -54,6 +58,18 @@ export const FloatingMusicPlayer = () => {
     audioRef.current = audio;
     return () => { audio.pause(); audio.src = ""; };
   }, []);
+
+  // Close on click outside
+  useEffect(() => {
+    if (!isExpanded) return;
+    const handler = (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        setIsExpanded(false);
+      }
+    };
+    document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [isExpanded]);
 
   const togglePlay = useCallback(() => {
     const audio = audioRef.current;
@@ -104,7 +120,7 @@ export const FloatingMusicPlayer = () => {
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
 
   return (
-    <div className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2.5">
+    <div ref={containerRef} className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2.5">
       <AnimatePresence>
         {isExpanded && (
           <motion.div
@@ -121,19 +137,19 @@ export const FloatingMusicPlayer = () => {
                 {isPlaying ? (
                   <>
                     <EqBars />
-                    <span>Now Playing</span>
+                    <span>{t("now_playing")}</span>
                   </>
                 ) : (
                   <>
                     <span className="text-muted-foreground/50">♪</span>
-                    <span className="text-muted-foreground/60">Paused</span>
+                    <span className="text-muted-foreground/60">{t("paused")}</span>
                   </>
                 )}
               </div>
               <button
                 onClick={() => setIsExpanded(false)}
                 className="p-1.5 -mr-1 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground cursor-pointer"
-                aria-label="Collapse player"
+                aria-label={t("collapse")}
               >
                 <ChevronDown className="h-3.5 w-3.5" />
               </button>
@@ -201,7 +217,7 @@ export const FloatingMusicPlayer = () => {
               <button
                 onClick={toggleMute}
                 className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground cursor-pointer"
-                aria-label={isMuted ? "Unmute" : "Mute"}
+                aria-label={isMuted ? t("unmute") : t("mute")}
               >
                 {isMuted
                   ? <VolumeX className="h-4 w-4" />
@@ -217,7 +233,7 @@ export const FloatingMusicPlayer = () => {
                   "bg-primary hover:bg-primary/90 text-primary-foreground shadow-md",
                   isPlaying && "shadow-lg shadow-primary/25"
                 )}
-                aria-label={isPlaying ? "Pause" : "Play"}
+                aria-label={isPlaying ? t("pause") : t("play")}
               >
                 {isPlaying ? (
                   <svg viewBox="0 0 24 24" className="h-4 w-4 fill-current">
@@ -241,6 +257,8 @@ export const FloatingMusicPlayer = () => {
       {/* Collapsed pill */}
       <motion.button
         onClick={() => setIsExpanded((v) => !v)}
+        onHoverStart={() => setIsPillHovered(true)}
+        onHoverEnd={() => setIsPillHovered(false)}
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         className={cn(
@@ -251,15 +269,15 @@ export const FloatingMusicPlayer = () => {
             : "border-border/60 shadow-black/5 hover:border-primary/25"
         )}
       >
-        {/* Indicator: eq bars when playing, static dot when not */}
+        {/* Indicator: eq bars when playing (compact until hovered), static dot when not */}
         {isPlaying ? (
-          <EqBars />
+          <EqBars compact={!isPillHovered} />
         ) : (
           <span className="w-2 h-2 rounded-full bg-muted-foreground/35 shrink-0" />
         )}
 
         <span className="text-xs font-medium text-foreground/75 whitespace-nowrap max-w-[110px] truncate">
-          {isPlaying ? TRACK.title : "♪ pahopu's picks"}
+          {isPlaying ? TRACK.title : t("picks")}
         </span>
 
         {/* Mini cover */}

@@ -80,6 +80,16 @@
     "validation_msg": "Please fill in all required fields.",
     "response_note": "I usually respond within 24 hours."
   },
+  "player": {
+    "now_playing": "Now Playing",
+    "paused": "Paused",
+    "picks": "♪ pahopu's picks",
+    "collapse": "Collapse player",
+    "mute": "Mute",
+    "unmute": "Unmute",
+    "play": "Play",
+    "pause": "Pause"
+  },
   "footer": {
     "built_with": "Built with Next.js & ❤️",
     "rights": "All rights reserved."
