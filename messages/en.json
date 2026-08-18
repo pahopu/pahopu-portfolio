@@ -1,1 +1,86 @@
-{}
+{
+  "nav": {
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Projects",
+    "experience": "Experience",
+    "contact": "Contact",
+    "download_cv": "Download CV"
+  },
+  "hero": {
+    "badge": "Ready for new challenges",
+    "headline": "Hi, I'm pahopu 👋",
+    "role": "Front-End Developer",
+    "foundation": "Solid Computer Science Foundation",
+    "tagline": "I build scalable, high-performance web applications. While I specialize in the React & Vue ecosystems, I remain flexible to adapt to any technology needed.",
+    "cta_contact": "Contact Me",
+    "cta_projects": "View Projects",
+    "cta_cv": "Download CV"
+  },
+  "about": {
+    "label": "About Me",
+    "heading": "Engineering Profile",
+    "subheading": "CS graduate, 1.5+ years building complex frontends. I care about code that scales.",
+    "mindset_label": "The Engineer Mindset",
+    "bio_1": "I am a Front-End Developer with 1.5+ years of experience building large-scale ERP systems and healthcare platforms.",
+    "bio_2": "With a strong Computer Science foundation (GPA 9.14 / 10.0), I specialize in the Vue 3 & React ecosystems, bridging complex backend logic with smooth user experiences.",
+    "edu_line": "Bachelor of Computer Science — University of Information Technology, 2020–2024",
+    "awards_line": "Scholarship for Excellence · Student of 5 Merits",
+    "gpa": "9.14",
+    "gpa_label": "GPA / 10.0",
+    "gpa_badge": "Top 8% Excellence",
+    "exp_number": "1.5+",
+    "exp_label": "Years Exp.",
+    "projects_number": "5+",
+    "projects_label": "Projects Shipped",
+    "stack_label": "Technical Arsenal",
+    "core_label": "Core & Ecosystem",
+    "cs_label": "CS & Engineering"
+  },
+  "skills": {
+    "label": "Skills",
+    "heading": "Tech Stack",
+    "subheading": "Technologies I use to build things"
+  },
+  "projects": {
+    "label": "Selected Work",
+    "heading": "Featured Projects",
+    "subheading": "Selected works demonstrating my expertise in large-scale systems, AI integration, and software engineering.",
+    "private_badge": "Private",
+    "internal_label": "Internal Enterprise System",
+    "case_study": "Read Case Study",
+    "live_demo": "Live Demo",
+    "code": "Code"
+  },
+  "experience": {
+    "label": "Experience",
+    "heading": "Where I've Worked",
+    "subheading": "My professional journey so far",
+    "current": "Current"
+  },
+  "contact": {
+    "label": "Get In Touch",
+    "heading": "Let's build something",
+    "accent": "exceptional.",
+    "subheading": "Whether you have a question about my stack, a project proposal, or just want to discuss the latest in Front-End engineering — my inbox is always open.",
+    "open_label": "Open to new opportunities",
+    "email_prompt": "Email me at",
+    "name_label": "Name",
+    "email_label": "Email",
+    "subject_label": "Subject",
+    "message_label": "Message",
+    "send_label": "Send a message",
+    "send_btn": "Send Message",
+    "sending_btn": "Sending...",
+    "sent_btn": "Message Sent",
+    "subject_placeholder": "Project Inquiry / Tech Talk",
+    "message_placeholder": "Tell me about your project...",
+    "error_msg": "Something went wrong. Please try again or email me directly.",
+    "validation_msg": "Please fill in all required fields.",
+    "response_note": "I usually respond within 24 hours."
+  },
+  "footer": {
+    "built_with": "Built with Next.js & ❤️",
+    "rights": "All rights reserved."
+  }
+}

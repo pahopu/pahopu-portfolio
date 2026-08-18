@@ -1,1 +1,86 @@
-{}
+{
+  "nav": {
+    "about": "Giới thiệu",
+    "skills": "Kỹ năng",
+    "projects": "Dự án",
+    "experience": "Kinh nghiệm",
+    "contact": "Liên hệ",
+    "download_cv": "Tải CV"
+  },
+  "hero": {
+    "badge": "Sẵn sàng cho thử thách mới",
+    "headline": "Xin chào, tôi là pahopu 👋",
+    "role": "Lập trình viên Front-End",
+    "foundation": "Nền tảng Khoa học Máy tính vững chắc",
+    "tagline": "Tôi xây dựng các ứng dụng web hiệu suất cao và có thể mở rộng. Dù chuyên sâu về hệ sinh thái React & Vue, tôi luôn linh hoạt thích nghi với bất kỳ công nghệ nào phù hợp nhất.",
+    "cta_contact": "Liên hệ ngay",
+    "cta_projects": "Xem dự án",
+    "cta_cv": "Tải CV"
+  },
+  "about": {
+    "label": "Về tôi",
+    "heading": "Hồ sơ kỹ thuật",
+    "subheading": "Cử nhân KHMT, 1.5+ năm xây dựng frontend phức tạp. Tôi quan tâm đến code có khả năng mở rộng.",
+    "mindset_label": "Tư duy kỹ sư",
+    "bio_1": "Tôi là Lập trình viên Front-End với 1.5+ năm kinh nghiệm xây dựng hệ thống ERP quy mô lớn và nền tảng y tế.",
+    "bio_2": "Với nền tảng Khoa học Máy tính vững chắc (GPA 9.14 / 10.0), tôi chuyên về hệ sinh thái Vue 3 & React, kết nối logic backend phức tạp với trải nghiệm người dùng mượt mà.",
+    "edu_line": "Cử nhân Khoa học Máy tính — Đại học Công nghệ Thông tin, 2020–2024",
+    "awards_line": "Học bổng xuất sắc · Sinh viên 5 tốt",
+    "gpa": "9.14",
+    "gpa_label": "GPA / 10.0",
+    "gpa_badge": "Top 8% Xuất sắc",
+    "exp_number": "1.5+",
+    "exp_label": "Năm kinh nghiệm",
+    "projects_number": "5+",
+    "projects_label": "Dự án đã hoàn thành",
+    "stack_label": "Kho vũ khí kỹ thuật",
+    "core_label": "Core & Hệ sinh thái",
+    "cs_label": "KHMT & Kỹ thuật"
+  },
+  "skills": {
+    "label": "Kỹ năng",
+    "heading": "Tech Stack",
+    "subheading": "Công nghệ tôi dùng để xây dựng sản phẩm"
+  },
+  "projects": {
+    "label": "Công việc đã chọn",
+    "heading": "Dự án nổi bật",
+    "subheading": "Các công trình thể hiện chuyên môn về hệ thống quy mô lớn, tích hợp AI và kỹ thuật phần mềm.",
+    "private_badge": "Riêng tư",
+    "internal_label": "Hệ thống nội bộ doanh nghiệp",
+    "case_study": "Xem chi tiết",
+    "live_demo": "Xem Demo",
+    "code": "Code"
+  },
+  "experience": {
+    "label": "Kinh nghiệm",
+    "heading": "Nơi tôi đã làm việc",
+    "subheading": "Hành trình nghề nghiệp của tôi",
+    "current": "Hiện tại"
+  },
+  "contact": {
+    "label": "Liên hệ",
+    "heading": "Cùng xây dựng điều gì đó",
+    "accent": "đặc biệt.",
+    "subheading": "Dù bạn có câu hỏi về tech stack, đề xuất dự án, hay chỉ muốn thảo luận về Front-End — hộp thư của tôi luôn mở.",
+    "open_label": "Sẵn sàng cho cơ hội mới",
+    "email_prompt": "Gửi email cho tôi tại",
+    "name_label": "Họ tên",
+    "email_label": "Email",
+    "subject_label": "Chủ đề",
+    "message_label": "Tin nhắn",
+    "send_label": "Gửi tin nhắn",
+    "send_btn": "Gửi",
+    "sending_btn": "Đang gửi...",
+    "sent_btn": "Đã gửi",
+    "subject_placeholder": "Đề xuất dự án / Trao đổi kỹ thuật",
+    "message_placeholder": "Hãy kể về dự án của bạn...",
+    "error_msg": "Có lỗi xảy ra. Vui lòng thử lại hoặc email trực tiếp.",
+    "validation_msg": "Vui lòng điền đầy đủ các trường bắt buộc.",
+    "response_note": "Tôi thường phản hồi trong vòng 24 giờ."
+  },
+  "footer": {
+    "built_with": "Xây dựng với Next.js & ❤️",
+    "rights": "Bản quyền được bảo lưu."
+  }
+}
