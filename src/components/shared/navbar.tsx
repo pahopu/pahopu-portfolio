@@ -35,7 +35,7 @@ const LogoBadge = ({ isDark }: { isDark: boolean }) => (
     <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden>
       <path
         d="M12 2L14.39 8.26L21 9.27L16.5 13.97L17.78 21L12 17.77L6.22 21L7.5 13.97L3 9.27L9.61 8.26Z"
-        fill="currentColor" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
+        fill="currentColor" stroke="currentColor" strokeWidth="3" strokeLinejoin="round"
       />
     </svg>
   </div>
@@ -46,6 +46,7 @@ export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [trailEnabled, setTrailEnabled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
+  const [logoHint, setLogoHint] = useState(0);
 
   const locale = useLocale();
 
@@ -57,6 +58,7 @@ export const Navbar = () => {
 
   const logoClickCount = useRef(0);
   const logoClickTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  const logoHintTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const switchLocale = () => {
     const next = locale === "en" ? "vi" : "en";
@@ -67,10 +69,15 @@ export const Navbar = () => {
     e.preventDefault();
     logoClickCount.current += 1;
     clearTimeout(logoClickTimer.current);
-    logoClickTimer.current = setTimeout(() => { logoClickCount.current = 0; }, 1800);
+    clearTimeout(logoHintTimer.current);
+    logoClickTimer.current = setTimeout(() => { logoClickCount.current = 0; setLogoHint(0); }, 1800);
     if (logoClickCount.current >= 5) {
       logoClickCount.current = 0;
+      setLogoHint(0);
       setTrailEnabled((prev: boolean) => !prev);
+    } else {
+      setLogoHint(logoClickCount.current);
+      logoHintTimer.current = setTimeout(() => setLogoHint(0), 900);
     }
   };
 
@@ -156,9 +163,25 @@ export const Navbar = () => {
 
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo — click 5× to toggle cursor trail */}
-        <button onClick={handleLogoClick} className="focus:outline-none" aria-label="Home">
-          {logoEl}
-        </button>
+        <div className="relative">
+          <button onClick={handleLogoClick} className="focus:outline-none cursor-pointer" aria-label="Home">
+            {logoEl}
+          </button>
+          <AnimatePresence>
+            {logoHint > 0 && (
+              <motion.span
+                key={logoHint}
+                initial={{ opacity: 0, y: 2 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.15 }}
+                className="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] font-bold text-primary whitespace-nowrap pointer-events-none"
+              >
+                {"★".repeat(logoHint)}{"☆".repeat(5 - logoHint)}
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </div>
 
         {/* Desktop nav */}
         <nav className="hidden md:flex items-center gap-8">

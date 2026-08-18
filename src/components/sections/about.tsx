@@ -22,7 +22,7 @@ const StarDeco = ({ className }: { className?: string }) => (
   <svg viewBox="0 0 24 24" className={className} aria-hidden>
     <path
       d="M12 2L14.39 8.26L21 9.27L16.5 13.97L17.78 21L12 17.77L6.22 21L7.5 13.97L3 9.27L9.61 8.26Z"
-      fill="currentColor" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round"
+      fill="currentColor" stroke="currentColor" strokeWidth="3" strokeLinejoin="round"
     />
   </svg>
 );

@@ -16,6 +16,13 @@ export const Footer = () => {
       <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-primary/8 rounded-full blur-[80px] -z-10" />
 
       <div className="container px-4 md:px-6 mx-auto relative z-10">
+        {/* Konami code hint */}
+        <div className="text-center mb-5">
+          <span className="text-[9px] font-mono tracking-[0.3em] text-muted-foreground/20 select-none">
+            ↑↑↓↓←→←→BA
+          </span>
+        </div>
+
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
           {/* Copyright */}
           <div className="flex items-center gap-2 text-sm text-muted-foreground">

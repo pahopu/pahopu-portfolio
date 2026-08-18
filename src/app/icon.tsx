@@ -23,7 +23,7 @@ export default function Icon() {
             d="M12 2L14.39 8.26L21 9.27L16.5 13.97L17.78 21L12 17.77L6.22 21L7.5 13.97L3 9.27L9.61 8.26Z"
             fill="#C8E645"
             stroke="#C8E645"
-            stroke-width="1.5"
+            stroke-width="3"
             stroke-linejoin="round"
           />
         </svg>
