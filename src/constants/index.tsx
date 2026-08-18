@@ -4,7 +4,9 @@ import { Github, Linkedin, Mail } from "lucide-react";
 /* --- SECTION: NAVIGATION LINKS --- */
 export const NAV_LINKS = [
   { label: "About", href: "#about" },
+  { label: "Skills", href: "#skills" },
   { label: "Projects", href: "#projects" },
+  { label: "Experience", href: "#experience" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -288,5 +290,80 @@ export const PROJECTS = [
         },
       ],
     },
+  },
+];
+
+/* --- SECTION: SKILLS --- */
+export const SKILLS = [
+  {
+    category: "Frontend Frameworks",
+    items: [
+      { name: "Vue 3", icon: "vue" },
+      { name: "React", icon: "react" },
+      { name: "Next.js", icon: "nextdotjs" },
+      { name: "Quasar", icon: "quasar" },
+    ],
+  },
+  {
+    category: "Languages & Styling",
+    items: [
+      { name: "TypeScript", icon: "typescript" },
+      { name: "JavaScript", icon: "javascript" },
+      { name: "Tailwind CSS", icon: "tailwindcss" },
+      { name: "UnoCSS", icon: "unocss" },
+    ],
+  },
+  {
+    category: "UI Libraries",
+    items: [
+      { name: "Vuetify", icon: "vuetify" },
+      { name: "shadcn/ui", icon: "shadcnui" },
+      { name: "Framer Motion", icon: "framer" },
+      { name: "Vite", icon: "vite" },
+    ],
+  },
+  {
+    category: "State & Data",
+    items: [
+      { name: "Pinia", icon: "pinia" },
+      { name: "AG Grid", icon: "aggrid" },
+      { name: "Firebase", icon: "firebase" },
+      { name: "Git", icon: "git" },
+    ],
+  },
+  {
+    category: "Cloud & Infra",
+    items: [
+      { name: "AWS S3", icon: "amazons3" },
+      { name: "AWS Amplify", icon: "awsamplify" },
+      { name: "Python", icon: "python" },
+      { name: "Leaflet", icon: "leaflet" },
+    ],
+  },
+];
+
+/* --- SECTION: EXPERIENCE --- */
+export const EXPERIENCE = [
+  {
+    company: "Spring Knowledge Global",
+    role: "Frontend Developer",
+    period: "Mar 2026 – Present",
+    current: true,
+    highlights: [
+      "Built CareLink — a healthcare platform with 3 Vue 3 portals (Admin, Doctor, Provider) featuring Statistics Dashboards, Provider management, and smart PDF/Excel export pipelines.",
+      "Built Uni-Voice — a disaster-response admin system for Japanese municipalities using Vue 3 + Quasar + AWS, with interactive shelter mapping (Leaflet/GeoJSON), bulk CSV import, and map tile generation.",
+      "Led the MedLink → CareLink rebrand across all 3 portals including i18n, dark mode, and shared component updates.",
+    ],
+  },
+  {
+    company: "DVA Group Holdings",
+    role: "Frontend Developer",
+    period: "2023 – Feb 2026",
+    current: false,
+    highlights: [
+      "Built DIVA ERP — a large-scale enterprise system (Admin, POS, CRM) with shared component library and code-splitting optimizations.",
+      "Implemented Payroll Engine, Affiliate Hub, 360° Customer View, and Smart Appointment Calendar modules.",
+      "Delivered Lucky Draw gamification system with tier-based rewards and configurable events.",
+    ],
   },
 ];
