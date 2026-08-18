@@ -59,6 +59,7 @@ export const metadata: Metadata = {
     description:
       "2+ years building large-scale ERP systems and healthcare platforms. Vue 3 & React specialist with a strong CS foundation. Currently employed, open to connect.",
     siteName: "pahopu",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "pahopu — Front-End Developer" }],
   },
 
   twitter: {
@@ -67,6 +68,7 @@ export const metadata: Metadata = {
     description:
       "2+ years building ERP systems & healthcare platforms. Vue 3 & React specialist. CS grad (GPA 9.14).",
     creator: "@pahopu",
+    images: ["/opengraph-image"],
   },
 
   icons: {
