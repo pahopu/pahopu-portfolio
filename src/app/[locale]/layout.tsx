@@ -28,19 +28,21 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL("https://pahopu-portfolio.vercel.app"),
   title: {
-    default: "pahopu | Software Engineer",
+    default: "pahopu | Front-End Developer",
     template: "%s | pahopu",
   },
   description:
-    "A high-performance engineering portfolio built with Next.js 15, TypeScript, and Tailwind CSS. Featuring scalable system architectures and technical case studies.",
+    "Front-End Developer with 2+ years building large-scale ERP systems and healthcare platforms. CS graduate (GPA 9.14). Vue 3 & React specialist. Currently employed, open to connect.",
   keywords: [
-    "Software Engineer",
-    "Front-End Engineer",
-    "Next.js Developer",
+    "Front-End Developer",
+    "Vue 3",
     "React",
+    "Next.js",
     "TypeScript",
+    "ERP Systems",
     "Portfolio",
     "Pham Hoang Phuc",
+    "Phạm Hoàng Phúc",
     "pahopu",
   ],
   authors: [
@@ -51,18 +53,19 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
+    alternateLocale: ["vi_VN"],
     url: "https://pahopu-portfolio.vercel.app",
-    title: "pahopu | Software Engineer & Front-End Specialist",
+    title: "pahopu — Front-End Developer",
     description:
-      "Showcasing large-scale ERP systems, AI integrations, and custom game engines. Built with an engineer's mindset.",
-    siteName: "pahopu Portfolio",
+      "2+ years building large-scale ERP systems and healthcare platforms. Vue 3 & React specialist with a strong CS foundation. Currently employed, open to connect.",
+    siteName: "pahopu",
   },
 
   twitter: {
     card: "summary_large_image",
-    title: "pahopu | Software Engineer",
+    title: "pahopu | Front-End Developer",
     description:
-      "Building scalable web applications with Next.js & TypeScript.",
+      "2+ years building ERP systems & healthcare platforms. Vue 3 & React specialist. CS grad (GPA 9.14).",
     creator: "@pahopu",
   },
 
