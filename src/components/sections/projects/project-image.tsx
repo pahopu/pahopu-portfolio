@@ -408,6 +408,53 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
     );
   }
 
+  /* --- CASE 4: CARELINK (HEALTHCARE PLATFORM) --- */
+  if (id === "carelink") {
+    return (
+      <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#5B8FE8] overflow-hidden group">
+        <div className="absolute inset-0 opacity-15 bg-[radial-gradient(rgba(255,229,102,0.8)_1px,transparent_1px)] bg-size-[28px_28px]" />
+        <div className="relative z-10 flex flex-col items-center gap-4">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-lg group-hover:scale-110 transition-transform duration-500">
+            <circle cx="40" cy="40" r="36" stroke="white" strokeWidth="2" strokeOpacity="0.4" />
+            <path d="M40 20 C40 20 25 28 25 40 C25 52 40 60 40 60 C40 60 55 52 55 40 C55 28 40 20 40 20Z" fill="white" fillOpacity="0.15" stroke="white" strokeWidth="1.5" />
+            <path d="M33 40 H47 M40 33 V47" stroke="#FFE566" strokeWidth="3" strokeLinecap="round" />
+            <circle cx="40" cy="40" r="8" stroke="white" strokeWidth="1.5" strokeOpacity="0.6" />
+          </svg>
+          <span className="text-white font-bold text-lg tracking-wide drop-shadow">CareLink</span>
+          <div className="flex gap-2">
+            {["Admin", "Doctor", "Provider"].map((p) => (
+              <span key={p} className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-white/20 text-white border border-white/30">{p}</span>
+            ))}
+          </div>
+        </div>
+        <div className="absolute bottom-3 right-3 text-[10px] font-mono text-white/60 uppercase tracking-widest">Healthcare · Vue 3</div>
+      </div>
+    );
+  }
+
+  /* --- CASE 5: UNI-VOICE (HAZARD MAP SYSTEM) --- */
+  if (id === "uni-voice") {
+    return (
+      <div className="absolute inset-0 flex flex-col items-center justify-center bg-[#1B2E6E] overflow-hidden group">
+        <div className="absolute inset-0 opacity-15 bg-[linear-gradient(to_right,rgba(200,230,69,0.4)_1px,transparent_1px),linear-gradient(to_bottom,rgba(200,230,69,0.4)_1px,transparent_1px)] bg-size-[32px_32px]" />
+        <div className="relative z-10 flex flex-col items-center gap-4">
+          <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg" className="drop-shadow-lg group-hover:scale-110 transition-transform duration-500">
+            <circle cx="40" cy="40" r="30" stroke="#C8E645" strokeWidth="1.5" strokeOpacity="0.5" strokeDasharray="6 3" />
+            <circle cx="40" cy="40" r="18" stroke="#C8E645" strokeWidth="1.5" strokeOpacity="0.3" />
+            <circle cx="40" cy="40" r="4" fill="#C8E645" />
+            <path d="M40 10 L40 22 M40 58 L40 70 M10 40 L22 40 M58 40 L70 40" stroke="#C8E645" strokeWidth="1.5" strokeOpacity="0.6" strokeLinecap="round" />
+            <circle cx="28" cy="28" r="3" fill="#FFE566" opacity="0.8" className="animate-pulse" />
+            <circle cx="52" cy="35" r="2.5" fill="#F5B8CC" opacity="0.8" className="animate-pulse" style={{ animationDelay: "0.5s" }} />
+            <circle cx="35" cy="52" r="2" fill="#FFE566" opacity="0.6" className="animate-pulse" style={{ animationDelay: "1s" }} />
+          </svg>
+          <span className="text-[#C8E645] font-bold text-lg tracking-wide drop-shadow">Uni-Voice</span>
+          <span className="text-[10px] font-semibold px-3 py-1 rounded-full bg-[#C8E645]/20 text-[#C8E645] border border-[#C8E645]/30">Hazard Map Admin</span>
+        </div>
+        <div className="absolute bottom-3 right-3 text-[10px] font-mono text-white/40 uppercase tracking-widest">Disaster Response · AWS</div>
+      </div>
+    );
+  }
+
   /* --- DEFAULT CASE --- */
   return (
     <div className="absolute inset-0 flex items-center justify-center bg-muted">

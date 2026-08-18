@@ -1,3 +1,4 @@
+import { EasterEgg } from "@/components/shared/easter-egg";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Navbar } from "@/components/shared/navbar";
 import { ScrollProgress } from "@/components/shared/scroll-progress";
@@ -124,6 +125,7 @@ export default async function LocaleLayout({
             <ScrollProgress />
             <Navbar />
             <main className="pt-16 min-h-screen text-foreground">{children}</main>
+            <EasterEgg />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
