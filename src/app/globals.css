@@ -126,6 +126,10 @@
     @apply bg-background text-foreground;
   }
 
+  h1, h2, h3, h4, h5 {
+    font-family: var(--font-display), var(--font-geist-sans), sans-serif;
+  }
+
   /* --- CUSTOM SCROLLBAR --- */
   ::-webkit-scrollbar {
     width: 10px;

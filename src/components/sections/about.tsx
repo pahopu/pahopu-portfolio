@@ -26,12 +26,12 @@ export const About = () => {
       <div
         className="absolute inset-0 h-full w-full opacity-[0.4] dark:opacity-[0.25]"
         style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 8L22 17L31 19L22 21L20 30L18 21L9 19L18 17L20 8Z' fill='%2394a3b8' fill-opacity='0.6' /%3E%3C/svg%3E")`,
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 8L22 17L31 19L22 21L20 30L18 21L9 19L18 17L20 8Z' fill='%23FF8C5A' fill-opacity='0.6' /%3E%3C/svg%3E")`,
           backgroundSize: "40px 40px",
         }}
       />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_90%)]" />
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-blue-500/5 rounded-full blur-[120px] -z-10" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-primary/5 rounded-full blur-[120px] -z-10" />
 
       {/* --- SECTION: CONTENT CONTAINER --- */}
       <div className="container px-4 md:px-6 mx-auto max-w-6xl relative z-10">
@@ -56,7 +56,7 @@ export const About = () => {
           {/* --- CARD 1: BIO (BLUE ACCENT) --- */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="md:col-span-2 relative overflow-hidden border-blue-500/20 bg-linear-to-br from-blue-500/5 via-card to-card"
+            className="md:col-span-2 relative overflow-hidden border-primary/20 bg-linear-to-br from-primary/5 via-card to-card"
           >
             {/* Decoration Icon */}
             <div className="absolute -top-6 -right-6 opacity-[0.03] rotate-12 pointer-events-none">
@@ -64,7 +64,7 @@ export const About = () => {
             </div>
 
             <CardContent className="p-6 md:p-8 space-y-4">
-              <div className="flex items-center gap-2 text-blue-500 font-semibold text-lg mb-2">
+              <div className="flex items-center gap-2 text-primary font-semibold text-lg mb-2">
                 <Cpu className="w-5 h-5" /> The Engineer Mindset
               </div>
               <p className="text-muted-foreground leading-relaxed text-lg">
@@ -122,10 +122,10 @@ export const About = () => {
           {/* --- CARD 3: EDUCATION (VIOLET ACCENT) --- */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="md:col-span-1 border-violet-500/20 bg-linear-to-br from-violet-500/5 via-card to-card"
+            className="md:col-span-1 border-pink-400/20 bg-linear-to-br from-pink-400/5 via-card to-card"
           >
             <CardContent className="flex flex-col justify-center h-full space-y-6">
-              <div className="flex items-center gap-2 text-violet-500 font-semibold text-base">
+              <div className="flex items-center gap-2 text-pink-400 font-semibold text-base">
                 <BookOpen className="w-4 h-4" /> Education & Honors
               </div>
 
@@ -138,13 +138,13 @@ export const About = () => {
                 </p>
               </div>
 
-              <div className="space-y-3 pt-4 border-t border-violet-500/10">
+              <div className="space-y-3 pt-4 border-t border-pink-400/10">
                 <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <Trophy className="w-4 h-4 text-violet-500 shrink-0 mt-0.5" />
+                  <Trophy className="w-4 h-4 text-pink-400 shrink-0 mt-0.5" />
                   <span>Scholarship for Excellence</span>
                 </div>
                 <div className="flex items-start gap-2 text-sm text-muted-foreground">
-                  <Sparkles className="w-4 h-4 text-violet-500 shrink-0 mt-0.5" />
+                  <Sparkles className="w-4 h-4 text-pink-400 shrink-0 mt-0.5" />
                   <span>Student of 5 Merits</span>
                 </div>
               </div>
@@ -154,12 +154,12 @@ export const About = () => {
           {/* --- CARD 4: TECH STACK (EMERALD ACCENT) --- */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="md:col-span-2 border-emerald-500/20 bg-linear-to-br from-emerald-500/5 via-card to-card"
+            className="md:col-span-2 border-teal-400/20 bg-linear-to-br from-teal-400/5 via-card to-card"
           >
             <CardContent className="p-0 h-full flex flex-col">
               {/* Internal Header */}
-              <div className="p-6 pt-0 border-b border-emerald-500/10 flex items-center justify-between">
-                <div className="flex items-center gap-2 text-emerald-500 font-semibold">
+              <div className="p-6 pt-0 border-b border-teal-400/10 flex items-center justify-between">
+                <div className="flex items-center gap-2 text-teal-500 font-semibold">
                   <Layers className="w-5 h-5" /> Technical Arsenal
                 </div>
                 <div className="flex gap-1.5 opacity-60">
@@ -189,7 +189,7 @@ export const About = () => {
                       <Badge
                         key={t}
                         variant="secondary"
-                        className="bg-emerald-500/5 hover:bg-emerald-500/10 text-emerald-700 dark:text-emerald-400 border-transparent transition-colors"
+                        className="bg-teal-500/5 hover:bg-teal-500/10 text-teal-700 dark:text-teal-400 border-transparent transition-colors"
                       >
                         {t}
                       </Badge>
@@ -214,7 +214,7 @@ export const About = () => {
                       <Badge
                         key={t}
                         variant="outline"
-                        className="border-dashed border-emerald-500/30"
+                        className="border-dashed border-teal-500/30"
                       >
                         {t}
                       </Badge>

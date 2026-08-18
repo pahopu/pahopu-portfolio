@@ -3,8 +3,15 @@ import { Navbar } from "@/components/shared/navbar";
 import { ScrollProgress } from "@/components/shared/scroll-progress";
 import { cn } from "@/lib/utils";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+
+const plusJakarta = Plus_Jakarta_Sans({
+  variable: "--font-display",
+  subsets: ["latin"],
+  weight: ["500", "600", "700", "800"],
+  display: "swap",
+});
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -87,6 +94,7 @@ export default function RootLayout({
         className={cn(
           geistSans.variable,
           geistMono.variable,
+          plusJakarta.variable,
           "font-sans antialiased bg-background text-foreground"
         )}
       >

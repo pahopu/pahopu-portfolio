@@ -22,6 +22,11 @@ export const Hero = () => {
       />
       <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_500px_at_50%_200px,#FF8C5A26,transparent)]" />
 
+      {/* Floating blobs */}
+      <div className="absolute top-1/4 -left-32 w-64 h-64 bg-secondary/20 rounded-full blur-3xl -z-10 animate-pulse" />
+      <div className="absolute top-1/3 -right-32 w-80 h-80 bg-accent/15 rounded-full blur-3xl -z-10 animate-pulse [animation-delay:1500ms]" />
+      <div className="absolute bottom-1/4 left-1/3 w-48 h-48 bg-primary/10 rounded-full blur-3xl -z-10" />
+
       {/* --- CONTENT --- */}
       <div className="container px-4 md:px-6 flex flex-col items-center text-center z-10">
         <motion.div
