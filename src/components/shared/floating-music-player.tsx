@@ -179,7 +179,7 @@ export const FloatingMusicPlayer = () => {
             {/* Track info */}
             <div className="px-5 text-center mb-3">
               <p className="font-bold text-sm text-foreground leading-snug truncate">{TRACK.title}</p>
-              <p className="text-xs text-muted-foreground mt-0.5 truncate">{TRACK.artist}</p>
+              <p className="text-xs text-muted-foreground mt-0.5 truncate">{t("artist")}</p>
             </div>
 
             {/* Progress — draggable */}
@@ -188,8 +188,8 @@ export const FloatingMusicPlayer = () => {
                 ref={progressRef}
                 onMouseDown={handleProgressMouseDown}
                 className={cn(
-                  "relative h-1.5 rounded-full bg-muted group",
-                  isDragging ? "cursor-grabbing" : "cursor-pointer"
+                  "relative rounded-full bg-muted group transition-all duration-150",
+                  isDragging ? "cursor-grabbing h-1.5" : "cursor-pointer h-1 hover:h-1.5"
                 )}
               >
                 <div
