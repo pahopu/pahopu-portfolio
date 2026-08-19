@@ -3,6 +3,7 @@
 import { SKILLS } from "@/constants";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { Layers } from "lucide-react";
 import * as SimpleIcons from "simple-icons";
 import { useTranslations } from "next-intl";
 
@@ -42,7 +43,7 @@ export const Skills = () => {
           className="text-center mb-14"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#5B8FE8]/15 border border-[#5B8FE8]/25 text-[#5B8FE8] font-semibold text-sm mb-4">
-            ✦ {t("label")}
+            <Layers className="h-3.5 w-3.5" /> {t("label")}
           </div>
           <h2 className="text-4xl font-bold sm:text-5xl">{t("heading")}</h2>
           <p className="mt-3 text-muted-foreground max-w-md mx-auto">{t("subheading")}</p>

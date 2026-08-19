@@ -13,6 +13,7 @@ import {
   Layers,
   Rocket,
   Sparkles,
+  UserRound,
 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -41,7 +42,7 @@ export const About = () => {
         {/* Section header */}
         <div className="text-center mb-10">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 border border-primary/25 text-primary font-semibold text-sm mb-3">
-            ✦ {t("label")}
+            <UserRound className="h-3.5 w-3.5" /> {t("label")}
           </div>
           <h2 className="text-4xl font-bold sm:text-5xl">{t("heading")}</h2>
           <p className="mt-3 text-muted-foreground max-w-xl mx-auto">{t("subheading")}</p>

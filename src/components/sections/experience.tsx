@@ -3,6 +3,7 @@
 import { EXPERIENCE } from "@/constants";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+import { Building2 } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 // Rounded star icon
@@ -39,7 +40,7 @@ export const Experience = () => {
           className="text-center mb-14"
         >
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#F5B8CC]/20 border border-[#F5B8CC]/30 text-[#C44D72] dark:text-[#F5B8CC] font-semibold text-sm mb-4">
-            ★ {t("label")}
+            <Building2 className="h-3.5 w-3.5" /> {t("label")}
           </div>
           <h2 className="text-4xl font-bold sm:text-5xl">{t("heading")}</h2>
           <p className="mt-3 text-muted-foreground max-w-md mx-auto">{t("subheading")}</p>

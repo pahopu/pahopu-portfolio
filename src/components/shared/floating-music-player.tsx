@@ -264,7 +264,7 @@ export const FloatingMusicPlayer = () => {
                 </div>
                 <div
                   className={cn(
-                    "absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary shadow-sm transition-all duration-150",
+                    "absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary shadow-sm transition-[opacity,transform] duration-150",
                     isDragging ? "opacity-100 scale-125" : "opacity-60 group-hover:opacity-100"
                   )}
                   style={{ left: `clamp(0px, calc(${progress}% - 6px), calc(100% - 12px))` }}
@@ -314,7 +314,7 @@ export const FloatingMusicPlayer = () => {
       {/* Pill — also the drag handle */}
       <motion.button
         onPointerDown={(e) => controls.start(e)}
-        onClick={() => setIsExpanded((v) => !v)}
+        onClick={() => { if (!isDraggingPlayerRef.current) setIsExpanded((v) => !v); }}
         onHoverStart={() => setIsPillHovered(true)}
         onHoverEnd={() => setIsPillHovered(false)}
         whileHover={{ scale: 1.03 }}
