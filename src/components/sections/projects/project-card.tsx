@@ -13,7 +13,7 @@ import {
 import { PROJECTS } from "@/constants";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
-import { ExternalLink, Eye, Github, Lock } from "lucide-react";
+import { ExternalLink, Eye, Github, GraduationCap, Lock } from "lucide-react";
 import Link from "next/link";
 import { ResponsiveModal } from "@/components/shared/responsive-modal";
 import { ProjectCaseStudy } from "./project-case-study";
@@ -82,6 +82,11 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
             <CardTitle className="text-xl group-hover:text-primary transition-colors">
               {project.title}
             </CardTitle>
+            {"academic" in project && project.academic && (
+              <Badge variant="secondary" className="gap-1 shrink-0 bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/20">
+                <GraduationCap className="h-3 w-3" /> {t("academic_badge")}
+              </Badge>
+            )}
             {project.links.demo === null && project.links.github === null && (
               <Badge variant="secondary" className="gap-1 shrink-0">
                 <Lock className="h-3 w-3" /> {t("private_badge")}

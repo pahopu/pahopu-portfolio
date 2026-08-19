@@ -288,6 +288,7 @@ export const PROJECTS = [
       github: "https://github.com/pahopu/CS336_ImageSearch_Project2",
     },
     featured: false,
+    academic: true,
     achievements: [
       "Built a complete CBIR system from data collection to frontend.",
       "Implemented feature extraction using Xception model & OpenCV.",
@@ -364,6 +365,7 @@ export const PROJECTS = [
       github: "https://github.com/pahopu/SE102_SuperMarioBros3",
     },
     featured: false,
+    academic: true,
     achievements: [
       "Engineered a custom Game Engine using DirectX 10 & C++.",
       "Implemented Grid-based Collision Detection (Swept AABB).",
@@ -493,7 +495,7 @@ export const EXPERIENCE = [
   {
     company: "DVA Group Holdings",
     role: "Frontend Developer",
-    period: "2023 – Feb 2026",
+    period: "May 2024 – Feb 2026",
     current: false,
     highlights: [
       "Built DIVA ERP — a large-scale enterprise system (Admin, POS, CRM) with shared component library and code-splitting optimizations.",
