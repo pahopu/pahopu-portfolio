@@ -21,9 +21,8 @@ import {
   Loader2,
   Mail,
   MessageSquare,
-  Send,
-  Terminal,
 } from "lucide-react";
+import { AlbumStar } from "@/components/shared/album-star";
 import Link from "next/link";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -70,9 +69,18 @@ export const ContactSection = () => {
   return (
     <section id="contact" className="relative w-full py-24 overflow-hidden">
       <div className="absolute inset-0 bg-[#F0F8FF]/40 dark:bg-[#0F1B40]/20" />
-      <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-[#C8E645]/10 rounded-full blur-[100px] -z-10" />
-      <div className="absolute top-0 left-0 w-[500px] h-[400px] bg-[#5B8FE8]/10 rounded-full blur-[100px] -z-10" />
+      <div className="absolute bottom-0 right-0 w-[600px] h-[400px] bg-[#C8E645]/12 rounded-full blur-[100px] -z-10" />
+      <div className="absolute top-0 left-0 w-[500px] h-[400px] bg-[#5B8FE8]/12 rounded-full blur-[100px] -z-10" />
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,var(--background)_90%)]" />
+      <AlbumStar size={64} className="top-[4%] right-[2%]"     style={{ animationDuration: "5.4s" }} />
+      <AlbumStar size={24} className="top-[18%] right-[7%]"    style={{ animationDuration: "4.1s", animationDelay: "1.6s" }} />
+      <AlbumStar size={40} className="top-[46%] right-[1%]"    style={{ animationDuration: "6.7s", animationDelay: "0.5s" }} />
+      <AlbumStar size={18} className="bottom-[24%] right-[5%]" style={{ animationDuration: "5.1s", animationDelay: "2.0s" }} />
+      <AlbumStar size={52} className="bottom-[6%] right-[3%]"  style={{ animationDuration: "4.8s", animationDelay: "0.2s" }} />
+      <AlbumStar size={48} className="top-[5%] left-[2%]"      style={{ animationDuration: "6.0s", animationDelay: "1.1s" }} />
+      <AlbumStar size={20} className="top-[32%] left-[1%]"     style={{ animationDuration: "5.8s", animationDelay: "1.9s" }} />
+      <AlbumStar size={36} className="bottom-[16%] left-[3%]"  style={{ animationDuration: "7.2s", animationDelay: "0.7s" }} />
+      <AlbumStar size={16} className="bottom-[35%] left-[6%]"  style={{ animationDuration: "4.5s", animationDelay: "2.3s" }} />
 
       <div className="container px-4 md:px-6 mx-auto max-w-6xl relative z-10">
         <motion.div
@@ -85,9 +93,8 @@ export const ContactSection = () => {
           {/* Left column */}
           <div className="space-y-8">
             <motion.div variants={HERO_ANIMATION.item} className="space-y-4">
-              <div className="flex items-center gap-2 text-primary font-mono text-sm tracking-wider uppercase">
-                <Terminal className="w-4 h-4" />
-                <span>/contact-me</span>
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/15 border border-primary/25 text-primary font-semibold text-sm">
+                <Mail className="h-3.5 w-3.5" /> {t("label")}
               </div>
               <h2 className="text-4xl font-bold tracking-tighter sm:text-5xl">
                 {t("heading")} <br />
@@ -149,9 +156,18 @@ export const ContactSection = () => {
           {/* Right column — form */}
           <motion.div variants={HERO_ANIMATION.item}>
             <MotionCard className="border-primary/20 bg-linear-to-br from-primary/5 via-card to-card relative overflow-hidden shadow-lg">
-              <div className="absolute top-0 right-0 p-6 opacity-5 -rotate-12 pointer-events-none">
-                <Send size={100} />
-              </div>
+              <svg viewBox="0 0 24 24" width={110} height={110}
+                className="absolute -top-4 -right-4 text-[#FFE566] opacity-[0.12] dark:opacity-[0.08] -rotate-12 pointer-events-none select-none"
+                aria-hidden>
+                <path d="M12 2L14.39 8.26L21 9.27L16.5 13.97L17.78 21L12 17.77L6.22 21L7.5 13.97L3 9.27L9.61 8.26Z"
+                  fill="currentColor" stroke="currentColor" strokeWidth="3.5" strokeLinejoin="round" />
+              </svg>
+              <svg viewBox="0 0 24 24" width={48} height={48}
+                className="absolute bottom-4 left-3 text-[#FFE566] opacity-[0.10] dark:opacity-[0.07] rotate-6 pointer-events-none select-none"
+                aria-hidden>
+                <path d="M12 2L14.39 8.26L21 9.27L16.5 13.97L17.78 21L12 17.77L6.22 21L7.5 13.97L3 9.27L9.61 8.26Z"
+                  fill="currentColor" stroke="currentColor" strokeWidth="3.5" strokeLinejoin="round" />
+              </svg>
 
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-[#1B2E6E] dark:text-primary">
