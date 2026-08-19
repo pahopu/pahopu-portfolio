@@ -200,9 +200,9 @@ export const PROJECTS = [
       github: null,
     },
     achievements: [
-      "Admin: Optimized HR/Payroll & Affiliate Marketing modules.",
-      "POS: Implemented complex Commission logic & 360° Customer View.",
-      "Architecture: Shared component library & Bundle optimization for 3 sites.",
+      "HR/Payroll Engine with dynamic salary tables, Excel import/export, and Affiliate Hub with commission tracking and payout verification.",
+      "POS: Flexible per-item/per-staff commission assignment, 360° Customer View, and Smart Appointment Calendar with performance optimization.",
+      "Monorepo-style shared component library with code-splitting that cut bundle size by ~40% across 3 integrated sites.",
     ],
     featured: true,
     caseStudy: {

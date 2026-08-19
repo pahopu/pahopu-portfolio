@@ -8,7 +8,7 @@ const KONAMI = [
   "b", "a",
 ];
 
-export function useKonamiCode(): boolean {
+export function useKonamiCode(): { triggered: boolean; step: number } {
   const [index, setIndex] = useState(0);
   const [triggered, setTriggered] = useState(false);
 
@@ -31,5 +31,5 @@ export function useKonamiCode(): boolean {
     return () => window.removeEventListener("keydown", handler);
   }, [index]);
 
-  return triggered;
+  return { triggered, step: index };
 }

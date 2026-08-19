@@ -16,7 +16,7 @@ function fireConfetti() {
 }
 
 export const EasterEgg = () => {
-  const konamiTriggered = useKonamiCode();
+  const { triggered: konamiTriggered } = useKonamiCode();
   const congbdayTriggered = useTypingSequence("congbday");
 
   useEffect(() => {

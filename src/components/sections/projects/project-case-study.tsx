@@ -10,6 +10,7 @@ import {
   Layers,
   LayoutDashboard,
   Lightbulb,
+  MapPin,
   RefreshCw,
   Search,
   ShoppingCart,
@@ -73,6 +74,10 @@ const getIcon = (name: string) => {
       return <ShoppingCart className="h-5 w-5" />;
     case "Users":
       return <Users className="h-5 w-5" />;
+    case "MapPin":
+      return <MapPin className="h-5 w-5" />;
+    case "Layers":
+      return <Layers className="h-5 w-5" />;
     case "Box":
       return <Box className="h-5 w-5" />;
     default:
@@ -217,12 +222,12 @@ export const ProjectCaseStudy = ({ data }: CaseStudyProps) => {
       <Tabs defaultValue="overview" className="w-full flex flex-col h-full">
         {/* --- SECTION: TABS NAVIGATION --- */}
         <div className="sticky top-0 z-10 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 mt-4 pb-4 border-b">
-          <TabsList className="grid w-full h-auto grid-cols-2 sm:grid-cols-4 p-1 gap-1">
-            <TabsTrigger value="overview" className="py-2">
+          <TabsList className="flex w-full h-auto overflow-x-auto p-1 gap-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <TabsTrigger value="overview" className="py-2 shrink-0">
               Overview
             </TabsTrigger>
             {data.modules?.map((mod) => (
-              <TabsTrigger key={mod.id} value={mod.id} className="py-2">
+              <TabsTrigger key={mod.id} value={mod.id} className="py-2 shrink-0">
                 {mod.name}
               </TabsTrigger>
             ))}
@@ -234,7 +239,7 @@ export const ProjectCaseStudy = ({ data }: CaseStudyProps) => {
           {/* --- TAB CONTENT: OVERVIEW --- */}
           <TabsContent value="overview" className="space-y-6 m-0">
             {/* 1. Challenge Block */}
-            <div className="p-4 rounded-lg border bg-muted/50">
+            <div className="p-4 rounded-lg border border-primary/20 bg-primary/5">
               <h4 className="font-semibold flex items-center gap-2 mb-2 text-primary">
                 <Target className="h-4 w-4" /> The Challenge
               </h4>
@@ -259,7 +264,7 @@ export const ProjectCaseStudy = ({ data }: CaseStudyProps) => {
               </div>
               <div className="p-4 rounded-lg border bg-card">
                 <h4 className="font-semibold mb-2 text-sm flex items-center gap-2">
-                  <Zap className="h-4 w-4 text-blue-500" /> Key Impact
+                  <Zap className="h-4 w-4 text-[#5B8FE8]" /> Key Impact
                 </h4>
                 <p
                   className="text-sm text-muted-foreground"
@@ -287,7 +292,7 @@ export const ProjectCaseStudy = ({ data }: CaseStudyProps) => {
               </div>
 
               {/* Context / Situation */}
-              <div className="bg-secondary/20 p-4 rounded-lg border border-secondary">
+              <div className="bg-muted/40 p-4 rounded-lg border border-border">
                 <h5 className="text-sm font-semibold mb-1 flex items-center gap-2">
                   <Layers className="h-4 w-4" /> Context:
                 </h5>

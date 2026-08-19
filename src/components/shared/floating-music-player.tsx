@@ -102,6 +102,13 @@ export const FloatingMusicPlayer = () => {
     if (pct !== null && audioRef.current) audioRef.current.currentTime = pct * duration;
   }, [getPct, duration]);
 
+  const handleProgressTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+    const pct = getPct(e.touches[0].clientX);
+    if (pct !== null && audioRef.current) audioRef.current.currentTime = pct * duration;
+  }, [getPct, duration]);
+
   useEffect(() => {
     if (!isDragging) return;
     const onMove = (e: MouseEvent) => {
@@ -109,11 +116,21 @@ export const FloatingMusicPlayer = () => {
       if (pct !== null && audioRef.current) audioRef.current.currentTime = pct * duration;
     };
     const onUp = () => setIsDragging(false);
+    const onTouchMove = (e: TouchEvent) => {
+      e.preventDefault();
+      const pct = getPct(e.touches[0].clientX);
+      if (pct !== null && audioRef.current) audioRef.current.currentTime = pct * duration;
+    };
+    const onTouchEnd = () => setIsDragging(false);
     window.addEventListener("mousemove", onMove);
     window.addEventListener("mouseup", onUp);
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", onTouchEnd);
     return () => {
       window.removeEventListener("mousemove", onMove);
       window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
     };
   }, [isDragging, getPct, duration]);
 
@@ -129,6 +146,7 @@ export const FloatingMusicPlayer = () => {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 12, scale: 0.96 }}
             transition={{ type: "spring", stiffness: 320, damping: 30 }}
+            onTouchMove={(e) => e.stopPropagation()}
             className="w-68 rounded-3xl bg-card/98 backdrop-blur-xl border border-border/50 shadow-2xl shadow-black/10 overflow-hidden"
           >
             {/* Header — state-aware */}
@@ -188,10 +206,12 @@ export const FloatingMusicPlayer = () => {
               <div
                 ref={progressRef}
                 onMouseDown={handleProgressMouseDown}
+                onTouchStart={handleProgressTouchStart}
                 className={cn(
                   "relative h-4 flex items-center group",
                   isDragging ? "cursor-grabbing" : "cursor-pointer"
                 )}
+                style={isDragging ? { touchAction: "none" } : undefined}
               >
                 {/* Visual bar: thin by default, thickens on hover/drag */}
                 <div className={cn(
@@ -207,7 +227,7 @@ export const FloatingMusicPlayer = () => {
                 <div
                   className={cn(
                     "absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary shadow-sm transition-opacity",
-                    isDragging ? "opacity-100 scale-125" : "opacity-0 group-hover:opacity-100"
+                    isDragging ? "opacity-100 scale-125" : "opacity-60 group-hover:opacity-100"
                   )}
                   style={{ left: `clamp(0px, calc(${progress}% - 6px), calc(100% - 12px))` }}
                 />

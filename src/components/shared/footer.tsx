@@ -1,13 +1,18 @@
 "use client";
 
 import { HERO_SOCIALS } from "@/constants";
+import { useKonamiCode } from "@/hooks/use-konami-code";
+import { cn } from "@/lib/utils";
 import { Code2, Copyright } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
+const KONAMI_DISPLAY = ["↑", "↑", "↓", "↓", "←", "→", "←", "→", "B", "A"];
+
 export const Footer = () => {
   const t = useTranslations("footer");
   const currentYear = new Date().getFullYear();
+  const { step } = useKonamiCode();
 
   return (
     <footer className="w-full py-8 relative overflow-hidden bg-[#F0F6FF]/80 dark:bg-[#0A1232]/60">
@@ -17,10 +22,20 @@ export const Footer = () => {
 
       <div className="container px-4 md:px-6 mx-auto relative z-10">
         {/* Konami code hint */}
-        <div className="text-center mb-5">
-          <span className="text-[9px] font-mono tracking-[0.3em] text-muted-foreground/20 select-none">
-            ↑↑↓↓←→←→BA
-          </span>
+        <div className="flex items-center justify-center gap-0.5 mb-5 select-none">
+          {KONAMI_DISPLAY.map((char, i) => (
+            <span
+              key={i}
+              className={cn(
+                "text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-md transition-all duration-200",
+                i < step
+                  ? "text-primary bg-primary/15 border border-primary/30 shadow-sm shadow-primary/20"
+                  : "text-muted-foreground/20 border border-transparent"
+              )}
+            >
+              {char}
+            </span>
+          ))}
         </div>
 
         <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-0">
