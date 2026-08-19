@@ -33,9 +33,15 @@ export const Skills = () => {
       <div className="absolute inset-0 bg-[#F8FBFF]/60 dark:bg-[#0F1B40]/20" />
       <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-primary/6 rounded-full blur-[120px] -z-10" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[300px] bg-[#5B8FE8]/6 rounded-full blur-[100px] -z-10" />
-      <AlbumStar size={48} className="top-[8%] left-[4%]" style={{ animationDuration: "6s" }} />
-      <AlbumStar size={28} className="bottom-[18%] right-[3%]" style={{ animationDuration: "5.5s", animationDelay: "1.5s" }} />
-      <AlbumStar size={20} className="top-[55%] left-[2%]" style={{ animationDuration: "7s", animationDelay: "0.4s" }} />
+      <AlbumStar size={60} className="top-[5%] left-[3%]"      style={{ animationDuration: "6.0s" }} />
+      <AlbumStar size={22} className="top-[20%] left-[8%]"     style={{ animationDuration: "4.4s", animationDelay: "1.6s" }} />
+      <AlbumStar size={36} className="top-[48%] left-[1%]"     style={{ animationDuration: "5.8s", animationDelay: "0.4s" }} />
+      <AlbumStar size={16} className="top-[66%] left-[5%]"     style={{ animationDuration: "7.0s", animationDelay: "2.1s" }} />
+      <AlbumStar size={48} className="bottom-[10%] left-[2%]"  style={{ animationDuration: "5.2s", animationDelay: "0.2s" }} />
+      <AlbumStar size={44} className="top-[3%] right-[3%]"     style={{ animationDuration: "6.5s", animationDelay: "1.0s" }} />
+      <AlbumStar size={20} className="top-[35%] right-[1%]"    style={{ animationDuration: "4.8s", animationDelay: "0.7s" }} />
+      <AlbumStar size={32} className="bottom-[15%] right-[4%]" style={{ animationDuration: "5.5s", animationDelay: "1.5s" }} />
+      <AlbumStar size={18} className="bottom-[30%] right-[7%]" style={{ animationDuration: "6.3s", animationDelay: "1.8s" }} />
 
       <div className="container px-4 md:px-6 mx-auto max-w-5xl relative z-10">
         {/* Header */}

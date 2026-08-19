@@ -15,7 +15,7 @@ export const AlbumStar = ({
     height={size}
     className={cn(
       "absolute pointer-events-none select-none hidden md:block",
-      "text-[#FFE566] opacity-[0.15] dark:opacity-[0.08]",
+      "text-[#FFE566] opacity-60 dark:opacity-[0.22]",
       "animate-float",
       className
     )}
