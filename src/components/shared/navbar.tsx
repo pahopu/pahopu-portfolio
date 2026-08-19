@@ -66,7 +66,7 @@ export const Navbar = () => {
     window.location.href = `/${next}`;
   };
 
-  const handleLogoClick = (e: React.MouseEvent) => {
+  const handleLogoClick = async (e: React.MouseEvent) => {
     e.preventDefault();
     logoClickCount.current += 1;
     clearTimeout(logoClickTimer.current);
@@ -75,6 +75,16 @@ export const Navbar = () => {
     if (logoClickCount.current >= 5) {
       logoClickCount.current = 0;
       setLogoHint(0);
+      // iOS 13+ requires explicit permission requests from a user gesture
+      type PermissionableEvent = { requestPermission?: () => Promise<string> };
+      if (typeof DeviceMotionEvent !== "undefined" &&
+          typeof (DeviceMotionEvent as unknown as PermissionableEvent).requestPermission === "function") {
+        try { await (DeviceMotionEvent as unknown as Required<PermissionableEvent>).requestPermission(); } catch { /* denied */ }
+      }
+      if (typeof DeviceOrientationEvent !== "undefined" &&
+          typeof (DeviceOrientationEvent as unknown as PermissionableEvent).requestPermission === "function") {
+        try { await (DeviceOrientationEvent as unknown as Required<PermissionableEvent>).requestPermission(); } catch { /* denied */ }
+      }
       setTrailEnabled((prev: boolean) => !prev);
     } else {
       setLogoHint(logoClickCount.current);

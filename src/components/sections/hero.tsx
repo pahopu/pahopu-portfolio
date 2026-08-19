@@ -59,6 +59,7 @@ export const Hero = () => {
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const isDark = mounted && resolvedTheme === "dark";
   const skyRef = useRef<HTMLDivElement>(null);
+  const orientationAllowed = useRef(false);
 
   /* Gyroscope parallax — tilting the phone drifts the sky layer */
   useEffect(() => {
@@ -72,10 +73,21 @@ export const Hero = () => {
     return () => window.removeEventListener("deviceorientation", handler);
   }, []);
 
+  const requestOrientationPermission = async () => {
+    if (orientationAllowed.current) return;
+    orientationAllowed.current = true;
+    type PermissionableEvent = { requestPermission?: () => Promise<string> };
+    if (typeof DeviceOrientationEvent !== "undefined" &&
+        typeof (DeviceOrientationEvent as unknown as PermissionableEvent).requestPermission === "function") {
+      try { await (DeviceOrientationEvent as unknown as Required<PermissionableEvent>).requestPermission(); } catch { /* denied */ }
+    }
+  };
+
   return (
     <section
       id="home"
       className="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-[#5B8FE8] dark:bg-[#040D21] transition-[background-color] duration-700"
+      onTouchStart={requestOrientationPermission}
     >
       {/* ── Sky layer — all background elements drift together on gyroscope ── */}
       <div
