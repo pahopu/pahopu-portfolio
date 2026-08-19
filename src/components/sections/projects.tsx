@@ -27,6 +27,9 @@ export const Projects = () => {
       <AlbumStar size={32} className="top-[55%] left-[4%]"     style={{ animationDuration: "5.4s", animationDelay: "0.5s" }} />
       <AlbumStar size={16} className="bottom-[18%] left-[7%]"  style={{ animationDuration: "4.7s", animationDelay: "2.2s" }} />
       <AlbumStar size={44} className="bottom-[6%] left-[2%]"   style={{ animationDuration: "6.8s", animationDelay: "0.9s" }} />
+      <AlbumStar dim size={22} className="top-[22%] right-[9%]"   style={{ animationDuration: "4.0s", animationDelay: "1.3s" }} />
+      <AlbumStar dim size={14} className="top-[65%] left-[9%]"    style={{ animationDuration: "5.3s", animationDelay: "0.5s" }} />
+      <AlbumStar dim size={18} className="bottom-[30%] right-[8%]" style={{ animationDuration: "3.8s", animationDelay: "2.1s" }} />
 
       {/* --- CONTAINER --- */}
       <div className="container mx-auto px-4 md:px-6 max-w-6xl">

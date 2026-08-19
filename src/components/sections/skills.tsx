@@ -42,6 +42,9 @@ export const Skills = () => {
       <AlbumStar size={20} className="top-[35%] right-[1%]"    style={{ animationDuration: "4.8s", animationDelay: "0.7s" }} />
       <AlbumStar size={32} className="bottom-[15%] right-[4%]" style={{ animationDuration: "5.5s", animationDelay: "1.5s" }} />
       <AlbumStar size={18} className="bottom-[30%] right-[7%]" style={{ animationDuration: "6.3s", animationDelay: "1.8s" }} />
+      <AlbumStar dim size={20} className="top-[35%] left-[9%]"    style={{ animationDuration: "4.2s", animationDelay: "1.2s" }} />
+      <AlbumStar dim size={14} className="top-[12%] right-[10%]"  style={{ animationDuration: "3.7s", animationDelay: "2.4s" }} />
+      <AlbumStar dim size={16} className="bottom-[42%] right-[9%]" style={{ animationDuration: "5.1s", animationDelay: "0.6s" }} />
 
       <div className="container px-4 md:px-6 mx-auto max-w-5xl relative z-10">
         {/* Header */}

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import { Building2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { AlbumStar } from "@/components/shared/album-star";
+import { AlbumStar, StarDeco } from "@/components/shared/album-star";
 
 // Rounded star icon
 const StarIcon = ({ size = 14, color }: { size?: number; color?: string }) => (
@@ -39,6 +39,9 @@ export const Experience = () => {
       <AlbumStar size={20} className="top-[34%] left-[1%]"     style={{ animationDuration: "7.5s", animationDelay: "0.2s" }} />
       <AlbumStar size={32} className="bottom-[14%] left-[2%]"  style={{ animationDuration: "5.4s", animationDelay: "1.3s" }} />
       <AlbumStar size={16} className="bottom-[32%] left-[6%]"  style={{ animationDuration: "4.3s", animationDelay: "2.2s" }} />
+      <AlbumStar dim size={20} className="top-[28%] right-[9%]"   style={{ animationDuration: "3.9s", animationDelay: "1.4s" }} />
+      <AlbumStar dim size={14} className="bottom-[44%] left-[9%]" style={{ animationDuration: "5.0s", animationDelay: "0.8s" }} />
+      <AlbumStar dim size={16} className="top-[60%] right-[8%]"   style={{ animationDuration: "4.4s", animationDelay: "2.0s" }} />
 
       <div className="container px-4 md:px-6 mx-auto max-w-4xl relative z-10">
         {/* Header */}
@@ -68,11 +71,13 @@ export const Experience = () => {
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.12 }}
                 className={cn(
-                  "relative flex gap-5 md:gap-8 p-5 md:p-7 rounded-3xl border-l-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5",
+                  "relative overflow-hidden flex gap-5 md:gap-8 p-5 md:p-7 rounded-3xl border-l-4 transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5",
                   accent.border, accent.bg,
                   "bg-card/80 border border-border/40 dark:border-border/20"
                 )}
               >
+                <StarDeco className="absolute -top-4 -right-4 w-24 h-24 text-[#FFE566]/10 dark:text-[#FFF0B0]/8 rotate-12" />
+                <StarDeco className="absolute -bottom-5 -left-3 w-20 h-20 text-[#FFE566]/8 dark:text-[#FFF0B0]/6 -rotate-6" />
                 {/* Track number — big faded */}
                 <div className={cn("text-6xl md:text-7xl font-extrabold leading-none select-none shrink-0 w-14 md:w-16 pt-1", accent.num)}>
                   {String(index + 1).padStart(2, "0")}

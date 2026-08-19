@@ -15,19 +15,10 @@ import {
   Sparkles,
   UserRound,
 } from "lucide-react";
-import { AlbumStar } from "@/components/shared/album-star";
+import { AlbumStar, StarDeco } from "@/components/shared/album-star";
 import { useTranslations } from "next-intl";
 
 const MotionCard = motion(Card);
-
-const StarDeco = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 24 24" className={className} aria-hidden>
-    <path
-      d="M12 2L14.39 8.26L21 9.27L16.5 13.97L17.78 21L12 17.77L6.22 21L7.5 13.97L3 9.27L9.61 8.26Z"
-      fill="currentColor" stroke="currentColor" strokeWidth="3" strokeLinejoin="round"
-    />
-  </svg>
-);
 
 export const About = () => {
   const t = useTranslations("about");
@@ -47,6 +38,9 @@ export const About = () => {
       <AlbumStar size={20} className="top-[30%] left-[1%]"     style={{ animationDuration: "5.6s", animationDelay: "2.0s" }} />
       <AlbumStar size={56} className="bottom-[6%] left-[2%]"   style={{ animationDuration: "7.1s", animationDelay: "1.2s" }} />
       <AlbumStar size={16} className="bottom-[22%] left-[6%]"  style={{ animationDuration: "4.3s", animationDelay: "0.9s" }} />
+      <AlbumStar dim size={22} className="top-[25%] right-[9%]"   style={{ animationDuration: "3.8s", animationDelay: "1.1s" }} />
+      <AlbumStar dim size={14} className="bottom-[40%] left-[9%]" style={{ animationDuration: "4.6s", animationDelay: "2.5s" }} />
+      <AlbumStar dim size={18} className="top-[70%] right-[8%]"   style={{ animationDuration: "5.2s", animationDelay: "0.4s" }} />
 
       <div className="container px-4 md:px-6 mx-auto max-w-6xl relative z-10">
         {/* Section header */}
@@ -154,8 +148,10 @@ export const About = () => {
           {/* ── Technical Arsenal ── */}
           <MotionCard
             variants={HERO_ANIMATION.item}
-            className="rounded-3xl border-[#FF8C42]/20 bg-linear-to-br from-[#FF8C42]/5 via-card to-card"
+            className="rounded-3xl border-[#FF8C42]/20 bg-linear-to-br from-[#FF8C42]/5 via-card to-card relative overflow-hidden"
           >
+            <StarDeco className="absolute -top-5 -right-5 w-28 h-28 text-[#FFE566]/8 dark:text-[#FFF0B0]/6 rotate-12" />
+            <StarDeco className="absolute -bottom-6 -left-6 w-24 h-24 text-[#FF8C42]/8 -rotate-6" />
             <CardContent className="p-5 md:p-6">
               <div className="flex items-center justify-between mb-5">
                 <div className="flex items-center gap-2.5 text-[#FF8C42] font-semibold">

@@ -22,7 +22,7 @@ import {
   Mail,
   MessageSquare,
 } from "lucide-react";
-import { AlbumStar } from "@/components/shared/album-star";
+import { AlbumStar, StarDeco } from "@/components/shared/album-star";
 import Link from "next/link";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -81,6 +81,9 @@ export const ContactSection = () => {
       <AlbumStar size={20} className="top-[32%] left-[1%]"     style={{ animationDuration: "5.8s", animationDelay: "1.9s" }} />
       <AlbumStar size={36} className="bottom-[16%] left-[3%]"  style={{ animationDuration: "7.2s", animationDelay: "0.7s" }} />
       <AlbumStar size={16} className="bottom-[35%] left-[6%]"  style={{ animationDuration: "4.5s", animationDelay: "2.3s" }} />
+      <AlbumStar dim size={20} className="top-[26%] right-[9%]"   style={{ animationDuration: "4.1s", animationDelay: "1.2s" }} />
+      <AlbumStar dim size={14} className="bottom-[48%] left-[9%]" style={{ animationDuration: "5.4s", animationDelay: "0.7s" }} />
+      <AlbumStar dim size={18} className="top-[65%] right-[8%]"   style={{ animationDuration: "3.9s", animationDelay: "2.2s" }} />
 
       <div className="container px-4 md:px-6 mx-auto max-w-6xl relative z-10">
         <motion.div
@@ -156,18 +159,8 @@ export const ContactSection = () => {
           {/* Right column — form */}
           <motion.div variants={HERO_ANIMATION.item}>
             <MotionCard className="border-primary/20 bg-linear-to-br from-primary/5 via-card to-card relative overflow-hidden shadow-lg">
-              <svg viewBox="0 0 24 24" width={110} height={110}
-                className="absolute -top-4 -right-4 text-[#FFE566] opacity-[0.12] dark:opacity-[0.08] -rotate-12 pointer-events-none select-none"
-                aria-hidden>
-                <path d="M12 2L14.39 8.26L21 9.27L16.5 13.97L17.78 21L12 17.77L6.22 21L7.5 13.97L3 9.27L9.61 8.26Z"
-                  fill="currentColor" stroke="currentColor" strokeWidth="3.5" strokeLinejoin="round" />
-              </svg>
-              <svg viewBox="0 0 24 24" width={48} height={48}
-                className="absolute bottom-4 left-3 text-[#FFE566] opacity-[0.10] dark:opacity-[0.07] rotate-6 pointer-events-none select-none"
-                aria-hidden>
-                <path d="M12 2L14.39 8.26L21 9.27L16.5 13.97L17.78 21L12 17.77L6.22 21L7.5 13.97L3 9.27L9.61 8.26Z"
-                  fill="currentColor" stroke="currentColor" strokeWidth="3.5" strokeLinejoin="round" />
-              </svg>
+              <StarDeco className="absolute -top-5 -right-5 w-28 h-28 text-[#FFE566]/12 dark:text-[#FFF0B0]/8 -rotate-12" />
+              <StarDeco className="absolute -bottom-5 -left-3 w-20 h-20 text-[#FFE566]/10 dark:text-[#FFF0B0]/7 rotate-6" />
 
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-[#1B2E6E] dark:text-primary">
