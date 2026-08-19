@@ -9,7 +9,7 @@ import { ArrowRight, Briefcase, Cpu, Download } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useTheme } from "next-themes";
-import { useSyncExternalStore } from "react";
+import { useEffect, useRef, useSyncExternalStore } from "react";
 
 
 const Star = ({ size, className, style }: {
@@ -58,12 +58,32 @@ export const Hero = () => {
   const { resolvedTheme } = useTheme();
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const isDark = mounted && resolvedTheme === "dark";
+  const skyRef = useRef<HTMLDivElement>(null);
+
+  /* Gyroscope parallax — tilting the phone drifts the sky layer */
+  useEffect(() => {
+    const handler = (e: DeviceOrientationEvent) => {
+      if (!skyRef.current) return;
+      const x = Math.max(-20, Math.min(20, (e.gamma ?? 0) * 0.18));
+      const y = Math.max(-15, Math.min(15, ((e.beta ?? 45) - 45) * 0.12));
+      skyRef.current.style.transform = `translate(${x}px, ${y}px)`;
+    };
+    window.addEventListener("deviceorientation", handler);
+    return () => window.removeEventListener("deviceorientation", handler);
+  }, []);
 
   return (
     <section
       id="home"
       className="relative w-full min-h-[calc(100vh-4rem)] flex items-center justify-center overflow-hidden bg-[#5B8FE8] dark:bg-[#040D21] transition-[background-color] duration-700"
     >
+      {/* ── Sky layer — all background elements drift together on gyroscope ── */}
+      <div
+        ref={skyRef}
+        className="absolute inset-0 pointer-events-none"
+        style={{ transition: "transform 0.15s ease-out", willChange: "transform" }}
+      >
+
       {/* ── Accent stars — visible in both modes, fade in on mount ── */}
       <AnimatePresence>
         {mounted && (
@@ -151,6 +171,8 @@ export const Hero = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      </div>{/* end sky layer */}
 
       {/* Content */}
       <div className="container px-4 md:px-6 flex flex-col items-center text-center z-10 pb-20 md:pb-28">

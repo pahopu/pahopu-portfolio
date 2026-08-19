@@ -102,22 +102,21 @@ export const Navbar = () => {
     return () => observer.disconnect();
   }, []);
 
-  /* Cursor star trail effect */
+  /* Cursor / touch star trail */
   useEffect(() => {
     if (!trailEnabled) return;
     let lastTime = 0;
 
-    const handler = (e: MouseEvent) => {
+    const spawnStar = (x: number, y: number) => {
       const now = Date.now();
       if (now - lastTime < 55) return;
       lastTime = now;
-
       const star = document.createElement("span");
       star.textContent = "★";
       const color = TRAIL_COLORS[Math.floor(Math.random() * TRAIL_COLORS.length)];
       const size = 10 + Math.random() * 12;
       star.style.cssText = `
-        position:fixed;left:${e.clientX}px;top:${e.clientY}px;
+        position:fixed;left:${x}px;top:${y}px;
         pointer-events:none;z-index:9997;font-size:${size}px;color:${color};
         transform:translate(-50%,-50%);
         animation:cursor-star 0.75s ease-out forwards;
@@ -127,9 +126,61 @@ export const Navbar = () => {
       setTimeout(() => star.remove(), 750);
     };
 
-    window.addEventListener("mousemove", handler);
-    return () => window.removeEventListener("mousemove", handler);
+    const mouseHandler = (e: MouseEvent) => spawnStar(e.clientX, e.clientY);
+    const touchHandler = (e: TouchEvent) => {
+      Array.from(e.touches).forEach((t) => spawnStar(t.clientX, t.clientY));
+    };
+
+    window.addEventListener("mousemove", mouseHandler);
+    window.addEventListener("touchmove", touchHandler, { passive: true });
+    return () => {
+      window.removeEventListener("mousemove", mouseHandler);
+      window.removeEventListener("touchmove", touchHandler);
+    };
   }, [trailEnabled]);
+
+  /* Shake-to-burst easter egg (mobile) */
+  useEffect(() => {
+    let prev = { x: 0, y: 0, z: 0 };
+    let lastBurst = 0;
+
+    const handleMotion = (e: DeviceMotionEvent) => {
+      const acc = e.accelerationIncludingGravity;
+      if (!acc || acc.x == null) return;
+      const dx = Math.abs((acc.x ?? 0) - prev.x);
+      const dy = Math.abs((acc.y ?? 0) - prev.y);
+      const dz = Math.abs((acc.z ?? 0) - prev.z);
+      prev = { x: acc.x ?? 0, y: acc.y ?? 0, z: acc.z ?? 0 };
+
+      const now = Date.now();
+      if (dx + dy + dz > 30 && now - lastBurst > 1800) {
+        lastBurst = now;
+        const count = 22;
+        for (let i = 0; i < count; i++) {
+          setTimeout(() => {
+            const star = document.createElement("span");
+            star.textContent = "★";
+            const color = TRAIL_COLORS[Math.floor(Math.random() * TRAIL_COLORS.length)];
+            const size = 14 + Math.random() * 18;
+            const x = 10 + Math.random() * (window.innerWidth - 20);
+            const y = 10 + Math.random() * (window.innerHeight - 20);
+            star.style.cssText = `
+              position:fixed;left:${x}px;top:${y}px;
+              pointer-events:none;z-index:9998;font-size:${size}px;color:${color};
+              transform:translate(-50%,-50%);
+              animation:cursor-star 1s ease-out forwards;
+              user-select:none;line-height:1;
+            `;
+            document.body.appendChild(star);
+            setTimeout(() => star.remove(), 1000);
+          }, Math.random() * 350);
+        }
+      }
+    };
+
+    window.addEventListener("devicemotion", handleMotion);
+    return () => window.removeEventListener("devicemotion", handleMotion);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
