@@ -15,6 +15,7 @@ export function useKonamiCode(): { triggered: boolean; step: number } {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.key === KONAMI[index]) {
+        if (e.key.startsWith("Arrow")) e.preventDefault();
         const next = index + 1;
         if (next === KONAMI.length) {
           setTriggered(true);
