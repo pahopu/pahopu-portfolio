@@ -12,7 +12,7 @@
     "headline": "Xin chào, tôi là pahopu",
     "role": "Lập trình viên Front-End",
     "foundation": "Nền tảng Khoa học Máy tính vững chắc",
-    "tagline": "Tôi xây dựng các ứng dụng web hiệu suất cao và có thể mở rộng. Dù chuyên sâu về hệ sinh thái React & Vue, tôi luôn linh hoạt thích nghi với bất kỳ công nghệ nào phù hợp nhất.",
+    "tagline": "Tôi xây dựng các ứng dụng web hiệu suất cao và có thể mở rộng. Dù chuyên sâu về hệ sinh thái React & Vue, tôi luôn sẵn sàng thích nghi với bất kỳ yêu cầu nào của dự án.",
     "cta_contact": "Liên hệ ngay",
     "cta_projects": "Xem dự án",
     "cta_cv": "Tải CV"
@@ -46,7 +46,7 @@
   "projects": {
     "label": "Công việc đã chọn",
     "heading": "Dự án nổi bật",
-    "subheading": "Các công trình thể hiện chuyên môn về hệ thống quy mô lớn, tích hợp AI và kỹ thuật phần mềm.",
+    "subheading": "Các công trình thể hiện chuyên môn về hệ thống quy mô lớn, kỹ thuật phần mềm và ứng dụng KHMT.",
     "private_badge": "Riêng tư",
     "academic_badge": "Đồ án",
     "internal_label": "Hệ thống nội bộ doanh nghiệp",
@@ -57,14 +57,14 @@
   "experience": {
     "label": "Kinh nghiệm",
     "heading": "Nơi tôi đã làm việc",
-    "subheading": "Hành trình nghề nghiệp của tôi",
+    "subheading": "Hai công ty, một định hướng: xây dựng những thứ hoạt động được ở quy mô lớn.",
     "current": "Hiện tại"
   },
   "contact": {
     "label": "Liên hệ",
     "heading": "Cùng xây dựng điều gì đó",
     "accent": "đặc biệt.",
-    "subheading": "Dù bạn có câu hỏi về tech stack, đề xuất dự án, hay chỉ muốn thảo luận về Front-End — hộp thư của tôi luôn mở.",
+    "subheading": "Dù bạn có câu hỏi về tech stack, đề xuất dự án, hay chỉ muốn trao đổi về công nghệ — hộp thư của tôi luôn mở.",
     "open_label": "Đang có việc · Sẵn sàng kết nối",
     "email_prompt": "Gửi email cho tôi tại",
     "name_label": "Họ tên",

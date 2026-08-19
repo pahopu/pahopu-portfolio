@@ -3,11 +3,18 @@
 import { HERO_SOCIALS } from "@/constants";
 import { useKonamiCode } from "@/hooks/use-konami-code";
 import { cn } from "@/lib/utils";
-import { Code2, Copyright } from "lucide-react";
+import { ArrowDown, ArrowLeft, ArrowRight, ArrowUp, Code2, Copyright, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 
-const KONAMI_DISPLAY = ["↑", "↑", "↓", "↓", "←", "→", "←", "→", "B", "A"];
+type KonamiKey = { icon: LucideIcon } | { char: string };
+const KONAMI_DISPLAY: KonamiKey[] = [
+  { icon: ArrowUp }, { icon: ArrowUp },
+  { icon: ArrowDown }, { icon: ArrowDown },
+  { icon: ArrowLeft }, { icon: ArrowRight },
+  { icon: ArrowLeft }, { icon: ArrowRight },
+  { char: "B" }, { char: "A" },
+];
 
 export const Footer = () => {
   const t = useTranslations("footer");
@@ -23,17 +30,20 @@ export const Footer = () => {
       <div className="container px-4 md:px-6 mx-auto relative z-10">
         {/* Konami code hint */}
         <div className="flex items-center justify-center gap-0.5 mb-5 select-none">
-          {KONAMI_DISPLAY.map((char, i) => (
+          {KONAMI_DISPLAY.map((key, i) => (
             <span
               key={i}
               className={cn(
-                "text-[10px] font-bold w-5 h-5 flex items-center justify-center rounded-md transition-all duration-200",
+                "w-6 h-6 flex items-center justify-center rounded-md border transition-all duration-200",
                 i < step
-                  ? "text-primary bg-primary/15 border border-primary/30 shadow-sm shadow-primary/20"
-                  : "text-muted-foreground/20 border border-transparent"
+                  ? "text-primary bg-primary/15 border-primary/30 shadow-sm shadow-primary/20"
+                  : "text-muted-foreground/20 border-muted-foreground/10"
               )}
             >
-              {char}
+              {"icon" in key
+                ? <key.icon className="w-3 h-3" />
+                : <span className="text-[10px] font-bold">{key.char}</span>
+              }
             </span>
           ))}
         </div>

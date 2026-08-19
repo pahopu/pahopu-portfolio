@@ -499,7 +499,7 @@ export const EXPERIENCE = [
     current: false,
     highlights: [
       "Built DIVA ERP — a large-scale enterprise system (Admin, POS, CRM) with shared component library and code-splitting optimizations.",
-      "Implemented Payroll Engine, Affiliate Hub, 360° Customer View, and Smart Appointment Calendar modules.",
+      "Owned 4 core modules end-to-end: Payroll Engine, Affiliate Hub, 360° Customer View, and Smart Appointment Calendar.",
       "Delivered Lucky Draw gamification system with tier-based rewards and configurable events.",
     ],
   },

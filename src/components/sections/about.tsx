@@ -178,7 +178,7 @@ export const About = () => {
                     <Cpu className="h-3.5 w-3.5" /> {t("cs_label")}
                   </h4>
                   <div className="flex flex-wrap gap-2">
-                    {["C/C++", "Python", "PyTorch", "OpenCV", "MS SQL Server", "Git/GitHub"].map((tech) => (
+                    {["C/C++", "Python", "Keras", "OpenCV", "MS SQL Server", "Git/GitHub"].map((tech) => (
                       <Badge key={tech} variant="outline" className="rounded-full border-dashed border-[#FF8C42]/30">
                         {tech}
                       </Badge>

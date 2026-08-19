@@ -12,7 +12,7 @@
     "headline": "Hi, I'm pahopu",
     "role": "Front-End Developer",
     "foundation": "Solid Computer Science Foundation",
-    "tagline": "I build scalable, high-performance web applications. While I specialize in the React & Vue ecosystems, I remain flexible to adapt to any technology needed.",
+    "tagline": "I build scalable, high-performance web applications. While I specialize in the React & Vue ecosystems, I stay adaptable to whatever the project demands.",
     "cta_contact": "Contact Me",
     "cta_projects": "View Projects",
     "cta_cv": "Download CV"
@@ -26,7 +26,7 @@
     "bio_2": "With a strong Computer Science foundation (GPA 9.14 / 10.0), I specialize in the Vue 3 & React ecosystems, bridging complex backend logic with smooth user experiences.",
     "edu_label": "Education & Awards",
     "edu_line": "Bachelor of Computer Science — University of Information Technology, 2020–2024",
-    "awards_line": "Scholarship for Excellence · Student of 5 Merits",
+    "awards_line": "Academic Excellence Scholarship · Outstanding Student Award",
     "gpa": "9.14",
     "gpa_label": "GPA / 10.0",
     "gpa_badge": "Top 8% Excellence",
@@ -46,7 +46,7 @@
   "projects": {
     "label": "Selected Work",
     "heading": "Featured Projects",
-    "subheading": "Selected works demonstrating my expertise in large-scale systems, AI integration, and software engineering.",
+    "subheading": "Selected works demonstrating my expertise in large-scale systems, systems engineering, and applied CS.",
     "private_badge": "Private",
     "academic_badge": "Academic",
     "internal_label": "Internal Enterprise System",
@@ -57,14 +57,14 @@
   "experience": {
     "label": "Experience",
     "heading": "Where I've Worked",
-    "subheading": "My professional journey so far",
+    "subheading": "Two companies, one focus: building things that work at scale.",
     "current": "Current"
   },
   "contact": {
     "label": "Get In Touch",
     "heading": "Let's build something",
     "accent": "exceptional.",
-    "subheading": "Whether you have a question about my stack, a project proposal, or just want to discuss the latest in Front-End engineering — my inbox is always open.",
+    "subheading": "Whether you have a question about my stack, a project proposal, or just want to talk tech — my inbox is always open.",
     "open_label": "Currently employed · Open to connect",
     "email_prompt": "Email me at",
     "name_label": "Name",

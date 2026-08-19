@@ -1,11 +1,20 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, PanInfo, animate, motion, useMotionValue } from "framer-motion";
 import { ChevronDown, Volume2, VolumeX } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef, useState } from "react";
+
+type Corner = "br" | "bl" | "tr" | "tl";
+
+const CORNER_CLASS: Record<Corner, string> = {
+  br: "bottom-6 right-6 flex-col items-end",
+  bl: "bottom-6 left-6 flex-col items-start",
+  tr: "top-20 right-6 flex-col-reverse items-end",
+  tl: "top-20 left-6 flex-col-reverse items-start",
+};
 
 const TRACK = {
   src: "/music/congbday.mp3",
@@ -41,6 +50,9 @@ export const FloatingMusicPlayer = () => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const progressRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isDraggingPlayerRef = useRef(false);
+
+  const [corner, setCorner] = useState<Corner>("br");
   const [isExpanded, setIsExpanded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -48,6 +60,9 @@ export const FloatingMusicPlayer = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isPillHovered, setIsPillHovered] = useState(false);
+
+  const dragX = useMotionValue(0);
+  const dragY = useMotionValue(0);
 
   useEffect(() => {
     const audio = new Audio(TRACK.src);
@@ -59,17 +74,39 @@ export const FloatingMusicPlayer = () => {
     return () => { audio.pause(); audio.src = ""; };
   }, []);
 
-  // Close on click outside
+  // Close on outside click — skip during player drag
   useEffect(() => {
     if (!isExpanded) return;
-    const handler = (e: MouseEvent) => {
+    const handler = (e: MouseEvent | TouchEvent) => {
+      if (isDraggingPlayerRef.current) return;
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setIsExpanded(false);
       }
     };
     document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
+    document.addEventListener("touchstart", handler);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("touchstart", handler);
+    };
   }, [isExpanded]);
+
+  // Snap-to-corner drag handlers
+  const handleDragStart = useCallback(() => {
+    isDraggingPlayerRef.current = true;
+  }, []);
+
+  const handleDragEnd = useCallback((_: PointerEvent, info: PanInfo) => {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    const isRight = info.point.x > vw / 2;
+    const isBottom = info.point.y > vh / 2;
+    const newCorner: Corner = `${isBottom ? "b" : "t"}${isRight ? "r" : "l"}` as Corner;
+    setCorner(newCorner);
+    animate(dragX, 0, { type: "spring", stiffness: 500, damping: 35 });
+    animate(dragY, 0, { type: "spring", stiffness: 500, damping: 35 });
+    setTimeout(() => { isDraggingPlayerRef.current = false; }, 100);
+  }, [dragX, dragY]);
 
   const togglePlay = useCallback(() => {
     const audio = audioRef.current;
@@ -135,33 +172,38 @@ export const FloatingMusicPlayer = () => {
   }, [isDragging, getPct, duration]);
 
   const progress = duration > 0 ? (currentTime / duration) * 100 : 0;
+  const isTopCorner = corner.startsWith("t");
 
   return (
-    <div ref={containerRef} className="fixed bottom-6 right-6 z-40 flex flex-col items-end gap-2.5">
+    <motion.div
+      ref={containerRef as React.RefObject<HTMLDivElement>}
+      drag
+      dragMomentum={false}
+      dragElastic={0.05}
+      style={{ x: dragX, y: dragY }}
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      className={cn("fixed z-40 flex gap-2.5 cursor-grab active:cursor-grabbing", CORNER_CLASS[corner])}
+    >
       <AnimatePresence>
         {isExpanded && (
           <motion.div
             key="player"
-            initial={{ opacity: 0, y: 12, scale: 0.96 }}
+            initial={{ opacity: 0, y: isTopCorner ? -12 : 12, scale: 0.96 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 12, scale: 0.96 }}
+            exit={{ opacity: 0, y: isTopCorner ? -12 : 12, scale: 0.96 }}
             transition={{ type: "spring", stiffness: 320, damping: 30 }}
             onTouchMove={(e) => e.stopPropagation()}
-            className="w-68 rounded-3xl bg-card/98 backdrop-blur-xl border border-border/50 shadow-2xl shadow-black/10 overflow-hidden"
+            onPointerDown={(e) => e.stopPropagation()}
+            className="w-68 rounded-3xl bg-card/98 backdrop-blur-xl border border-border/50 shadow-2xl shadow-black/10 overflow-hidden cursor-default"
           >
-            {/* Header — state-aware */}
+            {/* Header */}
             <div className="flex items-center justify-between px-4 pt-3.5 pb-0">
               <div className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary/70">
                 {isPlaying ? (
-                  <>
-                    <EqBars />
-                    <span>{t("now_playing")}</span>
-                  </>
+                  <><EqBars /><span>{t("now_playing")}</span></>
                 ) : (
-                  <>
-                    <span className="text-muted-foreground/50">♪</span>
-                    <span className="text-muted-foreground/60">{t("paused")}</span>
-                  </>
+                  <><span className="text-muted-foreground/50">♪</span><span className="text-muted-foreground/60">{t("paused")}</span></>
                 )}
               </div>
               <button
@@ -183,10 +225,7 @@ export const FloatingMusicPlayer = () => {
                   src={TRACK.cover}
                   alt={TRACK.title}
                   fill
-                  className={cn(
-                    "object-cover transition-transform duration-700",
-                    isPlaying ? "scale-105" : "scale-100"
-                  )}
+                  className={cn("object-cover transition-transform duration-700", isPlaying ? "scale-105" : "scale-100")}
                   sizes="144px"
                   priority
                 />
@@ -200,11 +239,11 @@ export const FloatingMusicPlayer = () => {
               <p className="text-xs text-muted-foreground mt-0.5 truncate">{t("artist")}</p>
             </div>
 
-            {/* Progress — draggable */}
+            {/* Progress */}
             <div className="px-5 mb-1 select-none">
-              {/* Hit area: fixed height so layout never shifts on hover */}
               <div
                 ref={progressRef}
+                onPointerDown={(e) => e.stopPropagation()}
                 onMouseDown={handleProgressMouseDown}
                 onTouchStart={handleProgressTouchStart}
                 className={cn(
@@ -213,7 +252,6 @@ export const FloatingMusicPlayer = () => {
                 )}
                 style={isDragging ? { touchAction: "none" } : undefined}
               >
-                {/* Visual bar: thin by default, thickens on hover/drag */}
                 <div className={cn(
                   "absolute inset-x-0 rounded-full bg-muted transition-all duration-150",
                   isDragging ? "h-1.5" : "h-1 group-hover:h-1.5"
@@ -223,10 +261,9 @@ export const FloatingMusicPlayer = () => {
                     style={{ width: `${progress}%` }}
                   />
                 </div>
-                {/* Thumb */}
                 <div
                   className={cn(
-                    "absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary shadow-sm transition-opacity",
+                    "absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary shadow-sm transition-all duration-150",
                     isDragging ? "opacity-100 scale-125" : "opacity-60 group-hover:opacity-100"
                   )}
                   style={{ left: `clamp(0px, calc(${progress}% - 6px), calc(100% - 12px))` }}
@@ -238,21 +275,15 @@ export const FloatingMusicPlayer = () => {
               </div>
             </div>
 
-            {/* Controls: mute + play/pause */}
+            {/* Controls */}
             <div className="px-5 pb-4 flex items-center justify-between">
-              {/* Mute toggle */}
               <button
                 onClick={toggleMute}
                 className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground cursor-pointer"
                 aria-label={isMuted ? t("unmute") : t("mute")}
               >
-                {isMuted
-                  ? <VolumeX className="h-4 w-4" />
-                  : <Volume2 className="h-4 w-4" />
-                }
+                {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
               </button>
-
-              {/* Play / Pause */}
               <button
                 onClick={togglePlay}
                 className={cn(
@@ -273,16 +304,15 @@ export const FloatingMusicPlayer = () => {
                   </svg>
                 )}
               </button>
-
-              {/* Spacer to balance mute button */}
               <div className="w-8" />
             </div>
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Collapsed pill */}
+      {/* Pill */}
       <motion.button
+        onPointerDown={(e) => e.stopPropagation()}
         onClick={() => setIsExpanded((v) => !v)}
         onHoverStart={() => setIsPillHovered(true)}
         onHoverEnd={() => setIsPillHovered(false)}
@@ -296,22 +326,18 @@ export const FloatingMusicPlayer = () => {
             : "border-border/60 shadow-black/5 hover:border-primary/25"
         )}
       >
-        {/* Indicator: eq bars when playing (compact until hovered), static dot when not */}
         {isPlaying ? (
           <EqBars compact={!isPillHovered} />
         ) : (
           <span className="w-2 h-2 rounded-full bg-muted-foreground/35 shrink-0" />
         )}
-
         <span className="text-xs font-medium text-foreground/75 whitespace-nowrap max-w-[110px] truncate">
           {isPlaying ? TRACK.title : t("picks")}
         </span>
-
-        {/* Mini cover */}
         <div className="relative w-5 h-5 rounded shrink-0 overflow-hidden">
           <Image src={TRACK.cover} alt="" fill className="object-cover" sizes="20px" />
         </div>
       </motion.button>
-    </div>
+    </motion.div>
   );
 };
