@@ -94,6 +94,7 @@
   },
   "footer": {
     "built_with": "Built with Next.js & ❤️",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "tagline": "Made with music & passion"
   }
 }

@@ -94,6 +94,7 @@
   },
   "footer": {
     "built_with": "Xây dựng với Next.js & ❤️",
-    "rights": "Bản quyền được bảo lưu."
+    "rights": "Bản quyền được bảo lưu.",
+    "tagline": "Làm bằng âm nhạc & đam mê"
   }
 }

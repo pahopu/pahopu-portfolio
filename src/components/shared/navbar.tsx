@@ -1,6 +1,7 @@
 "use client";
 
 import { Download, Menu } from "lucide-react";
+import { StarDeco } from "@/components/shared/album-star";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
@@ -212,7 +213,7 @@ export const Navbar = () => {
             </button>
             <ModeToggle />
             <a href="/files/resume.pdf" target="_blank" rel="noopener noreferrer">
-              <Button size="sm" variant="default" className="whitespace-nowrap">
+              <Button size="sm" className="whitespace-nowrap rounded-full bg-[#C8E645] text-[#1B2E6E] hover:bg-[#d4ed4f] border-0 font-bold shadow-sm">
                 {t("download_cv")} <Download className="h-4 w-4 ml-2" />
               </Button>
             </a>
@@ -230,7 +231,9 @@ export const Navbar = () => {
             </SheetTrigger>
 
             <SheetContent side="right" className="w-[300px] sm:w-[400px] flex flex-col p-0 gap-0">
-              <SheetHeader className="text-left border-b px-6 py-4">
+              <SheetHeader className="text-left border-b px-6 py-4 relative overflow-hidden bg-[#5B8FE8]/5 dark:bg-[#1B2E6E]/20">
+                <StarDeco className="absolute -top-4 -right-4 w-24 h-24 text-[#FFE566]/15 dark:text-[#FFF0B0]/10 rotate-12" />
+                <StarDeco className="absolute -bottom-5 right-14 w-16 h-16 text-[#FFE566]/10 dark:text-[#FFF0B0]/8 -rotate-6" />
                 <SheetTitle>
                   <span className="flex items-center gap-2">
                     <LogoBadge isDark={isDark} />
