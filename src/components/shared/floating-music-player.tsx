@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { AnimatePresence, PanInfo, animate, motion, useMotionValue } from "framer-motion";
+import { AnimatePresence, PanInfo, animate, motion, useDragControls, useMotionValue } from "framer-motion";
 import { ChevronDown, Volume2, VolumeX } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -63,6 +63,7 @@ export const FloatingMusicPlayer = () => {
 
   const dragX = useMotionValue(0);
   const dragY = useMotionValue(0);
+  const controls = useDragControls();
 
   useEffect(() => {
     const audio = new Audio(TRACK.src);
@@ -180,10 +181,12 @@ export const FloatingMusicPlayer = () => {
       drag
       dragMomentum={false}
       dragElastic={0.05}
+      dragControls={controls}
+      dragListener={false}
       style={{ x: dragX, y: dragY }}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
-      className={cn("fixed z-40 flex gap-2.5 cursor-grab active:cursor-grabbing", CORNER_CLASS[corner])}
+      className={cn("fixed z-40 flex gap-2.5", CORNER_CLASS[corner])}
     >
       <AnimatePresence>
         {isExpanded && (
@@ -194,7 +197,6 @@ export const FloatingMusicPlayer = () => {
             exit={{ opacity: 0, y: isTopCorner ? -12 : 12, scale: 0.96 }}
             transition={{ type: "spring", stiffness: 320, damping: 30 }}
             onTouchMove={(e) => e.stopPropagation()}
-            onPointerDown={(e) => e.stopPropagation()}
             className="w-68 rounded-3xl bg-card/98 backdrop-blur-xl border border-border/50 shadow-2xl shadow-black/10 overflow-hidden cursor-default"
           >
             {/* Header */}
@@ -243,7 +245,6 @@ export const FloatingMusicPlayer = () => {
             <div className="px-5 mb-1 select-none">
               <div
                 ref={progressRef}
-                onPointerDown={(e) => e.stopPropagation()}
                 onMouseDown={handleProgressMouseDown}
                 onTouchStart={handleProgressTouchStart}
                 className={cn(
@@ -310,16 +311,16 @@ export const FloatingMusicPlayer = () => {
         )}
       </AnimatePresence>
 
-      {/* Pill */}
+      {/* Pill — also the drag handle */}
       <motion.button
-        onPointerDown={(e) => e.stopPropagation()}
+        onPointerDown={(e) => controls.start(e)}
         onClick={() => setIsExpanded((v) => !v)}
         onHoverStart={() => setIsPillHovered(true)}
         onHoverEnd={() => setIsPillHovered(false)}
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         className={cn(
-          "flex items-center gap-2 pl-3 pr-3 h-9 rounded-full min-w-0 cursor-pointer",
+          "flex items-center gap-2 pl-3 pr-3 h-9 rounded-full min-w-0 cursor-grab active:cursor-grabbing",
           "bg-card/95 backdrop-blur-xl border shadow-lg transition-all duration-300",
           isExpanded || isPlaying
             ? "border-primary/35 shadow-primary/10"
