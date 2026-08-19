@@ -15,6 +15,7 @@ import {
   Sparkles,
   UserRound,
 } from "lucide-react";
+import { AlbumStar } from "@/components/shared/album-star";
 import { useTranslations } from "next-intl";
 
 const MotionCard = motion(Card);
@@ -37,6 +38,9 @@ export const About = () => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[600px] bg-[#5B8FE8]/8 rounded-full blur-[150px] -z-10" />
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-primary/6 rounded-full blur-[100px] -z-10" />
       <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[#F5B8CC]/8 rounded-full blur-[80px] -z-10" />
+      <AlbumStar size={52} className="top-[6%] right-[4%]" style={{ animationDuration: "5.2s" }} />
+      <AlbumStar size={36} className="bottom-[10%] left-[3%]" style={{ animationDuration: "6.8s", animationDelay: "1.2s" }} />
+      <AlbumStar size={24} className="top-[48%] right-[1.5%]" style={{ animationDuration: "4.8s", animationDelay: "0.7s" }} />
 
       <div className="container px-4 md:px-6 mx-auto max-w-6xl relative z-10">
         {/* Section header */}

@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Layers } from "lucide-react";
 import * as SimpleIcons from "simple-icons";
 import { useTranslations } from "next-intl";
+import { AlbumStar } from "@/components/shared/album-star";
 
 const CATEGORY_COLORS = [
   { bg: "bg-[#5B8FE8]/10 border-[#5B8FE8]/25", icon: "fill-[#5B8FE8]", pill: "bg-[#5B8FE8]/15 text-[#5B8FE8] border-[#5B8FE8]/30" },
@@ -32,6 +33,9 @@ export const Skills = () => {
       <div className="absolute inset-0 bg-[#F8FBFF]/60 dark:bg-[#0F1B40]/20" />
       <div className="absolute top-0 right-0 w-[500px] h-[400px] bg-primary/6 rounded-full blur-[120px] -z-10" />
       <div className="absolute bottom-0 left-0 w-[400px] h-[300px] bg-[#5B8FE8]/6 rounded-full blur-[100px] -z-10" />
+      <AlbumStar size={48} className="top-[8%] left-[4%]" style={{ animationDuration: "6s" }} />
+      <AlbumStar size={28} className="bottom-[18%] right-[3%]" style={{ animationDuration: "5.5s", animationDelay: "1.5s" }} />
+      <AlbumStar size={20} className="top-[55%] left-[2%]" style={{ animationDuration: "7s", animationDelay: "0.4s" }} />
 
       <div className="container px-4 md:px-6 mx-auto max-w-5xl relative z-10">
         {/* Header */}
