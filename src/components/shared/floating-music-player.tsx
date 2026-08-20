@@ -101,7 +101,7 @@ export const FloatingMusicPlayer = () => {
     const vw = window.innerWidth;
     const vh = window.innerHeight;
     const isRight = info.point.x > vw / 2;
-    const isBottom = info.point.y > vh / 2;
+    const isBottom = info.point.y - window.scrollY > vh / 2;
     const newCorner: Corner = `${isBottom ? "b" : "t"}${isRight ? "r" : "l"}` as Corner;
     setCorner(newCorner);
     animate(dragX, 0, { type: "spring", stiffness: 500, damping: 35 });
@@ -183,7 +183,7 @@ export const FloatingMusicPlayer = () => {
       dragElastic={0.05}
       dragControls={controls}
       dragListener={false}
-      style={{ x: dragX, y: dragY }}
+      style={{ x: dragX, y: dragY, touchAction: "none" }}
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       className={cn("fixed z-40 flex gap-2.5", CORNER_CLASS[corner])}
@@ -197,6 +197,7 @@ export const FloatingMusicPlayer = () => {
             exit={{ opacity: 0, y: isTopCorner ? -12 : 12, scale: 0.96 }}
             transition={{ type: "spring", stiffness: 320, damping: 30 }}
             onTouchMove={(e) => e.stopPropagation()}
+            style={{ touchAction: "none" }}
             className="w-68 rounded-3xl bg-card/98 backdrop-blur-xl border border-border/50 shadow-2xl shadow-black/10 overflow-hidden cursor-default"
           >
             {/* Header */}
@@ -264,8 +265,8 @@ export const FloatingMusicPlayer = () => {
                 </div>
                 <div
                   className={cn(
-                    "absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary shadow-sm transition-[opacity,transform] duration-150",
-                    isDragging ? "opacity-100 scale-125" : "opacity-60 group-hover:opacity-100"
+                    "absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-primary shadow-sm ring-2 ring-card transition-[opacity,transform] duration-150",
+                    isDragging ? "opacity-100 scale-125" : "opacity-100"
                   )}
                   style={{ left: `clamp(0px, calc(${progress}% - 6px), calc(100% - 12px))` }}
                 />

@@ -31,7 +31,7 @@ const Star = ({ size, className, style }: {
 );
 
 const Cloud = ({ className }: { className?: string }) => (
-  <svg viewBox="0 0 200 100" className={cn("absolute pointer-events-none select-none opacity-20", className)} aria-hidden>
+  <svg viewBox="0 0 200 100" className={cn("pointer-events-none select-none opacity-20", className)} aria-hidden>
     <ellipse cx="100" cy="70" rx="90" ry="40" fill="white" />
     <ellipse cx="70" cy="55" rx="45" ry="35" fill="white" />
     <ellipse cx="130" cy="50" rx="50" ry="38" fill="white" />
@@ -130,8 +130,12 @@ export const Hero = () => {
               style={{ animationDuration: "4.5s", animationDelay: "1.2s" }} />
             <Star size={52} className="top-[30%] right-[2%] text-[#FFE566] animate-float"
               style={{ animationDuration: "3.5s", animationDelay: "0.3s" }} />
-            <Cloud className="w-96 h-48 bottom-0 left-0 -translate-x-1/4 translate-y-1/4" />
-            <Cloud className="w-80 h-40 top-0 right-0 translate-x-1/4 -translate-y-1/4 rotate-12" />
+            <div className="absolute bottom-0 left-0" style={{ animation: "cloud-drift-1 12s ease-in-out infinite" }}>
+              <Cloud className="w-96 h-48" />
+            </div>
+            <div className="absolute top-0 right-0" style={{ animation: "cloud-drift-2 15s ease-in-out infinite 2s" }}>
+              <Cloud className="w-80 h-40" />
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

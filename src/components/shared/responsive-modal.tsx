@@ -38,9 +38,18 @@ export function ResponsiveModal({
   const [open, setOpen] = React.useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
+  const handleOpenChange = React.useCallback((v: boolean) => {
+    if (!v) {
+      // Prevent smooth-scroll from animating vaul's scroll-position restoration
+      document.documentElement.style.scrollBehavior = "auto";
+      setTimeout(() => { document.documentElement.style.scrollBehavior = ""; }, 300);
+    }
+    setOpen(v);
+  }, []);
+
   if (isDesktop) {
     return (
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={open} onOpenChange={handleOpenChange}>
         <DialogTrigger asChild>{children}</DialogTrigger>
         <DialogContent className="max-w-4xl h-[85vh] flex flex-col overflow-hidden p-0 gap-0">
           <DialogHeader className="px-6 py-4 border-b shrink-0">
@@ -58,9 +67,10 @@ export function ResponsiveModal({
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
+    <Drawer open={open} onOpenChange={handleOpenChange} dismissible={false}>
       <DrawerTrigger asChild>{children}</DrawerTrigger>
       <DrawerContent
+        noHandle
         className="flex flex-col h-dvh mt-0 rounded-none border-t-0"
         onCloseAutoFocus={(e) => e.preventDefault()}
       >

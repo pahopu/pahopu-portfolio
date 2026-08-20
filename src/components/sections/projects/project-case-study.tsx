@@ -1,3 +1,6 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -217,12 +220,22 @@ const DiagramRenderer = ({ data }: { data: ArchitectureDiagram }) => {
 /* --- COMPONENT: MAIN CASE STUDY --- */
 
 export const ProjectCaseStudy = ({ data }: CaseStudyProps) => {
+  const [activeTab, setActiveTab] = useState("overview");
+  const tabsListRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const list = tabsListRef.current;
+    if (!list) return;
+    const active = list.querySelector('[data-state="active"]') as HTMLElement | null;
+    active?.scrollIntoView({ inline: "nearest", behavior: "smooth" });
+  }, [activeTab]);
+
   return (
     <div className="w-full h-full flex flex-col">
-      <Tabs defaultValue="overview" className="w-full flex flex-col h-full">
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex flex-col h-full">
         {/* --- SECTION: TABS NAVIGATION --- */}
         <div className="sticky top-0 z-10 bg-background/95 backdrop-blur supports-backdrop-filter:bg-background/60 mt-4 pb-4 border-b">
-          <TabsList className="flex w-full h-auto overflow-x-auto p-1 gap-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <TabsList ref={tabsListRef} className="flex w-full h-auto overflow-x-auto p-1 gap-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <TabsTrigger value="overview" className="py-2 shrink-0">
               Overview
             </TabsTrigger>

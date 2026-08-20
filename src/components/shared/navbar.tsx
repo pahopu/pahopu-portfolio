@@ -92,24 +92,24 @@ export const Navbar = () => {
     }
   };
 
-  // Active section tracking via IntersectionObserver
+  // Active section tracking via scroll position
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible.length > 0) setActiveSection(`#${visible[0].target.id}`);
-      },
-      { threshold: 0.3, rootMargin: "-10% 0px -60% 0px" }
-    );
+    const links = NAV_LINKS
+      .map((link) => ({ href: link.href, el: document.getElementById(link.href.slice(1)) }))
+      .filter((s): s is { href: string; el: HTMLElement } => s.el !== null);
 
-    NAV_LINKS.forEach((link) => {
-      const el = document.getElementById(link.href.slice(1));
-      if (el) observer.observe(el);
-    });
+    const update = () => {
+      const threshold = window.innerHeight * 0.35;
+      let active = links[0]?.href ?? "";
+      for (const { href, el } of links) {
+        if (el.getBoundingClientRect().top <= threshold) active = href;
+      }
+      setActiveSection(active);
+    };
 
-    return () => observer.disconnect();
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    return () => window.removeEventListener("scroll", update);
   }, []);
 
   /* Cursor / touch star trail */
