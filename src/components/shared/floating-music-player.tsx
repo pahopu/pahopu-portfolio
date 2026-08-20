@@ -60,6 +60,7 @@ export const FloatingMusicPlayer = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isPillHovered, setIsPillHovered] = useState(false);
+  const [isSpinning, setIsSpinning] = useState(false);
 
   const dragX = useMotionValue(0);
   const dragY = useMotionValue(0);
@@ -119,6 +120,12 @@ export const FloatingMusicPlayer = () => {
       audio.play().then(() => setIsPlaying(true)).catch(() => {});
     }
   }, [isPlaying]);
+
+  const handleAlbumDoubleClick = useCallback(() => {
+    if (isSpinning) return;
+    setIsSpinning(true);
+    setTimeout(() => setIsSpinning(false), 1500);
+  }, [isSpinning]);
 
   const toggleMute = useCallback(() => {
     const audio = audioRef.current;
@@ -220,19 +227,33 @@ export const FloatingMusicPlayer = () => {
 
             {/* Album art */}
             <div className="px-5 pt-3 pb-3 flex justify-center">
-              <div className={cn(
-                "relative w-36 h-36 rounded-2xl overflow-hidden shadow-lg transition-all duration-500",
-                isPlaying ? "shadow-primary/20 ring-2 ring-primary/25 shadow-xl" : "shadow-black/10"
-              )}>
+              <div
+                onDoubleClick={handleAlbumDoubleClick}
+                className={cn(
+                  "relative w-36 h-36 overflow-hidden shadow-lg transition-all duration-500 select-none",
+                  isSpinning ? "rounded-full cursor-default" : "rounded-2xl cursor-pointer",
+                  isPlaying ? "shadow-primary/20 ring-2 ring-primary/25 shadow-xl" : "shadow-black/10"
+                )}
+              >
                 <Image
                   src={TRACK.cover}
                   alt={TRACK.title}
                   fill
                   className={cn("object-cover transition-transform duration-700", isPlaying ? "scale-105" : "scale-100")}
+                  style={isSpinning ? { animation: "vinyl-spin 1.4s ease-in-out forwards" } : undefined}
                   sizes="144px"
                   priority
                 />
-                {!isPlaying && <div className="absolute inset-0 bg-black/15" />}
+                {!isPlaying && !isSpinning && <div className="absolute inset-0 bg-black/15" />}
+                {isSpinning && (
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: "repeating-radial-gradient(circle at 50% 50%, transparent 28%, rgba(0,0,0,0.07) 29%, transparent 30%, transparent 38%, rgba(0,0,0,0.07) 39%, transparent 40%)",
+                      animation: "vinyl-spin 1.4s ease-in-out forwards",
+                    }}
+                  />
+                )}
               </div>
             </div>
 
