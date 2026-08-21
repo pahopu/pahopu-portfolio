@@ -185,6 +185,11 @@
     @apply border-border outline-ring/50;
   }
 
+  img {
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+
   html {
     scroll-behavior: smooth;
     scroll-padding-top: 4rem;
