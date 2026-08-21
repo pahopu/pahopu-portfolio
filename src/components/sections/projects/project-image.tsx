@@ -11,7 +11,7 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
   if (id === "image-lens") {
     return (
       <div
-        className="absolute inset-0 flex items-center justify-center overflow-hidden group"
+        className="select-none absolute inset-0 flex items-center justify-center overflow-hidden group"
         style={{ background: "linear-gradient(135deg, #0D1B4B 0%, #2A4A9A 50%, #5B8FE8 100%)" }}
       >
         <div className="absolute inset-0 opacity-[0.07] bg-[radial-gradient(rgba(197,216,245,1)_1px,transparent_1px)] bg-size-[22px_22px]" />
@@ -80,7 +80,7 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
   /* --- CASE 2: ERP SYSTEM (CONSTELLATION OF MODULES) --- */
   if (id === "erp") {
     return (
-      <div className="absolute inset-0 flex items-center justify-center bg-[#1B2E6E] overflow-hidden group">
+      <div className="select-none absolute inset-0 flex items-center justify-center bg-[#1B2E6E] overflow-hidden group">
         <div className="absolute inset-0 opacity-[0.1] bg-[linear-gradient(to_right,rgba(200,230,69,0.2)_1px,transparent_1px),linear-gradient(to_bottom,rgba(200,230,69,0.2)_1px,transparent_1px)] bg-size-[28px_28px]" />
 
         <svg
@@ -142,7 +142,7 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
   if (id === "mario") {
     return (
       <div
-        className="absolute inset-0 flex items-center justify-center overflow-hidden group"
+        className="select-none absolute inset-0 flex items-center justify-center overflow-hidden group"
         style={{ background: "linear-gradient(180deg, #7BAEF0 0%, #5B8FE8 50%, #4A7FD4 100%)" }}
       >
         <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(white_2px,transparent_2px)] bg-size-[32px_32px]" />
@@ -216,7 +216,7 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
   if (id === "carelink") {
     return (
       <div
-        className="absolute inset-0 flex items-center justify-center overflow-hidden group"
+        className="select-none absolute inset-0 flex items-center justify-center overflow-hidden group"
         style={{ background: "linear-gradient(135deg, #1B2E6E 0%, #3A6BC8 60%, #5B8FE8 100%)" }}
       >
         <div className="absolute inset-0 opacity-[0.06] bg-[radial-gradient(rgba(197,216,245,1)_1px,transparent_1px)] bg-size-[24px_24px]" />
@@ -277,7 +277,7 @@ export const ProjectImage = ({ id, title, image }: ProjectImageProps) => {
   /* --- CASE 5: UNI-VOICE (SIGNAL RIPPLES / HAZARD MAP) --- */
   if (id === "uni-voice") {
     return (
-      <div className="absolute inset-0 flex items-center justify-center bg-[#1B2E6E] overflow-hidden group">
+      <div className="select-none absolute inset-0 flex items-center justify-center bg-[#1B2E6E] overflow-hidden group">
         <div className="absolute inset-0 opacity-[0.08] bg-[linear-gradient(to_right,rgba(200,230,69,0.3)_1px,transparent_1px),linear-gradient(to_bottom,rgba(200,230,69,0.3)_1px,transparent_1px)] bg-size-[28px_28px]" />
 
         {/* Expanding ripple rings */}

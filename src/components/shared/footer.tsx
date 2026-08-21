@@ -104,7 +104,7 @@ export const Footer = () => {
                 href={social.href}
                 target="_blank"
                 aria-label={social.label}
-                className="p-2 rounded-full hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
+                className="select-none p-2 rounded-full hover:bg-primary/10 text-muted-foreground hover:text-primary transition-all duration-300 hover:scale-110"
               >
                 <social.icon className="w-5 h-5" />
               </Link>

@@ -378,7 +378,7 @@ export const FloatingMusicPlayer = () => {
                   }}
                 >
                   <motion.div className="absolute inset-0" style={{ rotate: discRotation }}>
-                    <Image src={TRACK.cover} alt={TRACK.title} fill className="object-cover" sizes="144px" priority />
+                    <Image src={TRACK.cover} alt={TRACK.title} fill className="object-cover" sizes="144px" priority draggable={false} />
                     <div
                       className="absolute inset-0 pointer-events-none"
                       style={{
@@ -430,6 +430,7 @@ export const FloatingMusicPlayer = () => {
                         className="object-cover"
                         sizes="148px"
                         priority
+                        draggable={false}
                       />
                       {/* Sheen overlay */}
                       <div
@@ -555,7 +556,7 @@ export const FloatingMusicPlayer = () => {
           {isPlaying ? TRACK.title : t("picks")}
         </span>
         <div className="relative w-5 h-5 rounded shrink-0 overflow-hidden">
-          <Image src={TRACK.cover} alt="" fill className="object-cover" sizes="20px" />
+          <Image src={TRACK.cover} alt="" fill className="object-cover" sizes="20px" draggable={false} />
         </div>
       </motion.button>
     </motion.div>

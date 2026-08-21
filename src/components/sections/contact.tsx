@@ -121,7 +121,7 @@ export const ContactSection = () => {
             <motion.div variants={HERO_ANIMATION.item} className="space-y-4 font-medium">
               <Link
                 href="mailto:hoangphucpham.work@gmail.com"
-                className="flex items-center gap-4 p-4 rounded-xl border bg-card/50 hover:bg-primary/5 hover:border-primary/30 transition-all group"
+                className="select-none flex items-center gap-4 p-4 rounded-xl border bg-card/50 hover:bg-primary/5 hover:border-primary/30 transition-all group"
               >
                 <div className="p-3 rounded-lg bg-primary/10 text-[#1B2E6E] dark:text-primary group-hover:scale-110 transition-transform">
                   <Mail className="w-5 h-5" />
@@ -139,7 +139,7 @@ export const ContactSection = () => {
                 <Link
                   href="https://github.com/pahopu"
                   target="_blank"
-                  className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border bg-card/50 hover:bg-card hover:border-foreground/30 transition-all"
+                  className="select-none flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border bg-card/50 hover:bg-card hover:border-foreground/30 transition-all"
                 >
                   <Github className="w-5 h-5" />
                   <span>GitHub</span>
@@ -147,7 +147,7 @@ export const ContactSection = () => {
                 <Link
                   href="https://www.linkedin.com/in/pahopu"
                   target="_blank"
-                  className="flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border bg-card/50 hover:bg-[#5B8FE8]/10 hover:border-[#5B8FE8]/30 hover:text-[#5B8FE8] transition-all"
+                  className="select-none flex-1 flex items-center justify-center gap-2 p-3 rounded-xl border bg-card/50 hover:bg-[#5B8FE8]/10 hover:border-[#5B8FE8]/30 hover:text-[#5B8FE8] transition-all"
                 >
                   <Linkedin className="w-5 h-5" />
                   <span>LinkedIn</span>
