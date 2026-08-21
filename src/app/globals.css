@@ -44,10 +44,10 @@
 .vinyl-spinning-boost { animation: record-spin 0.45s linear infinite; will-change: transform; }
 
 @keyframes star-drift-up {
-  0%   { transform: translateY(0) rotate(0deg);              opacity: 0; }
+  0%   { transform: translateY(0) rotate(var(--start-r, 0deg));              opacity: 0; }
   10%  { opacity: 1; }
   90%  { opacity: 0.7; }
-  100% { transform: translateY(calc(-100vh - 40px)) rotate(45deg); opacity: 0; }
+  100% { transform: translateY(calc(-100vh - 40px)) rotate(var(--end-r, 45deg)); opacity: 0; }
 }
 
 @keyframes ripple-out {

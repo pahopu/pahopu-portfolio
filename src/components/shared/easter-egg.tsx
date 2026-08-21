@@ -24,9 +24,12 @@ function spawnIdleStar() {
   const x = Math.random() * window.innerWidth;
   const duration = 3 + Math.random() * 1.5;
   const color = CONGBDAY_COLORS[Math.floor(Math.random() * CONGBDAY_COLORS.length)];
+  const startR = Math.round(Math.random() * 120 - 60);
+  const endR = startR + Math.round((Math.random() < 0.5 ? 1 : -1) * (90 + Math.random() * 270));
   el.style.cssText = `
     position:fixed;left:${x}px;bottom:-20px;font-size:${size}px;
     color:${color};z-index:9990;user-select:none;cursor:default;
+    --start-r:${startR}deg;--end-r:${endR}deg;
     animation:star-drift-up ${duration}s ease-out forwards;
   `;
   let burst = false;
