@@ -6,8 +6,7 @@ import confetti from "canvas-confetti";
 import { useEffect, useRef } from "react";
 
 const CONGBDAY_COLORS = ["#C8E645", "#FFE566", "#5B8FE8", "#F5B8CC", "#FF8C42"];
-const IDLE_MS = 30_000;
-const STAR_INTERVAL_MS = 480;
+const STAR_INTERVAL_MS = 200;
 
 function fireConfetti() {
   confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: CONGBDAY_COLORS });
@@ -19,6 +18,7 @@ function fireConfetti() {
 
 function spawnIdleStar() {
   const el = document.createElement("span");
+  el.className = "idle-star";
   el.textContent = "★";
   const size = 12 + Math.random() * 16;
   const x = Math.random() * window.innerWidth;
@@ -26,9 +26,46 @@ function spawnIdleStar() {
   const color = CONGBDAY_COLORS[Math.floor(Math.random() * CONGBDAY_COLORS.length)];
   el.style.cssText = `
     position:fixed;left:${x}px;bottom:-20px;font-size:${size}px;
-    color:${color};pointer-events:none;z-index:9990;user-select:none;
+    color:${color};z-index:9990;user-select:none;cursor:default;
     animation:star-drift-up ${duration}s ease-out forwards;
   `;
+  let burst = false;
+  const triggerBurst = () => {
+    if (burst) return;
+    burst = true;
+    const rect = el.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    el.remove();
+    const count = 12;
+    for (let i = 0; i < count; i++) {
+      const mini = document.createElement("span");
+      mini.textContent = "★";
+      const color = CONGBDAY_COLORS[Math.floor(Math.random() * CONGBDAY_COLORS.length)];
+      const miniSize = 9 + Math.random() * 10;
+      const angle = (i / count) * Math.PI * 2 + Math.random() * 0.3;
+      const distance = 28 + Math.random() * 32;
+      const tx = Math.cos(angle) * distance;
+      const ty = Math.sin(angle) * distance;
+      mini.style.cssText = `
+        position:fixed;left:${cx}px;top:${cy}px;
+        font-size:${miniSize}px;color:${color};
+        pointer-events:none;z-index:9991;user-select:none;
+        transform:translate(-50%,-50%);
+      `;
+      document.body.appendChild(mini);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          mini.style.transition = "transform 0.4s ease-out, opacity 0.35s ease-out 0.05s";
+          mini.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`;
+          mini.style.opacity = "0";
+        });
+      });
+      setTimeout(() => mini.remove(), 500);
+    }
+  };
+  el.addEventListener("mouseenter", triggerBurst, { once: true });
+  el.addEventListener("touchstart", triggerBurst, { once: true, passive: true });
   document.body.appendChild(el);
   setTimeout(() => el.remove(), (duration + 0.5) * 1000);
 }
@@ -52,27 +89,33 @@ export const EasterEgg = () => {
 
   // Idle screensaver
   useEffect(() => {
+    const idleMs = "ontouchstart" in window ? 3_000 : 5_000;
+
     const startSpawning = () => {
       clearInterval(spawnIntervalRef.current);
+      for (let i = 0; i < 5; i++) setTimeout(spawnIdleStar, i * 80);
       spawnIntervalRef.current = setInterval(spawnIdleStar, STAR_INTERVAL_MS);
     };
 
-    const stopSpawning = () => clearInterval(spawnIntervalRef.current);
+    const stopSpawning = () => {
+      clearInterval(spawnIntervalRef.current);
+      // Let existing stars float away naturally — no forced removal
+    };
 
     const resetIdle = () => {
       stopSpawning();
       clearTimeout(idleTimerRef.current);
-      idleTimerRef.current = setTimeout(startSpawning, IDLE_MS);
+      idleTimerRef.current = setTimeout(startSpawning, idleMs);
     };
 
-    const EVENTS = ["mousemove", "mousedown", "keydown", "touchstart", "scroll"] as const;
-    EVENTS.forEach((e) => window.addEventListener(e, resetIdle, { passive: true }));
+    // Only scroll resets the idle timer — mouse movement and taps do not
+    window.addEventListener("scroll", resetIdle, { passive: true });
     resetIdle();
 
     return () => {
       stopSpawning();
       clearTimeout(idleTimerRef.current);
-      EVENTS.forEach((e) => window.removeEventListener(e, resetIdle));
+      window.removeEventListener("scroll", resetIdle);
     };
   }, []);
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { AnimatePresence, PanInfo, animate, motion, useDragControls, useMotionValue } from "framer-motion";
+import { AnimatePresence, type AnimationPlaybackControls, PanInfo, animate, motion, useDragControls, useMotionValue } from "framer-motion";
 import { ChevronDown, Volume2, VolumeX } from "lucide-react";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
@@ -60,11 +60,18 @@ export const FloatingMusicPlayer = () => {
   const [isMuted, setIsMuted] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isPillHovered, setIsPillHovered] = useState(false);
-  const [isSpinning, setIsSpinning] = useState(false);
+  const [albumPhase, setAlbumPhase] = useState<"sleeved" | "disc">("sleeved");
+  const [hasEverPlayed, setHasEverPlayed] = useState(false);
 
   const dragX = useMotionValue(0);
   const dragY = useMotionValue(0);
+  const discRotation = useMotionValue(0);
+  // In "sleeved" state, disc is offset right so sleeve+disc are centered as a unit
+  const discX = useMotionValue(36);
   const controls = useDragControls();
+  const hasRevealedRef = useRef(false);
+  const spinAnimRef = useRef<AnimationPlaybackControls | null>(null);
+  const isSpinningRef = useRef(false);
 
   useEffect(() => {
     const audio = new Audio(TRACK.src);
@@ -93,7 +100,6 @@ export const FloatingMusicPlayer = () => {
     };
   }, [isExpanded]);
 
-  // Snap-to-corner drag handlers
   const handleDragStart = useCallback(() => {
     isDraggingPlayerRef.current = true;
   }, []);
@@ -117,15 +123,132 @@ export const FloatingMusicPlayer = () => {
       audio.pause();
       setIsPlaying(false);
     } else {
-      audio.play().then(() => setIsPlaying(true)).catch(() => {});
+      if (!hasRevealedRef.current) {
+        // First play: slide sleeve out first, then start audio + spin
+        hasRevealedRef.current = true;
+        setAlbumPhase("disc");
+        setTimeout(() => {
+          audio.play().then(() => setIsPlaying(true)).catch(() => {});
+        }, 680); // after sleeve exits (520ms) + disc settles to center (300+320ms)
+      } else {
+        audio.play().then(() => setIsPlaying(true)).catch(() => {});
+      }
     }
   }, [isPlaying]);
 
-  const handleAlbumDoubleClick = useCallback(() => {
-    if (isSpinning) return;
-    setIsSpinning(true);
-    setTimeout(() => setIsSpinning(false), 1500);
-  }, [isSpinning]);
+  // startSpin(rampUp=true): ramp from 0→normal speed on first loop, then linear.
+  // rampUp=false: skip ramp (used after boost, which already ends at normal speed).
+  const startSpin = useCallback((rampUp = true) => {
+    const start = discRotation.get();
+    spinAnimRef.current?.stop();
+    isSpinningRef.current = true;
+
+    const loop = (from: number) => {
+      spinAnimRef.current = animate(discRotation, from + 360, {
+        duration: 2.4,
+        ease: "linear",
+        from,
+        onComplete: () => { if (isSpinningRef.current) loop(discRotation.get()); },
+      });
+    };
+
+    if (rampUp) {
+      // Ease [0.3,0,0.7,0.7]: slope=0 at t=0 (starts slow), slope=1 at t=1 (normal speed).
+      // This makes the ramp-up end at exactly 150 deg/s so the loop chain is seamless.
+      spinAnimRef.current = animate(discRotation, start + 360, {
+        duration: 2.4,
+        ease: [0.3, 0, 0.7, 0.7],
+        from: start,
+        onComplete: () => { if (isSpinningRef.current) loop(discRotation.get()); },
+      });
+    } else {
+      loop(start);
+    }
+  }, [discRotation]);
+
+  const stopSpin = useCallback(() => {
+    if (!isSpinningRef.current) return;
+    isSpinningRef.current = false;
+    const current = discRotation.get();
+    spinAnimRef.current?.stop();
+    const remaining = (360 - (current % 360)) % 360;
+    const target = current + (remaining < 5 ? remaining + 360 : remaining);
+    // Duration ∝ remaining degrees so initial velocity = 150 deg/s (normal speed).
+    // ease [0.3,0.3,0.7,1]: slope=1 at t=0 (matches spin speed) → decelerates to 0.
+    spinAnimRef.current = animate(discRotation, target, {
+      duration: (target - current) / 150,
+      ease: [0.3, 0.3, 0.7, 1],
+      from: current,
+    });
+  }, [discRotation]);
+
+  // Drive spin from isPlaying — reveal is handled in togglePlay with delay
+  useEffect(() => {
+    if (isPlaying) {
+      setHasEverPlayed(true);
+      startSpin();
+    } else {
+      stopSpin();
+    }
+  }, [isPlaying, startSpin, stopSpin]);
+
+  // Animate disc to center after sleeve exits; reset offset if somehow re-sleeved
+  useEffect(() => {
+    if (albumPhase === "disc") {
+      // Sleeve exits in 0.52s; disc settles into center starting at 0.3s
+      animate(discX, 0, { duration: 0.32, ease: [0.32, 0, 0.67, 0], delay: 0.28 });
+    } else {
+      discX.set(36);
+    }
+  }, [albumPhase, discX]);
+
+  useEffect(() => () => { spinAnimRef.current?.stop(); }, []);
+
+  // Easter egg: double-click disc → fast spin burst, then resume normal loop
+  const handleAlbumDoubleClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isPlaying) return;
+    spinAnimRef.current?.stop();
+    isSpinningRef.current = true;
+    const from = discRotation.get();
+    // Ease ends at ~normal loop speed (360/2.4s) so startSpin picks up seamlessly:
+    // slope at t=1 = (1-0.917)/(1-0.7) ≈ 0.277 ≈ loop_speed/boost_speed
+    spinAnimRef.current = animate(discRotation, from + 1080, {
+      duration: 2.0,
+      ease: [0.05, 0.8, 0.7, 0.917],
+      from,
+      onComplete: () => { if (isSpinningRef.current) startSpin(false); },
+    });
+
+    const rect = e.currentTarget.getBoundingClientRect();
+    const cx = rect.left + rect.width / 2;
+    const cy = rect.top + rect.height / 2;
+    const symbols = ["♪", "♫", "★", "♩", "♬"];
+    const colors = ["#C8E645", "#FFE566", "#5B8FE8", "#F5B8CC", "#FF8C42"];
+    for (let i = 0; i < 10; i++) {
+      setTimeout(() => {
+        const el = document.createElement("span");
+        el.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+        const color = colors[Math.floor(Math.random() * colors.length)];
+        const size = 14 + Math.random() * 14;
+        const angle = (i / 10) * Math.PI * 2 + Math.random() * 0.5;
+        const dist = 35 + Math.random() * 45;
+        const tx = Math.cos(angle) * dist;
+        const ty = Math.sin(angle) * dist;
+        el.style.cssText = `
+          position:fixed;left:${cx}px;top:${cy}px;
+          pointer-events:none;z-index:9999;font-size:${size}px;color:${color};
+          transform:translate(-50%,-50%);user-select:none;line-height:1;
+        `;
+        document.body.appendChild(el);
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          el.style.transition = "transform 0.7s ease-out, opacity 0.5s ease-out 0.15s";
+          el.style.transform = `translate(calc(-50% + ${tx}px), calc(-50% + ${ty}px)) scale(0)`;
+          el.style.opacity = "0";
+        }));
+        setTimeout(() => el.remove(), 1000);
+      }, i * 45);
+    }
+  }, [isPlaying, discRotation, startSpin]);
 
   const toggleMute = useCallback(() => {
     const audio = audioRef.current;
@@ -225,35 +348,99 @@ export const FloatingMusicPlayer = () => {
               </button>
             </div>
 
-            {/* Album art */}
+            {/* Album art: disc always behind, square sleeve slides left on first play */}
             <div className="px-5 pt-3 pb-3 flex justify-center">
-              <div
-                onDoubleClick={handleAlbumDoubleClick}
-                className={cn(
-                  "relative w-36 h-36 overflow-hidden shadow-lg transition-all duration-500 select-none",
-                  isSpinning ? "rounded-full cursor-default" : "rounded-2xl cursor-pointer",
-                  isPlaying ? "shadow-primary/20 ring-2 ring-primary/25 shadow-xl" : "shadow-black/10"
-                )}
-              >
-                <Image
-                  src={TRACK.cover}
-                  alt={TRACK.title}
-                  fill
-                  className={cn("object-cover transition-transform duration-700", isPlaying ? "scale-105" : "scale-100")}
-                  style={isSpinning ? { animation: "vinyl-spin 1.4s ease-in-out forwards" } : undefined}
-                  sizes="144px"
-                  priority
-                />
-                {!isPlaying && !isSpinning && <div className="absolute inset-0 bg-black/15" />}
-                {isSpinning && (
+              <div className="relative w-36 h-36 select-none">
+
+                {/* Disc — always rendered, circular.
+                    In sleeved state: discX=36 (offset right so sleeve+disc are centered together).
+                    On play: sleeve exits, disc animates to discX=0 (true centre), then spins. */}
+                <motion.div
+                  className={cn("absolute inset-0", isPlaying && albumPhase === "disc" && "cursor-pointer")}
+                  onDoubleClick={albumPhase === "disc" ? handleAlbumDoubleClick : undefined}
+                  style={{
+                    x: discX,
+                    clipPath: "inset(0 round 50%)",
+                    filter: isPlaying && albumPhase === "disc"
+                      ? "drop-shadow(0 0 12px oklch(0.87 0.20 128 / 40%)) drop-shadow(0 4px 16px rgba(0,0,0,0.20))"
+                      : "drop-shadow(0 3px 10px rgba(0,0,0,0.25))",
+                    transition: "filter 0.4s ease",
+                  }}
+                >
+                  <motion.div className="absolute inset-0" style={{ rotate: discRotation }}>
+                    <Image src={TRACK.cover} alt={TRACK.title} fill className="object-cover" sizes="144px" priority />
+                    <div
+                      className="absolute inset-0 pointer-events-none"
+                      style={{
+                        background: "repeating-radial-gradient(circle at 50% 50%, transparent 22%, rgba(0,0,0,0.07) 23%, transparent 24%, transparent 32%, rgba(0,0,0,0.07) 33%, transparent 34%)",
+                      }}
+                    />
+                  </motion.div>
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                    <div className="w-10 h-10 rounded-full bg-card/90 shadow-md flex items-center justify-center">
+                      <div className="w-3 h-3 rounded-full bg-muted-foreground/25" />
+                    </div>
+                  </div>
+                  {/* Dim overlay — only after first play; fades in/out with filter */}
                   <div
                     className="absolute inset-0 pointer-events-none"
                     style={{
-                      background: "repeating-radial-gradient(circle at 50% 50%, transparent 28%, rgba(0,0,0,0.07) 29%, transparent 30%, transparent 38%, rgba(0,0,0,0.07) 39%, transparent 40%)",
-                      animation: "vinyl-spin 1.4s ease-in-out forwards",
+                      backgroundColor: "rgba(0,0,0,0.15)",
+                      opacity: hasEverPlayed && !isPlaying ? 1 : 0,
+                      transition: "opacity 0.5s ease",
                     }}
                   />
-                )}
+                </motion.div>
+
+                {/* Sleeve — 148×148 (4px bigger than disc on each side).
+                    left:-40 so the combined (sleeve+disc) visual is centred in the panel.
+                    Notch R=20 at local (148,74) = container (108,72) = disc centre when offset.
+                    Slides left on first play, then disc animates to true centre. */}
+                <AnimatePresence>
+                  {albumPhase === "sleeved" && (
+                    <motion.div
+                      key="sleeve"
+                      className="absolute z-10"
+                      exit={{ x: -200 }}
+                      transition={{ duration: 0.52, ease: [0.32, 0, 0.67, 0] }}
+                      style={{
+                        left: -40,
+                        top: -2,
+                        width: 148,
+                        height: 148,
+                        // Local (0,0)..(148,148). Notch R=20 at right edge mid-height (148,74).
+                        clipPath: 'path("M 0,0 L 148,0 L 148,54 A 20,20 0 0,0 148,94 L 148,148 L 0,148 Z")',
+                        filter: "drop-shadow(3px 0 10px rgba(0,0,0,0.32))",
+                      }}
+                    >
+                      <Image
+                        src={TRACK.cover}
+                        alt={TRACK.title}
+                        fill
+                        className="object-cover"
+                        sizes="148px"
+                        priority
+                      />
+                      {/* Sheen overlay */}
+                      <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{
+                          background: "linear-gradient(135deg, rgba(255,255,255,0.14) 0%, transparent 50%, rgba(0,0,0,0.08) 100%)",
+                        }}
+                      />
+                      {/* Left edge highlight */}
+                      <div
+                        className="absolute inset-y-0 left-0 w-1 pointer-events-none"
+                        style={{ background: "linear-gradient(to right, rgba(255,255,255,0.24), transparent)" }}
+                      />
+                      {/* Right edge shadow for depth */}
+                      <div
+                        className="absolute inset-y-0 right-0 w-8 pointer-events-none"
+                        style={{ background: "linear-gradient(to left, rgba(0,0,0,0.20), transparent)" }}
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
               </div>
             </div>
 

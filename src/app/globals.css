@@ -36,6 +36,13 @@
   100% { transform: rotate(720deg); }
 }
 
+@keyframes record-spin {
+  to { transform: rotate(360deg); }
+}
+
+.vinyl-spinning       { animation: record-spin 2.4s linear infinite; will-change: transform; }
+.vinyl-spinning-boost { animation: record-spin 0.45s linear infinite; will-change: transform; }
+
 @keyframes star-drift-up {
   0%   { transform: translateY(0) rotate(0deg);              opacity: 0; }
   10%  { opacity: 1; }

@@ -5,7 +5,6 @@ import { StarDeco } from "@/components/shared/album-star";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { useTheme } from "next-themes";
 
 import { ModeToggle } from "@/components/shared/mode-toggle";
@@ -45,9 +44,7 @@ const LogoBadge = ({ isDark }: { isDark: boolean }) => (
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [trailEnabled, setTrailEnabled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("");
-  const [logoHint, setLogoHint] = useState(0);
 
   const locale = useLocale();
 
@@ -57,10 +54,6 @@ export const Navbar = () => {
   const mounted = useSyncExternalStore(() => () => {}, () => true, () => false);
   const isDark = mounted && resolvedTheme === "dark";
 
-  const logoClickCount = useRef(0);
-  const logoClickTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
-  const logoHintTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
-
   const switchLocale = () => {
     const next = locale === "en" ? "vi" : "en";
     window.location.href = `/${next}`;
@@ -68,28 +61,41 @@ export const Navbar = () => {
 
   const handleLogoClick = async (e: React.MouseEvent) => {
     e.preventDefault();
-    logoClickCount.current += 1;
-    clearTimeout(logoClickTimer.current);
-    clearTimeout(logoHintTimer.current);
-    logoClickTimer.current = setTimeout(() => { logoClickCount.current = 0; setLogoHint(0); }, 1800);
-    if (logoClickCount.current >= 5) {
-      logoClickCount.current = 0;
-      setLogoHint(0);
-      // iOS 13+ requires explicit permission requests from a user gesture
-      type PermissionableEvent = { requestPermission?: () => Promise<string> };
-      if (typeof DeviceMotionEvent !== "undefined" &&
-          typeof (DeviceMotionEvent as unknown as PermissionableEvent).requestPermission === "function") {
-        try { await (DeviceMotionEvent as unknown as Required<PermissionableEvent>).requestPermission(); } catch { /* denied */ }
-      }
-      if (typeof DeviceOrientationEvent !== "undefined" &&
-          typeof (DeviceOrientationEvent as unknown as PermissionableEvent).requestPermission === "function") {
-        try { await (DeviceOrientationEvent as unknown as Required<PermissionableEvent>).requestPermission(); } catch { /* denied */ }
-      }
-      setTrailEnabled((prev: boolean) => !prev);
-    } else {
-      setLogoHint(logoClickCount.current);
-      logoHintTimer.current = setTimeout(() => setLogoHint(0), 900);
+    const clickX = e.clientX;
+    const clickY = e.clientY;
+
+    // iOS 13+ requires explicit permission requests from a user gesture (for shake easter egg)
+    type PermissionableEvent = { requestPermission?: () => Promise<string> };
+    if (typeof DeviceMotionEvent !== "undefined" &&
+        typeof (DeviceMotionEvent as unknown as PermissionableEvent).requestPermission === "function") {
+      try { await (DeviceMotionEvent as unknown as Required<PermissionableEvent>).requestPermission(); } catch { /* denied */ }
     }
+    if (typeof DeviceOrientationEvent !== "undefined" &&
+        typeof (DeviceOrientationEvent as unknown as PermissionableEvent).requestPermission === "function") {
+      try { await (DeviceOrientationEvent as unknown as Required<PermissionableEvent>).requestPermission(); } catch { /* denied */ }
+    }
+
+    for (let i = 0; i < 10; i++) {
+      setTimeout(() => {
+        const star = document.createElement("span");
+        star.textContent = "★";
+        const color = TRAIL_COLORS[Math.floor(Math.random() * TRAIL_COLORS.length)];
+        const size = 10 + Math.random() * 14;
+        const x = clickX + (Math.random() - 0.5) * 60;
+        const y = clickY + (Math.random() - 0.5) * 30;
+        star.style.cssText = `
+          position:fixed;left:${x}px;top:${y}px;
+          pointer-events:none;z-index:9997;font-size:${size}px;color:${color};
+          transform:translate(-50%,-50%);
+          animation:cursor-star 0.75s ease-out forwards;
+          user-select:none;line-height:1;
+        `;
+        document.body.appendChild(star);
+        setTimeout(() => star.remove(), 750);
+      }, i * 25);
+    }
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Active section tracking via scroll position
@@ -112,9 +118,8 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", update);
   }, []);
 
-  /* Cursor / touch star trail */
+  /* Cursor / touch star trail — always active */
   useEffect(() => {
-    if (!trailEnabled) return;
     let lastTime = 0;
 
     const spawnStar = (x: number, y: number) => {
@@ -147,7 +152,37 @@ export const Navbar = () => {
       window.removeEventListener("mousemove", mouseHandler);
       window.removeEventListener("touchmove", touchHandler);
     };
-  }, [trailEnabled]);
+  }, []);
+
+  /* Click anywhere → ring sparkle */
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      const count = 5;
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => {
+          const star = document.createElement("span");
+          star.textContent = "★";
+          const color = TRAIL_COLORS[Math.floor(Math.random() * TRAIL_COLORS.length)];
+          const size = 8 + Math.random() * 8;
+          const angle = (i / count) * Math.PI * 2 + Math.random() * 0.5;
+          const radius = 14 + Math.random() * 16;
+          const x = e.clientX + Math.cos(angle) * radius;
+          const y = e.clientY + Math.sin(angle) * radius;
+          star.style.cssText = `
+            position:fixed;left:${x}px;top:${y}px;
+            pointer-events:none;z-index:9997;font-size:${size}px;color:${color};
+            transform:translate(-50%,-50%);
+            animation:cursor-star 0.55s ease-out forwards;
+            user-select:none;line-height:1;
+          `;
+          document.body.appendChild(star);
+          setTimeout(() => star.remove(), 600);
+        }, i * 35);
+      }
+    };
+    window.addEventListener("click", handleClick);
+    return () => window.removeEventListener("click", handleClick);
+  }, []);
 
   /* Shake-to-burst easter egg (mobile) */
   useEffect(() => {
@@ -202,7 +237,7 @@ export const Navbar = () => {
     <span className="flex items-center gap-2 transition-transform hover:scale-105">
       <LogoBadge isDark={isDark} />
       <span
-        className={cn("font-bold text-xl tracking-tight", trailEnabled ? "text-primary" : "text-foreground")}
+        className="font-bold text-xl tracking-tight text-foreground"
         style={{ fontFamily: "var(--font-fredoka)" }}
       >
         pahopu
@@ -218,31 +253,12 @@ export const Navbar = () => {
         isScrolled ? "border-[#5B8FE8]/30 shadow-sm shadow-[#5B8FE8]/10" : "border-transparent shadow-none"
       )}
     >
-      {/* Cursor trail active indicator */}
-      {trailEnabled && (
-        <div className="absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-primary to-transparent opacity-60" />
-      )}
-
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Logo — click 5× to toggle cursor trail */}
+        {/* Logo — click to scroll to top + star burst */}
         <div className="relative">
           <button onClick={handleLogoClick} className="focus:outline-none cursor-pointer" aria-label="Home">
             {logoEl}
           </button>
-          <AnimatePresence>
-            {logoHint > 0 && (
-              <motion.span
-                key={logoHint}
-                initial={{ opacity: 0, y: 2 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.15 }}
-                className="absolute -bottom-4 left-1/2 -translate-x-1/2 text-[9px] font-bold text-primary whitespace-nowrap pointer-events-none"
-              >
-                {"★".repeat(logoHint)}{"☆".repeat(5 - logoHint)}
-              </motion.span>
-            )}
-          </AnimatePresence>
         </div>
 
         {/* Desktop nav */}
