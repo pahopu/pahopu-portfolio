@@ -72,6 +72,7 @@ export const FloatingMusicPlayer = () => {
   const hasRevealedRef = useRef(false);
   const spinAnimRef = useRef<AnimationPlaybackControls | null>(null);
   const isSpinningRef = useRef(false);
+  const isPlayingRef = useRef(false);
 
   useEffect(() => {
     const audio = new Audio(TRACK.src);
@@ -184,6 +185,7 @@ export const FloatingMusicPlayer = () => {
 
   // Drive spin from isPlaying — reveal is handled in togglePlay with delay
   useEffect(() => {
+    isPlayingRef.current = isPlaying;
     if (isPlaying) {
       setHasEverPlayed(true);
       startSpin();
@@ -191,6 +193,14 @@ export const FloatingMusicPlayer = () => {
       stopSpin();
     }
   }, [isPlaying, startSpin, stopSpin]);
+
+  // Restart spin when panel is reopened while audio is playing.
+  // The disc unmounts with the panel, losing its connection to the running animation.
+  useEffect(() => {
+    if (isExpanded && isPlayingRef.current) {
+      startSpin(false); // no ramp-up — disc was already at speed
+    }
+  }, [isExpanded, startSpin]);
 
   // Animate disc to center after sleeve exits; reset offset if somehow re-sleeved
   useEffect(() => {
@@ -489,7 +499,7 @@ export const FloatingMusicPlayer = () => {
             <div className="px-5 pb-4 flex items-center justify-between">
               <button
                 onClick={toggleMute}
-                className="p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground cursor-pointer"
+                className="select-none p-2 rounded-full hover:bg-muted transition-colors text-muted-foreground hover:text-foreground cursor-pointer"
                 aria-label={isMuted ? t("unmute") : t("mute")}
               >
                 {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
@@ -497,7 +507,7 @@ export const FloatingMusicPlayer = () => {
               <button
                 onClick={togglePlay}
                 className={cn(
-                  "w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer",
+                  "select-none w-11 h-11 rounded-full flex items-center justify-center transition-all duration-200 cursor-pointer",
                   "bg-primary hover:bg-primary/90 text-primary-foreground shadow-md",
                   isPlaying && "shadow-lg shadow-primary/25"
                 )}
@@ -529,7 +539,7 @@ export const FloatingMusicPlayer = () => {
         whileHover={{ scale: 1.03 }}
         whileTap={{ scale: 0.97 }}
         className={cn(
-          "flex items-center gap-2 pl-3 pr-3 h-9 rounded-full min-w-0 cursor-grab active:cursor-grabbing",
+          "select-none flex items-center gap-2 pl-3 pr-3 h-9 rounded-full min-w-0 cursor-grab active:cursor-grabbing",
           "bg-card/95 backdrop-blur-xl border shadow-lg transition-all duration-300",
           isExpanded || isPlaying
             ? "border-primary/35 shadow-primary/10"

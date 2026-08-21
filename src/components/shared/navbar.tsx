@@ -256,7 +256,7 @@ export const Navbar = () => {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo — click to scroll to top + star burst */}
         <div className="relative">
-          <button onClick={handleLogoClick} className="focus:outline-none cursor-pointer" aria-label="Home">
+          <button onClick={handleLogoClick} className="select-none focus:outline-none cursor-pointer" aria-label="Home">
             {logoEl}
           </button>
         </div>
@@ -268,7 +268,7 @@ export const Navbar = () => {
               key={link.href}
               href={link.href}
               className={cn(
-                "text-sm font-medium transition-colors relative group",
+                "select-none text-sm font-medium transition-colors relative group",
                 "after:absolute after:-bottom-0.5 after:left-0 after:h-0.5 after:rounded-full after:bg-primary",
                 "after:transition-transform after:duration-300 after:origin-left",
                 activeSection === link.href
@@ -283,7 +283,7 @@ export const Navbar = () => {
           <div className="flex items-center gap-4">
             <button
               onClick={switchLocale}
-              className="text-xs font-bold px-2.5 py-1 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all cursor-pointer"
+              className="select-none text-xs font-bold px-2.5 py-1 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all cursor-pointer"
               aria-label="Switch language"
             >
               {locale === "en" ? "VI" : "EN"}
@@ -327,7 +327,7 @@ export const Navbar = () => {
                     href={link.href}
                     onClick={() => setIsOpen(false)}
                     className={cn(
-                      "block py-4 px-6 text-lg font-medium hover:text-primary hover:bg-accent/50 hover:pl-8 transition-all border-b border-border/40 last:border-0",
+                      "select-none block py-4 px-6 text-lg font-medium hover:text-primary hover:bg-accent/50 hover:pl-8 transition-all border-b border-border/40 last:border-0",
                       activeSection === link.href ? "text-primary" : "text-foreground/80"
                     )}
                   >
@@ -339,7 +339,7 @@ export const Navbar = () => {
               <div className="mt-auto p-6 border-t flex flex-col gap-3">
                 <button
                   onClick={switchLocale}
-                  className="w-full text-sm font-bold py-2.5 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all cursor-pointer"
+                  className="select-none w-full text-sm font-bold py-2.5 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all cursor-pointer"
                   aria-label="Switch language"
                 >
                   {locale === "en" ? "Switch to Vietnamese (VI)" : "Switch to English (EN)"}
