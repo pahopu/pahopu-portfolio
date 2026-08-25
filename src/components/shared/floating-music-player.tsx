@@ -19,8 +19,10 @@ const CORNER_CLASS: Record<Corner, string> = {
 const TRACK = {
   src: "/music/congbday.mp3",
   title: "Nhớ Em 8 Lần",
-  artist: "CONGB, Mason Nguyen, Tez",
+  artist: "CONGB ft. Mason Nguyen & TEZ",
   cover: "/images/congbday_theme.png",
+  // 1×1 px placeholder matching the album's dominant blue (#5B8FE8)
+  blurDataURL: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAADElEQVR4nGOI7n8BAAMbAdMfi3rWAAAAAElFTkSuQmCC",
 };
 
 const EqBars = ({ compact = false }: { compact?: boolean }) => (
@@ -360,7 +362,7 @@ export const FloatingMusicPlayer = () => {
 
             {/* Album art: disc always behind, square sleeve slides left on first play */}
             <div className="px-5 pt-3 pb-3 flex justify-center">
-              <div className="relative w-36 h-36 select-none">
+              <div className="relative w-36 h-36 select-none rounded-full bg-[#5B8FE8]">
 
                 {/* Disc — always rendered, circular.
                     In sleeved state: discX=36 (offset right so sleeve+disc are centered together).
@@ -378,7 +380,7 @@ export const FloatingMusicPlayer = () => {
                   }}
                 >
                   <motion.div className="absolute inset-0" style={{ rotate: discRotation }}>
-                    <Image src={TRACK.cover} alt={TRACK.title} fill className="object-cover" sizes="144px" priority draggable={false} />
+                    <Image src={TRACK.cover} alt={TRACK.title} fill className="object-cover" sizes="144px" priority placeholder="blur" blurDataURL={TRACK.blurDataURL} draggable={false} />
                     <div
                       className="absolute inset-0 pointer-events-none"
                       style={{
@@ -430,6 +432,8 @@ export const FloatingMusicPlayer = () => {
                         className="object-cover"
                         sizes="148px"
                         priority
+                        placeholder="blur"
+                        blurDataURL={TRACK.blurDataURL}
                         draggable={false}
                       />
                       {/* Sheen overlay */}
@@ -458,7 +462,7 @@ export const FloatingMusicPlayer = () => {
             {/* Track info */}
             <div className="px-5 text-center mb-3">
               <p className="font-bold text-sm text-foreground leading-snug truncate">{TRACK.title}</p>
-              <p className="text-xs text-muted-foreground mt-0.5 truncate">{t("artist")}</p>
+              <p className="text-xs text-muted-foreground mt-0.5 truncate">{TRACK.artist}</p>
             </div>
 
             {/* Progress */}
@@ -556,7 +560,7 @@ export const FloatingMusicPlayer = () => {
           {isPlaying ? TRACK.title : t("picks")}
         </span>
         <div className="relative w-5 h-5 rounded shrink-0 overflow-hidden">
-          <Image src={TRACK.cover} alt="" fill className="object-cover" sizes="20px" draggable={false} />
+          <Image src={TRACK.cover} alt="" fill className="object-cover" sizes="20px" priority placeholder="blur" blurDataURL={TRACK.blurDataURL} draggable={false} />
         </div>
       </motion.button>
     </motion.div>

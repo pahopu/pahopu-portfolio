@@ -5,7 +5,8 @@
     "projects": "Dự án",
     "experience": "Kinh nghiệm",
     "contact": "Liên hệ",
-    "download_cv": "Tải CV"
+    "download_cv": "Tải CV",
+    "switch_locale": "Chuyển sang Tiếng Anh (EN)"
   },
   "hero": {
     "badge": "Đang có việc · Sẵn sàng kết nối",
@@ -51,6 +52,7 @@
     "academic_badge": "Đồ án",
     "internal_label": "Hệ thống nội bộ doanh nghiệp",
     "case_study": "Xem chi tiết",
+    "case_study_desc": "Phân tích kiến trúc hệ thống, thách thức và giải pháp.",
     "live_demo": "Xem Demo",
     "code": "Code"
   },
@@ -85,7 +87,6 @@
     "now_playing": "Đang phát",
     "paused": "Đã dừng",
     "picks": "♪ nhạc của pahopu",
-    "artist": "CONGB ft. Mason Nguyễn & TEZ",
     "collapse": "Thu gọn",
     "mute": "Tắt tiếng",
     "unmute": "Bật tiếng",

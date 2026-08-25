@@ -5,7 +5,8 @@
     "projects": "Projects",
     "experience": "Experience",
     "contact": "Contact",
-    "download_cv": "Download CV"
+    "download_cv": "Download CV",
+    "switch_locale": "Switch to Vietnamese (VI)"
   },
   "hero": {
     "badge": "Currently employed · Open to connect",
@@ -51,6 +52,7 @@
     "academic_badge": "Academic",
     "internal_label": "Internal Enterprise System",
     "case_study": "Read Case Study",
+    "case_study_desc": "Deep dive into system architecture, challenges, and solutions.",
     "live_demo": "Live Demo",
     "code": "Code"
   },
@@ -85,7 +87,6 @@
     "now_playing": "Now Playing",
     "paused": "Paused",
     "picks": "♪ pahopu's picks",
-    "artist": "CONGB ft. Mason Nguyen & TEZ",
     "collapse": "Collapse player",
     "mute": "Mute",
     "unmute": "Unmute",

@@ -147,7 +147,7 @@ export const ProjectCard = ({ project, index }: ProjectCardProps) => {
             {project.caseStudy ? (
               <ResponsiveModal
                 title={project.title}
-                description="Deep dive into system architecture, challenges, and solutions."
+                description={t("case_study_desc")}
                 content={<ProjectCaseStudy data={project.caseStudy} />}
               >
                 <Button variant="default" size="sm" className="gap-2">

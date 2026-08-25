@@ -25,6 +25,8 @@ export const HERO_ANIMATION: Record<string, Variants> = {
   },
 };
 
+export const CONTACT_EMAIL = "hoangphucpham.work@gmail.com";
+
 export const HERO_SOCIALS = [
   {
     icon: Github,
@@ -38,7 +40,7 @@ export const HERO_SOCIALS = [
   },
   {
     icon: Mail,
-    href: "mailto:hoangphucpham.work@gmail.com",
+    href: `mailto:${CONTACT_EMAIL}`,
     label: "Email",
   },
 ];

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { HERO_ANIMATION } from "@/constants";
+import { CONTACT_EMAIL, HERO_ANIMATION } from "@/constants";
 import emailjs from "@emailjs/browser";
 import { motion } from "framer-motion";
 import {
@@ -120,7 +120,7 @@ export const ContactSection = () => {
 
             <motion.div variants={HERO_ANIMATION.item} className="space-y-4 font-medium">
               <Link
-                href="mailto:hoangphucpham.work@gmail.com"
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="select-none flex items-center gap-4 p-4 rounded-xl border bg-card/50 hover:bg-primary/5 hover:border-primary/30 transition-all group"
               >
                 <div className="p-3 rounded-lg bg-primary/10 text-[#1B2E6E] dark:text-primary group-hover:scale-110 transition-transform">
@@ -129,7 +129,7 @@ export const ContactSection = () => {
                 <div>
                   <p className="text-sm text-muted-foreground">{t("email_prompt")}</p>
                   <p className="font-semibold text-foreground group-hover:text-primary transition-colors">
-                    hoangphucpham.work@gmail.com
+                    {CONTACT_EMAIL}
                   </p>
                 </div>
                 <ArrowRight className="w-4 h-4 ml-auto text-muted-foreground group-hover:translate-x-1 transition-transform" />

@@ -342,7 +342,7 @@ export const Navbar = () => {
                   className="select-none w-full text-sm font-bold py-2.5 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all cursor-pointer"
                   aria-label="Switch language"
                 >
-                  {locale === "en" ? "Switch to Vietnamese (VI)" : "Switch to English (EN)"}
+                  {t("switch_locale")}
                 </button>
                 <a href="/files/resume.pdf" target="_blank" rel="noopener noreferrer" className="w-full block">
                   <Button className="w-full h-12 text-base shadow-md" size="lg">
