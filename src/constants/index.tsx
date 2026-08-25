@@ -451,12 +451,12 @@ export const SKILLS = [
     ],
   },
   {
-    category: "UI Libraries",
+    category: "UI & Components",
     items: [
       { name: "Vuetify", icon: "vuetify" },
       { name: "shadcn/ui", icon: "shadcnui" },
       { name: "Framer Motion", icon: "framer" },
-      { name: "Vite", icon: "vite" },
+      { name: "Leaflet", icon: "leaflet" },
     ],
   },
   {
@@ -469,12 +469,12 @@ export const SKILLS = [
     ],
   },
   {
-    category: "Cloud & Infra",
+    category: "Tooling & Cloud",
     items: [
+      { name: "Vite", icon: "vite" },
       { name: "Vercel", icon: "vercel" },
       { name: "GitHub", icon: "github" },
-      { name: "Python", icon: "python" },
-      { name: "Leaflet", icon: "leaflet" },
+      { name: "AWS", icon: "amazonaws" },
     ],
   },
 ];
