@@ -1,3 +1,5 @@
+> **Historical record — completed 2026-08.** This plan has been executed; the codebase has since evolved past it (skill categories, content, and features have changed). Kept for context on original design decisions, not as a description of the current architecture. See `README.md` for the current state.
+
 # Portfolio Redesign Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.

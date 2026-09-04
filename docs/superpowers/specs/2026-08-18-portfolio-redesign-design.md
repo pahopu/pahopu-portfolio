@@ -1,6 +1,6 @@
 # Portfolio Redesign Design Spec
 **Date:** 2026-08-18  
-**Status:** Approved for implementation  
+**Status:** Historical record — implemented; codebase has since evolved past this spec (see `README.md` for current state)  
 **Owner:** pahopu (phphuc@sk-global.biz)
 
 ---
