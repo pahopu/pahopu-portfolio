@@ -1,6 +1,5 @@
-import { EasterEgg } from "@/components/shared/easter-egg";
+import { DeferredWidgets } from "@/components/shared/deferred-widgets";
 import { DynamicFavicon } from "@/components/shared/dynamic-favicon";
-import { FloatingMusicPlayer } from "@/components/shared/floating-music-player";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Navbar } from "@/components/shared/navbar";
 import { ScrollProgress } from "@/components/shared/scroll-progress";
@@ -132,8 +131,7 @@ export default async function LocaleLayout({
             <ScrollProgress />
             <Navbar />
             <main className="pt-16 min-h-screen text-foreground">{children}</main>
-            <FloatingMusicPlayer />
-            <EasterEgg />
+            <DeferredWidgets />
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>
