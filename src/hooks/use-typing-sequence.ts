@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export function useTypingSequence(sequence: string): boolean {
-  const [buffer, setBuffer] = useState("");
+  const [, setBuffer] = useState("");
   const [triggered, setTriggered] = useState(false);
 
   useEffect(() => {

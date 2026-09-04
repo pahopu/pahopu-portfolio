@@ -126,6 +126,7 @@ export const FloatingMusicPlayer = () => {
       audio.pause();
       setIsPlaying(false);
     } else {
+      setHasEverPlayed(true);
       if (!hasRevealedRef.current) {
         // First play: slide sleeve out first, then start audio + spin
         hasRevealedRef.current = true;
@@ -189,7 +190,6 @@ export const FloatingMusicPlayer = () => {
   useEffect(() => {
     isPlayingRef.current = isPlaying;
     if (isPlaying) {
-      setHasEverPlayed(true);
       startSpin();
     } else {
       stopSpin();
