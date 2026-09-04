@@ -2,6 +2,7 @@
 
 import { useKonamiCode } from "@/hooks/use-konami-code";
 import { useTypingSequence } from "@/hooks/use-typing-sequence";
+import { prefersReducedMotion } from "@/lib/utils";
 import confetti from "canvas-confetti";
 import { useEffect, useRef } from "react";
 
@@ -28,7 +29,7 @@ function spawnIdleStar() {
   const endR = startR + Math.round((Math.random() < 0.5 ? 1 : -1) * (90 + Math.random() * 270));
   el.style.cssText = `
     position:fixed;left:${x}px;bottom:-20px;font-size:${size}px;
-    color:${color};z-index:9990;user-select:none;cursor:default;
+    color:${color};z-index:40;user-select:none;cursor:default;
     --start-r:${startR}deg;--end-r:${endR}deg;
     animation:star-drift-up ${duration}s ease-out forwards;
   `;
@@ -53,7 +54,7 @@ function spawnIdleStar() {
       mini.style.cssText = `
         position:fixed;left:${cx}px;top:${cy}px;
         font-size:${miniSize}px;color:${color};
-        pointer-events:none;z-index:9991;user-select:none;
+        pointer-events:none;z-index:41;user-select:none;
         transform:translate(-50%,-50%);
       `;
       document.body.appendChild(mini);
@@ -96,6 +97,7 @@ export const EasterEgg = () => {
 
     const startSpawning = () => {
       clearInterval(spawnIntervalRef.current);
+      if (prefersReducedMotion()) return;
       for (let i = 0; i < 5; i++) setTimeout(spawnIdleStar, i * 80);
       spawnIntervalRef.current = setInterval(spawnIdleStar, STAR_INTERVAL_MS);
     };

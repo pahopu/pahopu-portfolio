@@ -4,7 +4,7 @@ import { Download, Menu } from "lucide-react";
 import { StarDeco } from "@/components/shared/album-star";
 import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
-import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 
 import { ModeToggle } from "@/components/shared/mode-toggle";
@@ -18,7 +18,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { NAV_LINKS } from "@/constants";
-import { cn } from "@/lib/utils";
+import { cn, prefersReducedMotion } from "@/lib/utils";
 
 const TRAIL_COLORS = ["#C8E645", "#FFE566", "#5B8FE8", "#F5B8CC", "#FF8C42"];
 
@@ -63,6 +63,7 @@ export const Navbar = () => {
     e.preventDefault();
     const clickX = e.clientX;
     const clickY = e.clientY;
+    const reduceMotion = prefersReducedMotion();
 
     // iOS 13+ requires explicit permission requests from a user gesture (for shake easter egg)
     type PermissionableEvent = { requestPermission?: () => Promise<string> };
@@ -75,27 +76,29 @@ export const Navbar = () => {
       try { await (DeviceOrientationEvent as unknown as Required<PermissionableEvent>).requestPermission(); } catch { /* denied */ }
     }
 
-    for (let i = 0; i < 10; i++) {
-      setTimeout(() => {
-        const star = document.createElement("span");
-        star.textContent = "★";
-        const color = TRAIL_COLORS[Math.floor(Math.random() * TRAIL_COLORS.length)];
-        const size = 10 + Math.random() * 14;
-        const x = clickX + (Math.random() - 0.5) * 60;
-        const y = clickY + (Math.random() - 0.5) * 30;
-        star.style.cssText = `
-          position:fixed;left:${x}px;top:${y}px;
-          pointer-events:none;z-index:9997;font-size:${size}px;color:${color};
-          transform:translate(-50%,-50%);
-          animation:cursor-star 0.75s ease-out forwards;
-          user-select:none;line-height:1;
-        `;
-        document.body.appendChild(star);
-        setTimeout(() => star.remove(), 750);
-      }, i * 25);
+    if (!reduceMotion) {
+      for (let i = 0; i < 10; i++) {
+        setTimeout(() => {
+          const star = document.createElement("span");
+          star.textContent = "★";
+          const color = TRAIL_COLORS[Math.floor(Math.random() * TRAIL_COLORS.length)];
+          const size = 10 + Math.random() * 14;
+          const x = clickX + (Math.random() - 0.5) * 60;
+          const y = clickY + (Math.random() - 0.5) * 30;
+          star.style.cssText = `
+            position:fixed;left:${x}px;top:${y}px;
+            pointer-events:none;z-index:40;font-size:${size}px;color:${color};
+            transform:translate(-50%,-50%);
+            animation:cursor-star 0.75s ease-out forwards;
+            user-select:none;line-height:1;
+          `;
+          document.body.appendChild(star);
+          setTimeout(() => star.remove(), 750);
+        }, i * 25);
+      }
     }
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: reduceMotion ? "auto" : "smooth" });
   };
 
   // Active section tracking via scroll position
@@ -120,6 +123,7 @@ export const Navbar = () => {
 
   /* Cursor / touch star trail — always active */
   useEffect(() => {
+    if (prefersReducedMotion()) return;
     let lastTime = 0;
 
     const spawnStar = (x: number, y: number) => {
@@ -132,7 +136,7 @@ export const Navbar = () => {
       const size = 10 + Math.random() * 12;
       star.style.cssText = `
         position:fixed;left:${x}px;top:${y}px;
-        pointer-events:none;z-index:9997;font-size:${size}px;color:${color};
+        pointer-events:none;z-index:40;font-size:${size}px;color:${color};
         transform:translate(-50%,-50%);
         animation:cursor-star 0.75s ease-out forwards;
         user-select:none;line-height:1;
@@ -157,6 +161,7 @@ export const Navbar = () => {
   /* Click anywhere → ring sparkle */
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
+      if (prefersReducedMotion()) return;
       const count = 5;
       for (let i = 0; i < count; i++) {
         setTimeout(() => {
@@ -170,7 +175,7 @@ export const Navbar = () => {
           const y = e.clientY + Math.sin(angle) * radius;
           star.style.cssText = `
             position:fixed;left:${x}px;top:${y}px;
-            pointer-events:none;z-index:9997;font-size:${size}px;color:${color};
+            pointer-events:none;z-index:40;font-size:${size}px;color:${color};
             transform:translate(-50%,-50%);
             animation:cursor-star 0.55s ease-out forwards;
             user-select:none;line-height:1;
@@ -198,7 +203,7 @@ export const Navbar = () => {
       prev = { x: acc.x ?? 0, y: acc.y ?? 0, z: acc.z ?? 0 };
 
       const now = Date.now();
-      if (dx + dy + dz > 30 && now - lastBurst > 1800) {
+      if (dx + dy + dz > 30 && now - lastBurst > 1800 && !prefersReducedMotion()) {
         lastBurst = now;
         const count = 22;
         for (let i = 0; i < count; i++) {
@@ -211,7 +216,7 @@ export const Navbar = () => {
             const y = 10 + Math.random() * (window.innerHeight - 20);
             star.style.cssText = `
               position:fixed;left:${x}px;top:${y}px;
-              pointer-events:none;z-index:9998;font-size:${size}px;color:${color};
+              pointer-events:none;z-index:41;font-size:${size}px;color:${color};
               transform:translate(-50%,-50%);
               animation:cursor-star 1s ease-out forwards;
               user-select:none;line-height:1;
@@ -256,7 +261,7 @@ export const Navbar = () => {
       <div className="container mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo — click to scroll to top + star burst */}
         <div className="relative">
-          <button onClick={handleLogoClick} className="select-none focus:outline-none cursor-pointer" aria-label="Home">
+          <button onClick={handleLogoClick} className="select-none outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px] rounded-full cursor-pointer" aria-label="Home">
             {logoEl}
           </button>
         </div>
@@ -283,7 +288,7 @@ export const Navbar = () => {
           <div className="flex items-center gap-4">
             <button
               onClick={switchLocale}
-              className="select-none text-xs font-bold px-2.5 py-1 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all cursor-pointer"
+              className="select-none text-xs font-bold px-2.5 py-1 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all cursor-pointer outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px]"
               aria-label="Switch language"
             >
               {locale === "en" ? "VI" : "EN"}
@@ -339,7 +344,7 @@ export const Navbar = () => {
               <div className="mt-auto p-6 border-t flex flex-col gap-3">
                 <button
                   onClick={switchLocale}
-                  className="select-none w-full text-sm font-bold py-2.5 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all cursor-pointer"
+                  className="select-none w-full text-sm font-bold py-2.5 rounded-full border border-border hover:bg-primary/10 hover:border-primary/30 hover:text-primary transition-all cursor-pointer outline-none focus-visible:ring-ring/50 focus-visible:ring-[3px]"
                   aria-label="Switch language"
                 >
                   {t("switch_locale")}
