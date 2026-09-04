@@ -126,7 +126,7 @@ export default function Image() {
             border: "1px solid rgba(200,230,69,0.30)",
             borderRadius: "99px",
             padding: "10px 24px",
-            width: "fit-content",
+            alignSelf: "flex-start",
           }}>
             <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#C8E645", display: "flex" }} />
             <span style={{ color: "#C8E645", fontSize: 20, fontWeight: 600 }}>

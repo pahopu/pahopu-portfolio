@@ -26,4 +26,17 @@ test.describe("smoke", () => {
     expect(robots.ok()).toBeTruthy();
     expect(await robots.text()).toContain("Sitemap:");
   });
+
+  // `next build` only compiles this route, it doesn't execute it — a broken
+  // Satori render (e.g. an unsupported CSS value) still shows as a clean
+  // build but serves an empty image in production. Regression test for
+  // exactly that: opengraph-image.tsx using `width: "fit-content"`, which
+  // Satori's layout engine rejects.
+  test("opengraph-image renders a non-empty PNG", async ({ page }) => {
+    const res = await page.request.get("/opengraph-image");
+    expect(res.ok()).toBeTruthy();
+    expect(res.headers()["content-type"]).toBe("image/png");
+    const body = await res.body();
+    expect(body.length).toBeGreaterThan(1000);
+  });
 });
