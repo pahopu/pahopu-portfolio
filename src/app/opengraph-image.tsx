@@ -101,7 +101,7 @@ export default function Image() {
           </div>
 
           {/* Tags */}
-          <div style={{ display: "flex", gap: "12px", marginBottom: "40px" }}>
+          <div style={{ display: "flex", gap: "12px" }}>
             <div style={{
               background: "rgba(255,255,255,0.07)", border: "1px solid rgba(255,255,255,0.14)",
               borderRadius: "99px", padding: "8px 22px",
@@ -117,21 +117,6 @@ export default function Image() {
               borderRadius: "99px", padding: "8px 22px",
               color: "rgba(255,255,255,0.72)", fontSize: 20, display: "flex",
             }}>ERP &amp; Healthcare</div>
-          </div>
-
-          {/* Status badge */}
-          <div style={{
-            display: "flex", alignItems: "center", gap: "10px",
-            background: "rgba(200,230,69,0.10)",
-            border: "1px solid rgba(200,230,69,0.30)",
-            borderRadius: "99px",
-            padding: "10px 24px",
-            alignSelf: "flex-start",
-          }}>
-            <div style={{ width: 10, height: 10, borderRadius: "50%", background: "#C8E645", display: "flex" }} />
-            <span style={{ color: "#C8E645", fontSize: 20, fontWeight: 600 }}>
-              Currently employed · Open to connect
-            </span>
           </div>
         </div>
       </div>

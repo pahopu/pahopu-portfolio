@@ -1,4 +1,11 @@
 {
+  "seo": {
+    "title": "pahopu | Phạm Hoàng Phúc, Lập trình viên Front-End",
+    "og_title": "pahopu — Phạm Hoàng Phúc, Lập trình viên Front-End",
+    "description": "Lập trình viên Front-End với hơn 2 năm kinh nghiệm xây dựng hệ thống ERP quy mô lớn và nền tảng y tế. Tốt nghiệp CNTT (GPA 9.14). Chuyên Vue 3 & React.",
+    "og_description": "Hơn 2 năm xây dựng hệ thống ERP quy mô lớn và nền tảng y tế. Chuyên Vue 3 & React với nền tảng Khoa học Máy tính vững chắc.",
+    "twitter_description": "Hơn 2 năm xây dựng hệ thống ERP & nền tảng y tế. Chuyên Vue 3 & React. Tốt nghiệp CNTT (GPA 9.14)."
+  },
   "nav": {
     "about": "Giới thiệu",
     "skills": "Kỹ năng",
@@ -9,7 +16,6 @@
     "switch_locale": "Chuyển sang Tiếng Anh (EN)"
   },
   "hero": {
-    "badge": "Đang có việc · Sẵn sàng kết nối",
     "headline": "Xin chào, tôi là Phuc Pham",
     "role": "Lập trình viên Front-End",
     "foundation": "Nền tảng Khoa học Máy tính vững chắc",
@@ -67,7 +73,6 @@
     "heading": "Cùng xây dựng điều gì đó",
     "accent": "đặc biệt.",
     "subheading": "Dù bạn có câu hỏi về tech stack, đề xuất dự án, hay chỉ muốn trao đổi về công nghệ — hộp thư của tôi luôn mở.",
-    "open_label": "Đang có việc · Sẵn sàng kết nối",
     "email_prompt": "Gửi email cho tôi tại",
     "name_label": "Họ tên",
     "email_label": "Email",

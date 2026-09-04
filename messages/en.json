@@ -1,4 +1,11 @@
 {
+  "seo": {
+    "title": "pahopu | Pham Hoang Phuc, Front-End Developer",
+    "og_title": "pahopu — Pham Hoang Phuc, Front-End Developer",
+    "description": "Front-End Developer with 2+ years building large-scale ERP systems and healthcare platforms. CS graduate (GPA 9.14). Vue 3 & React specialist.",
+    "og_description": "2+ years building large-scale ERP systems and healthcare platforms. Vue 3 & React specialist with a strong CS foundation.",
+    "twitter_description": "2+ years building ERP systems & healthcare platforms. Vue 3 & React specialist. CS grad (GPA 9.14)."
+  },
   "nav": {
     "about": "About",
     "skills": "Skills",
@@ -9,7 +16,6 @@
     "switch_locale": "Switch to Vietnamese (VI)"
   },
   "hero": {
-    "badge": "Currently employed · Open to connect",
     "headline": "Hi, I'm Phuc Pham",
     "role": "Front-End Developer",
     "foundation": "Solid Computer Science Foundation",
@@ -67,7 +73,6 @@
     "heading": "Let's build something",
     "accent": "exceptional.",
     "subheading": "Whether you have a question about my stack, a project proposal, or just want to talk tech — my inbox is always open.",
-    "open_label": "Currently employed · Open to connect",
     "email_prompt": "Email me at",
     "name_label": "Name",
     "email_label": "Email",

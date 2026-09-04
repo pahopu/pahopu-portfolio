@@ -1,6 +1,5 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { HERO_ANIMATION, HERO_SOCIALS } from "@/constants";
 import { cn } from "@/lib/utils";
@@ -198,20 +197,6 @@ export const Hero = () => {
           animate="show"
           className="space-y-8 max-w-4xl"
         >
-          {/* Badge */}
-          <motion.div variants={HERO_ANIMATION.item} className="flex justify-center">
-            <Badge
-              variant="outline"
-              className="gap-2 py-1.5 px-4 text-sm font-semibold bg-white/20 backdrop-blur-md border-white/30 text-white shadow-sm"
-            >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#C8E645] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-[#C8E645]" />
-              </span>
-              <span>{t("badge")}</span>
-            </Badge>
-          </motion.div>
-
           {/* Headline */}
           <motion.h1
             variants={HERO_ANIMATION.item}
